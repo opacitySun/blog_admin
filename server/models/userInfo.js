@@ -1,5 +1,5 @@
 var mongodb = require('mongodb');
-var db = require('./db').getDB();   //连接数据库
+var db = require('./db');   //连接数据库
 
 db.open(function(err){
 	if(!err){
