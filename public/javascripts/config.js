@@ -14,8 +14,8 @@
             }
         },
         shim : {
-            'bootstrap':['css!lib/bootstrap-sb-admin/css/bootstrap.min.css'],
-            'bootstrap':['css!lib/bootstrap-sb-admin/css/sb-admin.css']
+            'bootstrap':['css!../javascripts/lib/bootstrap-sb-admin/css/bootstrap.min.css'],
+            'bootstrap':['css!../javascripts/lib/bootstrap-sb-admin/css/sb-admin.css']
         }
     });
 })();
