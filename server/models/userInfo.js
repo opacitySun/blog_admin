@@ -1,6 +1,8 @@
 var mongodb = require('mongodb');
 var db = require("./db").getDB();   //连接数据库
-/*
+
+console.log(db);
+
 db.open(function(err){
 	if(!err){
 		console.log('connect db user_info');
@@ -23,4 +25,3 @@ var _getModel = function(type,err){
 	var dbModel = db.collection('user_info');
 	return dbModel;
 }
-*/
