@@ -1,4 +1,5 @@
 var mongodb = require('mongodb');
+var server = require('./db').getServer();
 var db = require('./db').getDB();
 
 db.open(function(err){
