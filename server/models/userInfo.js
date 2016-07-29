@@ -1,6 +1,5 @@
 var mongodb = require('mongodb');
-var server  = new mongodb.Server('123.57.50.14', 27017, {auto_reconnect:true});
-var db = new mongodb.Db('my_blog', server, {safe:true});
+var db = require('./db').getDB();   //连接数据库
 
 db.open(function(err){
 	if(!err){
