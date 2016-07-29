@@ -9,5 +9,6 @@ module.exports = {
 
 var _getDB = function(){
 	var db = new mongodb.Db('my_blog', server, {safe:true});
+	console.log(db);
 	return db;
 }
