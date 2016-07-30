@@ -1,39 +1,75 @@
 <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav side-nav">
+    <ul class="nav navbar-nav side-nav" id="menuUl">
         <li class="active">
-            <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-        </li>
-        <li>
-            <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-        </li>
-        <li>
-            <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-        </li>
-        <li>
-            <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-        </li>
-        <li>
-            <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-        </li>
-        <li>
-            <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-        </li>
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="demo" class="collapse">
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#menuIndexUl"><i class="fa fa-fw fa-home"></i> 首页 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menuIndexUl" class="collapse">
                 <li>
-                    <a href="#">Dropdown Item</a>
+                    <a href="#">banner图</a>
                 </li>
                 <li>
-                    <a href="#">Dropdown Item</a>
+                    <a href="#">显示模块管理</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#menuUserUl"><i class="fa fa-fw fa-user"></i> 用户 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menuUserUl" class="collapse">
+                <li>
+                    <a href="#">用户列表</a>
+                </li>
+                <li>
+                    <a href="#">添加用户</a>
+                </li>
+            </ul>
         </li>
         <li>
-            <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#menuWorksUl"><i class="fa fa-fw fa-folder"></i> 作品 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menuWorksUl" class="collapse">
+                <li>
+                    <a href="#">作品列表</a>
+                </li>
+                <li>
+                    <a href="#">添加作品</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#menuStudyUl"><i class="fa fa-fw fa-book"></i> 学习 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menuStudyUl" class="collapse">
+                <li>
+                    <a href="#">文章列表</a>
+                </li>
+                <li>
+                    <a href="#">添加文章</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#menuRecreationUl"><i class="fa fa-fw fa-music"></i> 娱乐 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menuRecreationUl" class="collapse">
+                <li>
+                    <a href="#">电影管理</a>
+                </li>
+                <li>
+                    <a href="#">电视剧管理</a>
+                </li>
+                <li>
+                    <a href="#">图集管理</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#menuNewsUl"><i class="fa fa-fw fa-list-alt"></i> 新闻 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menuNewsUl" class="collapse">
+                <li>
+                    <a href="#">新闻列表</a>
+                </li>
+                <li>
+                    <a href="#">添加新闻</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
+
+<script type="text/javascript" data-main="/javascripts/menu.js" src="/javascripts/lib/require-min.js"></script>
