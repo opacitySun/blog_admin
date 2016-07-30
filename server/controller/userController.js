@@ -8,8 +8,20 @@ var userDao = require("../DBSql/userDao");
 exports.outerConnectAction = function(app){
     //查找用户
     app.all("/outerUserFindAction",function(req,res){
+        var rememberStatus = req.body.rememberStatus;
         var conditions ={'name':req.body.name,'password':req.body.password};  
         userDao.findUser(conditions,dbHelper,function(result){  
+            if(result.success == 1 && rememberStatus == true){
+                req.session.username=result.result.name;          
+                req.session.password=result.result.password;
+                req.session.regenerate(function (err) {
+                    if(err){
+                        console.log("session重新初始化失败.");
+                    }else{
+                        console.log("session被重新初始化.");
+                    } 
+                });   
+            }
             res.json(result); 
         });    
     });
@@ -50,16 +62,6 @@ exports.userFindAction = function(req, res) {
     userDao.findUser(conditions,dbHelper,function(result){  
         if(result.success == 1){
             console.log(JSON.stringify(result));
-            req.session.username=result.result.name;          
-            req.session.password=result.result.password;
-            req.session.regenerate(function (err) {
-                if(err){
-                    console.log("session重新初始化失败.");
-                }else{
-                    console.log("session被重新初始化.");
-                } 
-            });   
-            //return res.render('ucenter', { title:'ucenter' });
             return res.redirect('/');
         }else{
             console.log(JSON.stringify(result));

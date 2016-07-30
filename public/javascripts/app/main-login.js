@@ -9,6 +9,7 @@ define(['require','jquery','./controller/c-login','./model/m-login'],function(re
         if(event.keyCode == 13){
             var loginName = $("#loginName").val();
             var loginPwd = $("#loginPwd").val();
+            var rememberStatus = $("#rememberMe").is(":checked");
             if(loginName == ''){
                 alert("用户名不能为空");
                 return false;
@@ -17,7 +18,7 @@ define(['require','jquery','./controller/c-login','./model/m-login'],function(re
                 alert("密码不能为空");
                 return false;
             }
-            model.findUser(loginName,loginPwd,function(res){
+            model.findUser(loginName,loginPwd,rememberStatus,function(res){
                 if(res.success == 1){
                     $("#loginFrom").submit();
                 }else{
