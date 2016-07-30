@@ -1,5 +1,6 @@
 var dbHelper = require("../DBHelper/dbHelper");
 var userDao = require("../DBSql/userDao");
+var userInfoDao = require("../DBSql/userInfoDao");
 
 /**  
  * 提供操作表的公共路由，以供ajax访问  
@@ -8,21 +9,22 @@ var userDao = require("../DBSql/userDao");
 exports.outerConnectAction = function(app){
     //查找用户
     app.all("/outerUserFindAction",function(req,res){
-        var rememberStatus = req.body.rememberStatus;
         var conditions ={'name':req.body.name,'password':req.body.password};  
-        userDao.findUser(conditions,dbHelper,function(result){  
-            if(result.success == 1 && rememberStatus == true){
-                req.session.username=result.result.name;          
-                req.session.password=result.result.password;
-                req.session.regenerate(function (err) {
-                    if(err){
-                        console.log("session重新初始化失败.");
-                    }else{
-                        console.log("session被重新初始化.");
-                    } 
-                });   
-            }
+        userDao.findOneUser(conditions,dbHelper,function(result){  
             res.json(result); 
+        });    
+    });
+    //获取session信息
+    app.all("/outerGetSessionAction",function(req,res){
+        var result = req.session;
+        res.json(result); 
+    });
+    //获取用户信息
+    app.all("/outerUserInfoFindAction",function(req,res){
+        var conditions = {};
+        userInfoDao.findOneUserInfo(conditions,dbHelper,function(result){  
+            console.log(JSON.stringify(result));
+            res.json(result);
         });    
     });
 }
@@ -59,7 +61,7 @@ exports.userAddAction = function() {
  */  
 exports.userFindAction = function(req, res) {   
     var conditions ={'name':req.body.loginName,'password':req.body.loginPwd};  
-    userDao.findUser(conditions,dbHelper,function(result){  
+    userDao.findOneUser(conditions,dbHelper,function(result){  
         if(result.success == 1){
             console.log(JSON.stringify(result));
             req.session.username=result.result.name;          

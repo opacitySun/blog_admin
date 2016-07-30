@@ -18,7 +18,7 @@ define(['require','jquery','./controller/c-login','./model/m-login'],function(re
                 alert("密码不能为空");
                 return false;
             }
-            model.findUser(loginName,loginPwd,rememberStatus,function(res){
+            model.findUser(loginName,loginPwd,function(res){
                 if(res.success == 1){
                     $("#loginFrom").submit();
                 }else{

@@ -22,10 +22,25 @@ exports.findUser = function(conditions,dbHelper,callback) {
     var userModel =user.getModel();  
     var fields   = {};  
     var options  = {};  
-    dbHelper.findOneData(userModel,conditions,fields,options,function(result){  
+    dbHelper.findData(userModel,conditions,fields,options,function(result){  
         callback(result);
     });  
 }  
+
+/** 
+ * 调用公共findOne方法并且传入操作数据库的模型user 
+ * @param conditions 
+ * @param dbHelper 
+ * @param callback 
+ */  
+exports.findOneUser = function(conditions,dbHelper,callback) {  
+    var userModel =user.getModel();  
+    var fields   = {};  
+    var options  = {};  
+    dbHelper.findOneData(userModel,conditions,fields,options,function(result){  
+        callback(result);
+    });  
+} 
 
 /** 
  * 调用公共remove方法并且传入操作数据库的模型user 
