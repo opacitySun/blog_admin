@@ -21,7 +21,7 @@ exports.outerConnectAction = function(app){
     });
     //获取用户信息
     app.all("/outerUserInfoFindAction",function(req,res){
-        var conditions = {};
+        var conditions = {"userId":req.body.userId};
         userInfoDao.findOneUserInfo(conditions,dbHelper,function(result){  
             console.log(JSON.stringify(result));
             res.json(result);
