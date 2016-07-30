@@ -14,7 +14,10 @@
             }
         },
         shim : {
-            //'bootstrap':['css!../stylesheets/style.css']
+            'bootstrap':{
+                deps:['jquery'],
+                exports:'jquery.fn.bootstrap'
+            }
         }
     });
 })();
