@@ -20,7 +20,7 @@ define(['./Base'],function(Base){
 		},
 		//查找用户信息
 		findUserInfo : function(userId,callback){
-			var url = "/outerUserFindAction";
+			var url = "/outerUserInfoFindAction";
 			var data = {"userId":userId};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
