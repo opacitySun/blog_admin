@@ -16,7 +16,7 @@
         shim : {
             'bootstrap':{
                 deps:['jquery'],
-                exports:'jquery.fn.bootstrap'
+                exports:'bootstrap'
             }
         }
     });
