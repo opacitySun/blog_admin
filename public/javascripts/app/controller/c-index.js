@@ -4,7 +4,7 @@ define(["./Base"],function(Base){
 		//根据banner类型判断添加按钮是否显示
 		addImgButtonShowByBannerType : function(){
 			$("input[name='bannerType']").on("click",function(){
-				var bannerTypeVal = $("input[name='bannerType']").val();
+				var bannerTypeVal = $("input[name='bannerType']").is(":checked").val();
 				if(bannerTypeVal == 0){	//单张图
 					$(".image_upload span").hide();
 				}else{	//轮播图
