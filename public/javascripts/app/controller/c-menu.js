@@ -1,25 +1,18 @@
 define(['./Base'], function (Base) {
     var cMenu = {
-    	//添加选中样式
+    	//添加选中样式并跳转
         liActive : function(){
         	$("#menuUl li.children").on("click",function(){
     			$(this).parents("#menuUl").find("li").removeClass("active");
     			$(this).addClass("active");
+
     			var pageTitle = $(this).parent().parent().find(".page_title").text();
 				var pageSmall = $(this).find("a").text();
 				$("#pageHeader").html(pageTitle+"<small>"+pageSmall+"</small>");
+
     			var pageHref = $(this).find("a").attr("page-href");
-    			window.location.href = "#";
+    			window.location.href = pageHref;
         	});
-        },
-        //改变页面标题
-        updateTitle : function(){
-        	var liActiveLen = $("#menuUl li.active").length;
-        	if(liActiveLen > 0){
-        		var pageTitle = $("#menuUl li.active").parent().parent().find(".page_title").text();
-				var pageSmall = $("#menuUl li.active").find("a").text();
-				$("#pageHeader").html(pageTitle+"<small>"+pageSmall+"</small>");
-        	}
         }
     };
 
