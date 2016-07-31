@@ -1,7 +1,7 @@
 
-define(['./Base'], function (Base) {
+define(['./Base',"../model/m-login"], function (Base,model) {
     var cLogin = {
-        //提交表单
+        //验证表单
         submitForm : function(){
         	var loginName = $("#loginName").val();
             var loginPwd = $("#loginPwd").val();
