@@ -6,11 +6,28 @@ define(["./Base"],function(Base){
 			$("#bannerType .radio").on("click",function(){
 				var bannerTypeVal = $(this).find("input[type='radio']").val();
 				if(bannerTypeVal == 0){	//单张图
-					$(".image_upload span").hide();
+					$("#imageUpload span").hide();
 				}else{	//轮播图
-					$(".image_upload span").show();
+					$("#imageUpload span").show();
 				}
 			});
+		},
+		//添加图片上传控件
+		addImgFileUpload : function(){
+			$("#imageUpload span").on("click",function(){
+				$("#imageUpload").append('<input type="file" name="bannerImg" />');
+			});
+		},
+		//banner图管理提交
+		bannerEditSubmit : function(){
+			var bannerName = $("#bannerName").val();
+			if(bannerName == ''){
+				$("#bannerName").parent().addClass("has-warning has-feedback").find(".help-block").text("banner名称不能为空");
+			}
+			var imgLen = $(".bannerImg").length;
+			if(imgLen <= 1 && $(".bannerImg")[0].val() == ''){
+				alert("请上传至少一张图片");
+			}
 		}
 	};
 
