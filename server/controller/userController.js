@@ -28,7 +28,7 @@ exports.outerConnectAction = function(app){
         });    
     });
     //退出登录
-    app.all("/outerLoginOut",function(req,res){
+    app.all("/outerLogOut",function(req,res){
         req.session.destroy(function (err) {
             if(err){
                 console.log("session销毁失败.");
