@@ -23,10 +23,12 @@ define(["./Base"],function(Base){
 			var bannerName = $("#bannerName").val();
 			if(bannerName == ''){
 				$("#bannerName").parent().addClass("has-warning has-feedback").find(".help-block").text("banner名称不能为空");
+				return false;
 			}
 			var imgLen = $(".bannerImg").length;
 			if(imgLen <= 1 && $(".bannerImg")[0].val() == ''){
 				alert("请上传至少一张图片");
+				return false;
 			}
 		}
 	};
