@@ -6,7 +6,7 @@ define(['./Base'], function (Base) {
     			$(this).parents("#menuUl").find("li").removeClass("active");
     			$(this).addClass("active");
     			var pageHref = $(this).find("a").attr("page-href");
-    			//window.location.href = pageHref;
+    			window.location.href = "#";
         	});
         },
         //改变页面标题
