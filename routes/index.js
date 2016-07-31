@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 /* login */
 router.get('/login', function(req, res) {
-	res.render('login', { title: 'login' });
+	res.render('login', { title: 'login',layout: false });
 });
 
 /* ucenter */
