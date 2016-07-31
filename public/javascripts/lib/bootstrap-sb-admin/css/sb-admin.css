@@ -132,6 +132,7 @@ ul.alert-dropdown {
         width: 225px;
     }
 
+    .side-nav li a.active,
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;

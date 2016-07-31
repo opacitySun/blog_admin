@@ -12,7 +12,7 @@ define(['./Base'], function (Base) {
                 var aHref = $(obj).find("a").attr("href");
                 if(aHref == urlPath){
                     $(obj).parents("#menuUl").find("li").removeClass("active");
-                    $(obj).addClass("active");
+                    $(obj).find("a").addClass("active");
                     $(obj).parent().addClass("in");
                     var pageTitle = $(obj).parent().parent().find(".page_title").text();
                     var pageSmall = $(obj).find("a").text();
