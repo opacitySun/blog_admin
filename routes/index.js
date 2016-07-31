@@ -4,7 +4,7 @@ var userController = require('../server/controller/userController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'index' });
+  res.render('index', { title: 'welcome to sun admin',layout: 'layout.html' });
 });
 
 /* login */
