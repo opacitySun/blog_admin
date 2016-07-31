@@ -7,24 +7,10 @@ define(['require','jquery','./controller/c-login','./model/m-login'],function(re
 
     $("#loginFrom").on("keydown",function(event){
         if(event.keyCode == 13){
-            var loginName = $("#loginName").val();
-            var loginPwd = $("#loginPwd").val();
-            var rememberStatus = $("#rememberMe").is(":checked");
-            if(loginName == ''){
-                alert("用户名不能为空");
-                return false;
-            }
-            if(loginPwd == ''){
-                alert("密码不能为空");
-                return false;
-            }
-            model.findUser(loginName,loginPwd,function(res){
-                if(res.success == 1){
-                    $("#loginFrom").submit();
-                }else{
-                    alert("用户名或密码不正确");
-                }
-            });
+            controller.submitForm();
         }
+    });
+    $("#loginSubmit").on("click",function(){
+        controller.submitForm();
     });
 });
