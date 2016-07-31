@@ -5,8 +5,7 @@ define(['./Base'], function (Base) {
             var url = window.location.href;
             var host = window.location.host;
             var protocol = window.location.protocol;
-            var port = window.location.port;
-            var urlFirstHalf = protocol + "//" + host + ":" + port;
+            var urlFirstHalf = protocol + "//" + host;
             var urlFirstHalfLen = urlFirstHalf.length;
             var urlPath = url.substring(urlFirstHalfLen);
             $("#menuUl li.children").each(function(key,obj){
