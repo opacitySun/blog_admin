@@ -13,7 +13,7 @@ define(["./Base"],function(Base){
 		},
 		//查找一个banner数据
 		findOneBannerData : function(id,callback){
-			var url = "/addBannerAction";
+			var url = "/findOneBannerAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
