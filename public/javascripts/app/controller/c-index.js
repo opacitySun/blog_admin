@@ -1,5 +1,5 @@
 
-define(["./Base","fnbase","../model/m-index"],function(Base,fnbase,model){
+define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,model){
 	var cIndex = {
 		//获取banner列表
 		getBannerList : function(){
