@@ -118,7 +118,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					$("input[name='pageTo']").prop("checked",false);
 					$("input[id='pageTo"+res.result.pageTo+"']").prop("checked",true);
 					$("input[name='isShow']").prop("checked",false);
-					$("input[id='isShow"+res.result.pageTo+"']").prop("checked",true);
+					$("input[id='isShow"+res.result.isShow+"']").prop("checked",true);
 					$("#imageUpload").remove();
 					var imgHtml = "";
 					imgHtml += '<div class="form-group banner_image">';
