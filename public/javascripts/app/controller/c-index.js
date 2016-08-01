@@ -44,6 +44,10 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					html += '</tr>';
 				});
 				$("#bannerList").html(html);
+				$("button.banner_look").click(function(){
+					var id = $(this).parent().find(".banner_id").val();
+					window.location.href = "/index-banner-edit?type=look&id="+id;
+				});
 			});
 		},
 		//根据banner类型判断添加按钮是否显示

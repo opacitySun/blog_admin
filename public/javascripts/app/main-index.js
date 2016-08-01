@@ -5,11 +5,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
 		controller.getBannerList();
 		$("#addBannerButton").on("click",function(){
 			window.location.href = "/index-banner-edit?type=add";
-		});
-		$("button.banner_look").click(function(){
-			var id = $(this).parent().find(".banner_id").val();
-			window.location.href = "/index-banner-edit?type=look&id="+id;
-		});
+		});		
 		$("button.banner_edit").each(function(key,obj){
 			$(obj).on("click",function(){
 				var id = $(this).parent().find(".banner_id").val();
