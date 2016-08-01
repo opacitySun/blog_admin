@@ -5,7 +5,7 @@
  * @param callback 回调方法 
  */ 
 exports.addData = function(model,conditions,callback){
-	model.create(conditions, function(err,result){  
+	model.save(conditions, function(err,result){  
         if(err) {  
             console.log(err);  
             callback({success:0,flag:"save data fail"});  

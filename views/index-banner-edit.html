@@ -2,6 +2,7 @@
 <style>
 	.image_upload span{display:none;margin-left:20px;cursor:pointer;}
 	.image_upload span i{margin-right:10px;}
+	.banner_image img{width:200px;height:50px;margin-right:20px;margin-bottom:20px;}
 </style>
 
 <div class="row">
@@ -17,12 +18,12 @@
                 <label>banner类型：</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="bannerType" value="0" checked>单张图
+                        <input type="radio" name="bannerType" id="bannerType0" value="0" checked>单张图
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="bannerType" value="1">轮播图
+                        <input type="radio" name="bannerType" id="bannerType1" value="1">轮播图
                     </label>
                 </div>
             </div>
@@ -31,12 +32,26 @@
                 <label>对应页面：</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="pageTo" value="0" checked>首页
+                        <input type="radio" name="pageTo" id="pageTo0" value="0" checked>首页
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="pageTo" value="1">作品列表页
+                        <input type="radio" name="pageTo" id="pageTo1" value="1">作品列表页
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>是否显示</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="isShow" id="isShow0" value="0" checked>不显示
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="isShow" id="isShow1" value="1">显示
                     </label>
                 </div>
             </div>

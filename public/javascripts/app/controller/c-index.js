@@ -36,9 +36,10 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					html += '<td>'+objIsShow+'</td>';
 					html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
 					html += '<td>';
-					html += '<button type="button" class="btn btn-link">查看</button>';
-					html += '<button type="button" class="btn btn-link">修改</button>';
-					html += '<button type="button" class="btn btn-link">删除</button>';
+					html += '<input type="hidden" class="banner_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link banner_look">查看</button>';
+					html += '<button type="button" class="btn btn-link banner_edit">修改</button>';
+					html += '<button type="button" class="btn btn-link banner_delete">删除</button>';
 					html += '</td>';
 					html += '</tr>';
 				});
@@ -47,7 +48,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 		},
 		//根据banner类型判断添加按钮是否显示
 		addImgButtonShowByBannerType : function(){
-			$("#bannerType .radio").on("click",function(){
+			$("#bannerType .radio label").on("click",function(){
 				var bannerTypeVal = $(this).find("input[type='radio']").val();
 				if(bannerTypeVal == 0){	//单张图
 					$("#imageUpload span").hide();
@@ -88,6 +89,53 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 		                    alert("提交失败");
 		                }
 		            });
+				}
+			}
+		},
+		//查看banner
+		lookBanner : function(id){
+			model.findOneBannerData(id,function(res){
+				if(res.success == 1){
+					var formHtml = $("#bannerForm").html();
+					$("#bannerForm").html("<fieldset disabled>"+formHtml+"</fieldset>");
+					$("#bannerName").val(res.result.name);
+					$("input[name='bannerType']").prop("checked",false);
+					$("input[id='bannerType"+res.result.type+"']").prop("checked",true);
+					$("input[name='pageTo']").prop("checked",false);
+					$("input[id='pageTo"+res.result.pageTo+"']").prop("checked",true);
+					$("input[name='isShow']").prop("checked",false);
+					$("input[id='isShow"+res.result.pageTo+"']").prop("checked",true);
+					$("#imageUpload").remove();
+					var imgHtml = "";
+					imgHtml += '<div class="form-group banner_image">';
+					imgHtml += '<label>图片</label>';
+					imgHtml += '<p>';
+					$.each(res.result.images,function(key,obj){
+						imgHtml += '<img src="'+obj+'">';
+					});
+					imgHtml += '</p>';
+					imgHtml += '</div>';
+					$("#bannerForm").append(imgHtml);
+	            }else{
+	                alert("查找失败");
+	            }
+            });
+		},
+		//删除banner
+		deleteBanner : function(id){
+			if(confirm("确认删除该数据吗？")){
+				var flag = true;
+				if(flag == true){
+					flag = false;
+					model.deleteBannerData(id,function(res){
+						if(res.success == 1){
+		                    alert("删除成功");
+							flag = true;
+							window.location.href="/index-banner";
+		                }else{
+		                    alert("删除失败");
+		                }
+					});
 				}
 			}
 		}

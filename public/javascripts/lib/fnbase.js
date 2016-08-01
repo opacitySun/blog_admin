@@ -378,7 +378,8 @@ define(function(){
         var protocol = window.location.protocol;
         var urlFirstHalf = protocol + "//" + host;
         var urlFirstHalfLen = urlFirstHalf.length;
-        var urlPath = url.substring(urlFirstHalfLen);
+        var urlEndPosition = url.indexOf("?");
+        var urlPath = url.substring(urlFirstHalfLen,urlEndPosition);
         return urlPath;
     }
 

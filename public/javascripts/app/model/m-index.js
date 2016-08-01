@@ -11,6 +11,22 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//查找一个banner数据
+		findOneBannerData : function(id,callback){
+			var url = "/addBannerAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//删除banner数据
+		deleteBannerData : function(id,callback){
+			var url = "/deleteBannerAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//获取banner列表
 		getBannerList : function(callback){
 			var url = "/getBannerListAction";

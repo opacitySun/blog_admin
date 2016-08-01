@@ -5,7 +5,7 @@ define(['./Base','fnbase'], function (Base,fnbase) {
             var urlPath = fnbase.getRouterName();
             $("#menuUl li.children").each(function(key,obj){
                 var aHref = $(obj).find("a").attr("href");
-                if(aHref == urlPath || fnbase.inString(aHref,urlPath)){
+                if(aHref == urlPath){
                     $(obj).parents("#menuUl").find("li").removeClass("active");
                     $(obj).find("a").addClass("active");
                     $(obj).parent().addClass("in");
