@@ -15,10 +15,12 @@
         },
         shim : {
             //声明依赖
+            /*
             'bootstrap':{
                 deps:['jquery'],
                 exports:'bootstrap'
             }
+            */
         }
     });
 })();
