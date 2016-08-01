@@ -108,8 +108,6 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 		lookBanner : function(id){
 			model.findOneBannerData(id,function(res){
 				if(res.success == 1){
-					var formHtml = $("#bannerForm").html();
-					$("#bannerForm").html("<fieldset disabled>"+formHtml+"</fieldset>");
 					$("#bannerName").val(res.result.name);
 					$("input[name='bannerType']").prop("checked",false);
 					$("input[id='bannerType"+res.result.type+"']").prop("checked",true);
@@ -128,6 +126,10 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					imgHtml += '</p>';
 					imgHtml += '</div>';
 					$("#bannerForm").append(imgHtml);
+					$("#bannerSubmit").remove();
+					$("#bannerReset").remove();
+					var formHtml = $("#bannerForm").html();
+					$("#bannerForm").html("<fieldset disabled>"+formHtml+"</fieldset>");
 	            }else{
 	                alert("查找失败");
 	            }
