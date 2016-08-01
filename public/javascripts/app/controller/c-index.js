@@ -33,7 +33,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 						default:
 							objIsShow = "隐藏";
 					}
-					html += '<td style="vertical-align:center">'+objIsShow+'</td>';
+					html += '<td>'+objIsShow+'</td>';
 					html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
 					html += '<td>';
 					html += '<button type="button" class="btn btn-link">查看</button>';

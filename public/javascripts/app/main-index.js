@@ -3,7 +3,6 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/index-banner"){	//banner管理
 		controller.getBannerList();
-		$("#bannerList tr td").css({"vertical-align":"center"});
 		$("#addBannerButton").on("click",function(){
 			window.location.href = "/index-banner-edit";
 		});
