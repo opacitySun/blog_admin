@@ -6,15 +6,15 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
 		$("#addBannerButton").on("click",function(){
 			window.location.href = "/index-banner-edit?type=add";
 		});
-		$("#bannerList").on(".banner_look","click",function(){
+		$(".banner_look").on("click",function(){
 			var id = $(this).parent().find(".banner_id").val();
 			window.location.href = "/index-banner-edit?type=look&id="+id;
 		});
-		$("#bannerList").on(".banner_edit","click",function(){
+		$(".banner_edit").on("click",function(){
 			var id = $(this).parent().find(".banner_id").val();
 			window.location.href = "/index-banner-edit?type=edit&id="+id;
 		});
-		$("#bannerList").on(".banner_delete","click",function(){
+		$(".banner_delete").on("click",function(){
 			var id = $(this).parent().find(".banner_id").val();
 			controller.deleteBanner(id);
 		});
