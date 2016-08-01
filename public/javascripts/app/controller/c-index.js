@@ -43,6 +43,7 @@ define(["./Base","fnbase","../model/m-index"],function(Base,fnbase,model){
 					html += '</tr>';
 				});
 				$("#bannerList").html(html);
+				$("#bannerList td").css("vertical-align","center");
 			});
 		},
 		//根据banner类型判断添加按钮是否显示
