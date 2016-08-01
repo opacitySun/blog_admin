@@ -6,19 +6,19 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
 		$("#addBannerButton").on("click",function(){
 			window.location.href = "/index-banner-edit?type=add";
 		});
-		$(".banner_look").each(function(key,obj){
+		$("button.banner_look").each(function(key,obj){
 			$(obj).on("click",function(){
 				var id = $(this).parent().find(".banner_id").val();
 				window.location.href = "/index-banner-edit?type=look&id="+id;
 			});
 		});
-		$(".banner_edit").each(function(key,obj){
+		$("button.banner_edit").each(function(key,obj){
 			$(obj).on("click",function(){
 				var id = $(this).parent().find(".banner_id").val();
 				window.location.href = "/index-banner-edit?type=edit&id="+id;
 			});
 		});
-		$(".banner_delete").each(function(key,obj){
+		$("button.banner_delete").each(function(key,obj){
 			$(obj).on("click",function(){
 				var id = $(this).parent().find(".banner_id").val();
 				controller.deleteBanner(id);
