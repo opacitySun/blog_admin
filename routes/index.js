@@ -9,7 +9,12 @@ router.get('/', function(req, res, next) {
 
 /* index-banner */
 router.get('/index-banner', function(req, res, next) {
-  res.render('index-banner', { title: '首页 -- banner图管理',layout: 'layout.html' });
+  res.render('index-banner', { title: '首页 -- banner图',layout: 'layout.html' });
+});
+
+/* index-banner-edit */
+router.get('/index-banner-edit', function(req, res, next) {
+  res.render('index-banner-edit', { title: '首页 -- banner图 -- 编辑',layout: 'layout.html' });
 });
 
 /* login */

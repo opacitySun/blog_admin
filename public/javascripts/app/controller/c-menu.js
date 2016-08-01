@@ -1,16 +1,11 @@
-define(['./Base'], function (Base) {
+define(['./Base','fnbase'], function (Base,fnbase) {
     var cMenu = {
         //添加菜单选中样式
         addLiActive : function(){
-            var url = window.location.href;
-            var host = window.location.host;
-            var protocol = window.location.protocol;
-            var urlFirstHalf = protocol + "//" + host;
-            var urlFirstHalfLen = urlFirstHalf.length;
-            var urlPath = url.substring(urlFirstHalfLen);
+            var urlPath = fnbase.getRouterName();
             $("#menuUl li.children").each(function(key,obj){
                 var aHref = $(obj).find("a").attr("href");
-                if(aHref == urlPath){
+                if(aHref == urlPath || fnbase.inString(aHref,urlPath)){
                     $(obj).parents("#menuUl").find("li").removeClass("active");
                     $(obj).find("a").addClass("active");
                     $(obj).parent().addClass("in");

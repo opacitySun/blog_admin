@@ -1,57 +1,25 @@
 
-<style>
-	.image_upload span{display:none;margin-left:20px;cursor:pointer;}
-	.image_upload span i{margin-right:10px;}
-</style>
-
 <div class="row">
-    <div class="col-lg-6">
-        <form role="form">
-        	<div class="form-group">
-	            <label>banner名称：</label>
-	            <input class="form-control" name="bannerName" id="bannerName" />
-	            <p class="help-block"></p>
-	        </div>
-
-	        <div class="form-group" id="bannerType">
-                <label>banner类型：</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="bannerType" value="0" checked>单张图
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="bannerType" value="1">轮播图
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>对应页面：</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="pageTo" value="0" checked>首页
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="pageTo" value="1">作品列表页
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group image_upload" id="imageUpload">
-                <label>图片上传：</label>
-                <span>
-                	<i class="fa fa-plus-circle"></i>添加新图片
-                </span>
-                <input type="file" name="bannerImg" />
-            </div>
-
-            <button type="submit" class="btn btn-primary">提交</button>
-            <button type="reset" class="btn btn-default">重置</button>
-        </form>
+    <div class="col-lg-12">
+        <p><button type="button" class="btn btn-lg btn-primary" id="addBannerButton">添加banner</button></p>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>名称</th>
+                        <th>类型</th>
+                        <th>关联页面</th>
+                        <th>是否显示</th>
+                        <th>最后修改时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="bannerList">
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <!-- /.row -->
