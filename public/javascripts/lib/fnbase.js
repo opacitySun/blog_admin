@@ -379,7 +379,12 @@ define(function(){
         var urlFirstHalf = protocol + "//" + host;
         var urlFirstHalfLen = urlFirstHalf.length;
         var urlEndPosition = url.indexOf("?");
-        var urlPath = url.substring(urlFirstHalfLen,urlEndPosition);
+        var urlPath;
+        if(urlEndPosition > -1){
+            urlPath = url.substring(urlFirstHalfLen,urlEndPosition);
+        }else{
+            urlPath = url.substring(urlFirstHalfLen);
+        }
         return urlPath;
     }
 
