@@ -1,6 +1,6 @@
 
 define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,model){
-	var blogPath = $("#blogPath").val();
+	var staticPath = $("#staticPath").val();
 
 	var cIndex = {
 		//获取banner列表
@@ -123,7 +123,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					imgHtml += '<label>图片</label>';
 					imgHtml += '<p>';
 					$.each(res.result.images,function(key,obj){
-						imgHtml += '<img src="'+blogPath+obj+'">';
+						imgHtml += '<img src="'+staticPath+obj+'">';
 					});
 					imgHtml += '</p>';
 					imgHtml += '</div>';
