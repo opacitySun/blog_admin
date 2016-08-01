@@ -44,9 +44,17 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					html += '</tr>';
 				});
 				$("#bannerList").html(html);
-				$("button.banner_look").click(function(){
+				$("button.banner_look").on("click",function(){
 					var id = $(this).parent().find(".banner_id").val();
 					window.location.href = "/index-banner-edit?type=look&id="+id;
+				});
+				$("button.banner_edit").on("click",function(){
+					var id = $(this).parent().find(".banner_id").val();
+					window.location.href = "/index-banner-edit?type=edit&id="+id;
+				});
+				$("button.banner_delete").on("click",function(){
+					var id = $(this).parent().find(".banner_id").val();
+					controller.deleteBanner(id);
 				});
 			});
 		},
