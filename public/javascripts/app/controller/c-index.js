@@ -130,8 +130,8 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					$("#bannerForm").append(imgHtml);
 					$("#bannerSubmit").remove();
 					$("#bannerReset").remove();
-					var formHtml = $("#bannerForm").html();
-					$("#bannerForm").html("<fieldset disabled>"+formHtml+"</fieldset>");
+					$("#bannerForm").prepend("<fieldset disabled>");
+					$("#bannerForm").append("</fieldset>");
 	            }else{
 	                alert("查找失败");
 	            }
