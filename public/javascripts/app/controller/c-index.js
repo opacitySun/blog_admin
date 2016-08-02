@@ -60,32 +60,6 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				});
 			});
 		},
-		//获取banner图片列表
-		getBannerImageList : function(id){
-			model.getBannerImageList(id,function(res){
-				html = "";
-				$.each(res.result,function(key,obj){
-					html += '<tr>';
-					html += '<td>'+(key+1)+'</td>';
-					html += '<td>'+obj.name+'</td>';
-					html += '<td><a target="_blank" href="'+staticPath+obj.url+'">'+staticPath+obj.url+'</a></td>';
-					html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
-					html += '<td>';
-					html += '<input type="hidden" class="image_id" value="'+obj._id.toString()+'" />';
-					html += '<button type="button" class="btn btn-link image_delete">删除</button>';
-					html += '</td>';
-					html += '</tr>';
-				});
-				$("#bannerImageList").html(html);
-				$("#addBannerImageButton").on("click",function(){
-					window.location.href = "/banner-image-edit?id="+id;
-				});
-				$("button.image_delete").on("click",function(){
-					var id = $(this).parent().find(".banner_id").val();
-					cIndex.deleteBannerImage(id);
-				});
-			});
-		},
 		//根据banner类型判断添加按钮是否显示
 		addImgButtonShowByBannerType : function(){
 			$("#bannerType .radio label").on("click",function(){
