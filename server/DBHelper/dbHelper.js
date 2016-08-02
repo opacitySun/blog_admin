@@ -5,12 +5,11 @@
  * @param callback 回调方法 
  */ 
 exports.addData = function(model,conditions,callback){
-	model.save(conditions, function(err,result){  
+	model.insert(conditions, {safe:true}, function(err,result){  
         if(err) {  
             console.log(err);  
             callback({success:0,flag:"save data fail"});  
         } else {  
-  
             console.log('save success');  
             callback({success:1,flag:"save data success"});  
         }  
@@ -25,7 +24,7 @@ exports.addData = function(model,conditions,callback){
  * @param callback 
  */  
 exports.updateData = function(model,conditions,update,callback) {  
-    model.update(conditions, {$set update}, false, true, function(error,result){  
+    model.update(conditions, {$set:update}, {safe:true}, function(error,result){  
         if(error) {  
             console.log(error);  
             callback({success:0,flag:"update data fail"});  
@@ -49,7 +48,7 @@ exports.updateData = function(model,conditions,update,callback) {
  * @param callback 
  */  
 exports.removeData = function(model,conditions,callback) {  
-    model.remove(conditions, function(error,result) {  
+    model.remove(conditions, {safe:true}, function(error,result) {  
         if (error) {  
             console.log(error);  
             callback({success: 0, flag: "remove data fail"});  
