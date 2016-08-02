@@ -37,6 +37,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
         var requestGet = fnbase.GetRequest();
         var urlId = requestGet["id"];
         controller.getBannerImageList(urlId);
+        $("#pageHeader").html("首页 <small>banner图片</small>");
     }else if(urlPath == "/banner-image-edit"){
         var requestGet = fnbase.GetRequest();
         var urlId = requestGet["id"];
@@ -47,6 +48,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
         $("#bannerImageBack").on("click",function(){
             history.go(-1);
         });
+        $("#pageHeader").html("首页 <small>banner图片</small>");
     }else{	//欢迎页
 		$("#pageHeader").html("SUN Admin <small>欢迎来到孙博为的博客管理</small>");
 	}
