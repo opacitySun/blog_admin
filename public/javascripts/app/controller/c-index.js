@@ -206,11 +206,12 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					$("input[id='pageTo"+res.result.pageTo+"']").prop("checked",true);
 					$("input[name='isShow']").prop("checked",false);
 					$("input[id='isShow"+res.result.isShow+"']").prop("checked",true);
+					$("#bannerSubmit").remove();
 					$("#imageUpload").remove();
 					var imgHtml = "";
 					imgHtml += '<div class="form-group banner_image">';
 					imgHtml += '<label>图片</label>';
-					imgHtml += '<span id="bannerImageEdit">';
+					imgHtml += '<span id="bannerImageEdit" style="margin-left:20px;cursor:pointer;">';
 					imgHtml += '<i class="fa fa-pencil-square"></i>编辑图片';
 					imgHtml += '</span>';
 					imgHtml += '<p>';
@@ -221,6 +222,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					imgHtml += '</div>';
 					$("#bannerForm").append(imgHtml);
 					$("#bannerReset").remove();
+					$("#bannerForm").append('<button type="button" id="bannerSubmit" class="btn btn-primary">提交</button>');
 					$("#bannerForm").append('<button type="button" id="pageBack" class="btn btn-info">返回</button>');
 					$("#bannerImageEdit").on("click",function(){
 						window.location.href="/index-banner-image?id="+id;
