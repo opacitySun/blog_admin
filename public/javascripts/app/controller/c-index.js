@@ -139,13 +139,15 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				$("#bannerImageName").parent().addClass("has-warning has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			if($(".bannerImg").val() == ''){
+			var files = $("input[name='bannerImg']").prop("files");
+			if(files.length == 0){
 				alert("请上传图片");
 				return false;
 			}
 			if(confirm("确认提交新的banner数据吗？")){
 				var flag = true;
 				var formData = new FormData($("#bannerImageForm")[0]);
+				formData.append("file",files[0]);
 				if(flag == true){
 					flag = false;
 					model.addBannerImageData(formData,function(res){
