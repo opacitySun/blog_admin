@@ -187,6 +187,9 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					$("#bannerSubmit").remove();
 					$("#bannerReset").remove();
 					$("#bannerForm").append('<button type="button" id="pageBack" class="btn btn-info">返回</button>');
+					$("#pageBack").on("click",function(){
+						history.go(-1);
+					});
 	            }else{
 	                alert("查找失败");
 	            }
