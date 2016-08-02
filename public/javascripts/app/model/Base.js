@@ -47,7 +47,7 @@ define(['require','jquery'],function(require,$){
             $.ajax({
                 url : url,
                 type : 'post',
-                data : formData,
+                data : data,
                 async : false,
                 cache : false,
                 contentType : false,
