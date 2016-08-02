@@ -22,11 +22,10 @@ exports.addData = function(model,conditions,callback){
  * @param model 要操作数据库的模型 
  * @param conditions 增加的条件,如{id:xxx} 
  * @param update 更新条件{set{id:xxx}} 
- * @param options  
  * @param callback 
  */  
-exports.updateData = function(model,conditions,update,options,callback) {  
-    model.update(conditions, update, options, function(error,result){  
+exports.updateData = function(model,conditions,update,callback) {  
+    model.update(conditions, update, false, true, function(error,result){  
         if(error) {  
             console.log(error);  
             callback({success:0,flag:"update data fail"});  

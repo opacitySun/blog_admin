@@ -17,6 +17,16 @@ router.get('/index-banner-edit', function(req, res, next) {
   res.render('index-banner-edit', { title: '首页 -- banner图 -- 编辑',layout: 'layout.html' });
 });
 
+/* index-banner-image */
+router.get('/index-banner-image', function(req, res, next) {
+  res.render('index-banner-image', { title: '首页 -- banner图 -- 图片',layout: 'layout.html' });
+});
+
+/* banner-image-edit */
+router.get('/banner-image-edit', function(req, res, next) {
+  res.render('banner-image-edit', { title: '首页 -- banner图 -- 图片编辑',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });

@@ -19,11 +19,35 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
 			$("#pageHeader").html("首页 <small>banner添加</small>");
         }else if(urlType == "look"){
         	controller.lookBanner(urlId);
+        	$("#pageBack").on("click",function(){
+        		window.location.href="/index-banner";
+        	});
         	$("#pageHeader").html("首页 <small>banner查看</small>");
         }else if(urlType == "edit"){
+        	controller.editBanner(urlId);
+        	$("#pageBack").on("click",function(){
+        		window.location.href="/index-banner";
+        	});
+        	$("#bannerImageEdit").on("click",function(){
+        		window.location.href="/index-banner-image";
+        	});
 			$("#pageHeader").html("首页 <small>banner修改</small>");
         }
-	}else{	//欢迎页
+	}else if(urlPath == "/index-banner-image"){
+        var requestGet = fnbase.GetRequest();
+        var urlId = requestGet["id"];
+        controller.getBannerImageList(urlId);
+    }else if(urlPath == "/banner-image-edit"){
+        var requestGet = fnbase.GetRequest();
+        var urlId = requestGet["id"];
+        $("#bannerId").val(urlId);
+        $("#bannerImageSubmit").on("click",function(){
+            controller.bannerImageEditSubmit();
+        });
+        $("#bannerImageBack").on("click",function(){
+            history.go(-1);
+        });
+    }else{	//欢迎页
 		$("#pageHeader").html("SUN Admin <small>欢迎来到孙博为的博客管理</small>");
 	}
 });

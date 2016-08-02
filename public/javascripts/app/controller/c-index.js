@@ -56,7 +56,33 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				});
 				$("button.banner_delete").on("click",function(){
 					var id = $(this).parent().find(".banner_id").val();
-					controller.deleteBanner(id);
+					cIndex.deleteBanner(id);
+				});
+			});
+		},
+		//获取banner图片列表
+		getBannerImageList : function(id){
+			model.getBannerImageList(id,function(res){
+				html = "";
+				$.each(res.result,function(key,obj){
+					html += '<tr>';
+					html += '<td>'+(key+1)+'</td>';
+					html += '<td>'+obj.name+'</td>';
+					html += '<td><a target="_blank" href="'+staticPath+obj.url+'">'+staticPath+obj.url+'</a></td>';
+					html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
+					html += '<td>';
+					html += '<input type="hidden" class="image_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link image_delete">删除</button>';
+					html += '</td>';
+					html += '</tr>';
+				});
+				$("#bannerImageList").html(html);
+				$("#addBannerImageButton").on("click",function(){
+					window.location.href = "/banner-image-edit?id="+id;
+				});
+				$("button.image_delete").on("click",function(){
+					var id = $(this).parent().find(".banner_id").val();
+					cIndex.deleteBannerImage(id);
 				});
 			});
 		},
@@ -106,6 +132,35 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				}
 			}
 		},
+		//banner图管理提交
+		bannerImageEditSubmit : function(){
+			var bannerImageName = $("#bannerImageName").val();
+			if(bannerImageName == ''){
+				$("#bannerImageName").parent().addClass("has-warning has-feedback").find(".help-block").text("名称不能为空");
+				return false;
+			}
+			var imgLen = $(".bannerImg").length;
+			if($(".bannerImg")[0].val() == ''){
+				alert("请上传图片");
+				return false;
+			}
+			if(confirm("确认提交新的banner数据吗？")){
+				var flag = true;
+				var formData = new FormData($("#bannerImageForm")[0]);
+				if(flag == true){
+					flag = false;
+					model.addBannerImageData(formData,function(res){
+		                if(res.success == 1){
+		                    alert("提交成功");
+							flag = true;
+							history.go(-1);
+		                }else{
+		                    alert("提交失败");
+		                }
+		            });
+				}
+			}
+		},
 		//查看banner
 		lookBanner : function(id){
 			model.findOneBannerData(id,function(res){
@@ -132,10 +187,74 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					$("#bannerForm").append(imgHtml);
 					$("#bannerSubmit").remove();
 					$("#bannerReset").remove();
+					$("#bannerForm").append("<button type="button" id="pageBack" class="btn btn-info">返回</button>");
 	            }else{
 	                alert("查找失败");
 	            }
             });
+		},
+		//编辑banner
+		editBanner : function(id){
+			model.findOneBannerData(id,function(res){
+				if(res.success == 1){
+					$("#bannerName").val(res.result.name);
+					$("input[name='bannerType']").prop("checked",false);
+					$("input[id='bannerType"+res.result.type+"']").prop("checked",true);
+					$("input[name='pageTo']").prop("checked",false);
+					$("input[id='pageTo"+res.result.pageTo+"']").prop("checked",true);
+					$("input[name='isShow']").prop("checked",false);
+					$("input[id='isShow"+res.result.isShow+"']").prop("checked",true);
+					$("#imageUpload").remove();
+					var imgHtml = "";
+					imgHtml += '<div class="form-group banner_image">';
+					imgHtml += '<label>图片</label>';
+					imgHtml += '<span id="bannerImageEdit">';
+					imgHtml += '<i class="fa fa-pencil-square"></i>编辑图片';
+					imgHtml += '</span>';
+					imgHtml += '<p>';
+					$.each(res.result.images,function(key,obj){
+						imgHtml += '<img src="'+staticPath+obj+'">';
+					});
+					imgHtml += '</p>';
+					imgHtml += '</div>';
+					$("#bannerForm").append(imgHtml);
+					$("#bannerReset").remove();
+					$("#bannerForm").append("<button type="button" id="pageBack" class="btn btn-info">返回</button>");
+					$("#bannerImageEdit").on("click",function(){
+						window.location.href="/index-banner-image?id="+id;
+					});
+					$("#bannerSubmit").on("click",function(){
+						cIndex.updateBanner(id);
+					});
+	            }else{
+	                alert("查找失败");
+	            }
+            });
+		},
+		//修改banner
+		updateBanner : function(id){
+			var bannerName = $("#bannerName").val();
+			if(bannerName == ''){
+				$("#bannerName").parent().addClass("has-warning has-feedback").find(".help-block").text("banner名称不能为空");
+				return false;
+			}
+			var bannerType = $("input[name='bannerType']:checked").val();
+			var pageTo = $("input[name='pageTo']:checked").val();
+			var isShow = $("input[name='isShow']:checked").val();
+			var data = {"name":bannerName,"type":bannerType,"pageTo":pageTo,"isShow":isShow};
+			var flag = true;
+			if(flag == true){
+				flag = false;
+				model.updateBannerData(id,data,function(res){
+					if(res.success == 1){
+	                    alert("修改成功");
+						flag = true;
+						window.location.href="/index-banner";
+	                }else{
+	                    alert("修改失败");
+	                }
+				});
+			}
 		},
 		//删除banner
 		deleteBanner : function(id){
@@ -147,7 +266,25 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;
-							window.location.href="/index-banner";
+							history.go(-1);
+		                }else{
+		                    alert("删除失败");
+		                }
+					});
+				}
+			}
+		},
+		//删除banner图片
+		deleteBannerImage : function(id){
+			if(confirm("确认删除该数据吗？")){
+				var flag = true;
+				if(flag == true){
+					flag = false;
+					model.deleteBannerImageData(id,function(res){
+						if(res.success == 1){
+		                    alert("删除成功");
+							flag = true;
+							history.go(-1);
 		                }else{
 		                    alert("删除失败");
 		                }
