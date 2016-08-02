@@ -57,7 +57,7 @@ module.exports = function(app){
     app.all("/updateBannerAction",function(req,res){
         var timestamp=new Date().getTime();
         var conditions = {"_id":ObjectID(req.body.id)};
-        var update = {$set{"name":req.body.name,"type":req.body.type,"pageTo":req.body.pageTo,"isShow":req.body.isShow,"updateTime":timestamp}};
+        var update = {"name":req.body.name,"type":req.body.type,"pageTo":req.body.pageTo,"isShow":req.body.isShow,"updateTime":timestamp};
         bannerDao.updateBanner(conditions,update,dbHelper,function(result){  
             console.log(JSON.stringify(result));
             res.json(result);

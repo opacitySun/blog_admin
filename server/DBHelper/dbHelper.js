@@ -25,7 +25,7 @@ exports.addData = function(model,conditions,callback){
  * @param callback 
  */  
 exports.updateData = function(model,conditions,update,callback) {  
-    model.update(conditions, update, false, true, function(error,result){  
+    model.update(conditions, {$set update}, false, true, function(error,result){  
         if(error) {  
             console.log(error);  
             callback({success:0,flag:"update data fail"});  
