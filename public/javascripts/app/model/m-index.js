@@ -15,9 +15,27 @@ define(["./Base"],function(Base){
 		addBannerImageData : function(formData,callback){
 			var url = "/addBannerImageAction";
 			var data = formData;
+			$.ajax({
+				url : url,
+				type : 'POST',
+				data : formData,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(res) {
+					console.log(res);
+					callback(res);
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
+			/*
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
+			*/
 		},
 		//查找一个banner数据
 		findOneBannerData : function(id,callback){
