@@ -8,6 +8,7 @@ var ejs = require('ejs');
 var expressSession = require('express-session');
 var partials = require('express-partials');
 var nodexcn = require('nodexcn');
+var busboy  = require('busboy');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -31,6 +32,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(busboy());
 app.use(cookieParser());
 app.use(expressSession({
   cookie: {maxAge:14400000}, //14400s即4个小时后session和相应的cookie失效过期

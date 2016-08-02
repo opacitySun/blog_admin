@@ -1,7 +1,6 @@
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
 var ObjectID = require("mongodb").ObjectID;
 var dbHelper = require("../DBHelper/dbHelper");
+var uploadHelper = require("../DBHelper/uploadHelper");
 var bannerDao = require("../DBSql/bannerDao");
 var bannerImageDao = require("../DBSql/bannerImageDao");
 
@@ -48,8 +47,11 @@ module.exports = function(app){
         });    
     });
     //添加banner图片
-    app.all("/addBannerImageAction",multipartMiddleware,function(req,res){
-        console.log(req.body);
+    app.all("/addBannerImageAction",function(req,res){
+        uploadHelper.fileSingle(req,res,"images/banner/","bannerImg",function(file){
+            console.log(file);
+            console.log(req.body);
+        });
         /*
         var conditions = req.body;
         bannerImageDao.addBannerImage(conditions,dbHelper,function(result){  
