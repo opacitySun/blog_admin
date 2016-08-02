@@ -38,6 +38,9 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
         var urlId = requestGet["id"];
         controller.getBannerImageList(urlId);
         $("#pageHeader").html("首页 <small>banner图片</small>");
+        $("#pageBack").on("click",function(){
+            history.go(-1);
+        });
     }else if(urlPath == "/banner-image-edit"){
         var requestGet = fnbase.GetRequest();
         var urlId = requestGet["id"];
