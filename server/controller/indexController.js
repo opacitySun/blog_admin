@@ -1,3 +1,5 @@
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 var ObjectID = require("mongodb").ObjectID;
 var dbHelper = require("../DBHelper/dbHelper");
 var bannerDao = require("../DBSql/bannerDao");
@@ -46,12 +48,15 @@ module.exports = function(app){
         });    
     });
     //添加banner图片
-    app.all("/addBannerImageAction",function(req,res){
+    app.all("/addBannerImageAction",multipartMiddleware,function(req,res){
+        console.log(req.body);
+        /*
         var conditions = req.body;
         bannerImageDao.addBannerImage(conditions,dbHelper,function(result){  
             console.log(JSON.stringify(result));
             res.json(result);
         });    
+        */
     });
     //修改banner
     app.all("/updateBannerAction",function(req,res){

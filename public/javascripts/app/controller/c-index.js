@@ -230,6 +230,9 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					$("#bannerSubmit").on("click",function(){
 						cIndex.updateBanner(id);
 					});
+					$("#pageBack").on("click",function(){
+						history.go(-1);
+					});
 	            }else{
 	                alert("查找失败");
 	            }
