@@ -47,7 +47,9 @@ module.exports = function(app){
         });    
     });
     //添加banner图片
-    app.all("/addBannerImageAction",function(req,res){
+    var multer  = require('multer');
+    var upload = multer({ dest: '/resources/images/banner/'});
+    app.all("/addBannerImageAction",upload,function(req,res){
         var tmp_path = req.file.path;
         console.log(tmp_path);
         /*
