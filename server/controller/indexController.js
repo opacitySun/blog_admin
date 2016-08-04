@@ -60,7 +60,7 @@ module.exports = function(app){
         });    
     });
     //添加banner图片
-    app.all("/addBannerImageAction",upload.single('bannerImg'),function(req,res){
+    app.all("/addBannerImageAction",function(req,res){
         var tmp_path = req.file.path;
         console.log(tmp_path);
         /*
