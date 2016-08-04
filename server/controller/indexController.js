@@ -3,6 +3,19 @@ var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var bannerDao = require("../DBSql/bannerDao");
 var bannerImageDao = require("../DBSql/bannerImageDao");
+var multer  = require('multer');
+var rename = function(){
+    var now = new Date();
+    // 重命名为 年+月+日+时+分+秒+5位随机数
+    return now.getFullYear() +
+      ( '0' + (now.getMonth() + 1) ).slice(-2) +
+      ( '0' + now.getDate() ).slice(-2) +
+      ( '0' + now.getHours() ).slice(-2) +
+      ( '0' + now.getMinutes() ).slice(-2) +
+      ( '0' + now.getSeconds() ).slice(-2) +
+      parseInt(10000 + Math.random() * 90000);
+};
+var upload = multer({ dest: '../../public/resources/images/',rename:rename});
 
 module.exports = function(app){
     //获取banner列表
@@ -47,7 +60,7 @@ module.exports = function(app){
         });    
     });
     //添加banner图片
-    app.all("/addBannerImageAction",function(req,res){
+    app.all("/addBannerImageAction",upload.single('bannerImg'),function(req,res){
         var tmp_path = req.file.path;
         console.log(tmp_path);
         /*
