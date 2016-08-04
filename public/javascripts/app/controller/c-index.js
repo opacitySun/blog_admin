@@ -147,7 +147,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 			if(confirm("确认提交新的banner数据吗？")){
 				var flag = true;
 				var formData = new FormData($("#bannerImageForm")[0]);
-				formData.append("file",files[0]);
+				//formData.append("file",files[0]);
 				if(flag == true){
 					flag = false;
 					model.addBannerImageData(formData,function(res){
