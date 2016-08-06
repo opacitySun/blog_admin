@@ -50,7 +50,7 @@ module.exports = function(app){
             "updateTime":thisTime
         };
         bannerDao.addBanner(conditions0,dbHelper,function(result0){  
-            if(result.success == 1){
+            if(result0.success == 1){
                 uploadHelper.fileArray(req,res,"bannerImg",6,function(result1){
                     var resourcesUrl = "/resources/";
                     var imgUrl = [];
@@ -73,6 +73,8 @@ module.exports = function(app){
                         }
                     });    
                 });   
+            }else{
+                res.json(result0);
             }
         });
         
