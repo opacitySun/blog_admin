@@ -113,7 +113,7 @@ module.exports = function(app){
     app.all("/deleteBannerAction",function(req,res){
         var id = req.body.id;
         var conditions0 = {"bannerId":id};
-        bannerImageDao.removeBannerImage(conditions,dbHelper,function(result0){  
+        bannerImageDao.removeBannerImage(conditions0,dbHelper,function(result0){  
             if(result0.success == 1){
                 var conditions1 = {"_id":ObjectID(id)};
                 bannerDao.removeBanner(conditions1,dbHelper,function(result1){  
