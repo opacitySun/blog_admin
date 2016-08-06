@@ -1,18 +1,27 @@
 var multer  = require('multer');
-var rename = function(){
-	var now = new Date();
-    // 重命名为 年+月+日+时+分+秒+5位随机数
-    return now.getFullYear() +
-      ( '0' + (now.getMonth() + 1) ).slice(-2) +
-      ( '0' + now.getDate() ).slice(-2) +
-      ( '0' + now.getHours() ).slice(-2) +
-      ( '0' + now.getMinutes() ).slice(-2) +
-      ( '0' + now.getSeconds() ).slice(-2) +
-      parseInt(10000 + Math.random() * 90000);
-};
+var storage = multer.diskStorage({  
+  destination: function (req, file, cb) {  //上传路径
+    cb(null, './public/resources/');
+  },
+  filename: function (req, file, cb) {  
+  	var rename = function(){
+		var now = new Date();
+	    // 重命名为 年+月+日+时+分+秒+5位随机数
+	    return now.getFullYear() +
+	      ( '0' + (now.getMonth() + 1) ).slice(-2) +
+	      ( '0' + now.getDate() ).slice(-2) +
+	      ( '0' + now.getHours() ).slice(-2) +
+	      ( '0' + now.getMinutes() ).slice(-2) +
+	      ( '0' + now.getSeconds() ).slice(-2) +
+	      parseInt(10000 + Math.random() * 90000);
+	};
+	var typeItems = file.mimetype.split('/');
+	rename = rename + "." + typeItems[1];
+    cb(null, rename);
+  }
+});
 var multerConfig = {
-	dest:'./public/resources/',	//上传路径
-	rename:rename,
+	storage:storage,
 	limits: {
         fileSize: 10*1024*1024 // Max file size in bytes (10 MB)
     },

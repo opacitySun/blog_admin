@@ -51,13 +51,7 @@ module.exports = function(app){
         uploadHelper.fileSingle(req,res,"bannerImg",function(result){
             var thisTime = new Date().getTime();
             var resourcesUrl = "/resources/images/";
-            var imgType = "";
-            if(result.file.mimetype == 'image/jpeg'){
-                imgType = ".jpg";
-            }else if(result.file.mimetype == 'image/png'){
-                imgType = ".png";
-            }
-            var imgUrl = resourcesUrl + result.file.filename + imgType;
+            var imgUrl = resourcesUrl + result.file.filename;
             var conditions = {
                 "bannerId":result.body.bannerId,
                 "name":result.body.bannerImageName,
