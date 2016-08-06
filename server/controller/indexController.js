@@ -49,16 +49,27 @@ module.exports = function(app){
     //添加banner图片
     app.all("/addBannerImageAction",function(req,res){
         uploadHelper.fileSingle(req,res,"images/","bannerImg",function(result){
-            console.log(result.file.path);
-            console.log(result.body);
+            var thisTime = new Date().getTime();
+            var resourcesUrl = "/resources/images/";
+            var imgType = "";
+            if(result.file.mimetype == 'image/jpeg'){
+                imgType = ".jpg";
+            }else if(result.file.mimetype == 'image/png'){
+                imgType = ".png";
+            }
+            var imgUrl = resourcesUrl + result.file.filename + imgType;
+            var conditions = {
+                "bannerId":result.body.bannerId,
+                "name":result.body.bannerImageName,
+                "url":imgUrl,
+                "createTime":thisTime,
+                "updateTime":thisTime
+            };
+            bannerImageDao.addBannerImage(conditions,dbHelper,function(result){  
+                console.log(JSON.stringify(result));
+                res.json(result);
+            });    
         });
-        /*
-        var conditions = req.body;
-        bannerImageDao.addBannerImage(conditions,dbHelper,function(result){  
-            console.log(JSON.stringify(result));
-            res.json(result);
-        });    
-        */
     });
     //修改banner
     app.all("/updateBannerAction",function(req,res){
