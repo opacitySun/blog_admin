@@ -16,10 +16,7 @@ var storage = multer.diskStorage({
 	      parseInt(10000 + Math.random() * 90000);
 	};
 	var typeItems = file.mimetype.split('/');
-	if(typeItems[1] == "jpeg"){
-		typeItems[1] = "jpg";
-	}
-	rename = rename + "." + typeItems[1];
+	rename = rename() + "." + typeItems[1];
     cb(null, rename);
   }
 });
