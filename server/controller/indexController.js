@@ -42,10 +42,6 @@ module.exports = function(app){
     app.all("/addBannerAction",function(req,res){
         var thisTime = new Date().getTime();
         var conditions0 = {
-            "name":req.body.bannerName,
-            "type":req.body.bannerType,
-            "pageTo":req.body.pageTo,
-            "isShow":req.body.isShow,
             "createTime":thisTime,
             "updateTime":thisTime
         };
@@ -54,24 +50,37 @@ module.exports = function(app){
                 var conditions1 = {"createTime":thisTime};
                 bannerDao.findOneBanner(conditions1,dbHelper,function(result1){  
                     uploadHelper.fileArray(req,res,"bannerImg",6,function(result2){
-                        var resourcesUrl = "/resources/";
-                        result2.files.forEach(function(obj){
-                            var imgUrl = resourcesUrl + obj.filename;
-                            var conditions2 = {
-                                "bannerId":result1.result._id.toString(),
-                                "name":"banner"+thisTime,
-                                "url":imgUrl,
-                                "createTime":thisTime,
-                                "updateTime":thisTime
-                            };
-                            bannerImageDao.addBannerImage(conditions2,dbHelper,function(result3){  
-                                if(result3.success == 1){
-                                    res.json(result0);
-                                }else{
-                                    res.json(result3);
-                                }
-                            });    
-                        });   
+                        var conditions2 = {"_id":result1.result._id};
+                        var update = {
+                            "name":result2.body.bannerName,
+                            "type":result2.body.bannerType,
+                            "pageTo":result2.body.pageTo,
+                            "isShow":result2.body.isShow
+                        };
+                        bannerDao.updateBanner(conditions2,update,dbHelper,function(result3){  
+                            if(result3.success == 1){
+                                var resourcesUrl = "/resources/";
+                                result2.files.forEach(function(obj){
+                                    var imgUrl = resourcesUrl + obj.filename;
+                                    var conditions3 = {
+                                        "bannerId":result1.result._id.toString(),
+                                        "name":"banner"+thisTime,
+                                        "url":imgUrl,
+                                        "createTime":thisTime,
+                                        "updateTime":thisTime
+                                    };
+                                    bannerImageDao.addBannerImage(conditions3,dbHelper,function(result4){  
+                                        if(result3.success == 1){
+                                            res.json(result0);
+                                        }else{
+                                            res.json(result4);
+                                        }
+                                    });    
+                                });   
+                            }else{
+                                res.json(result3);
+                            }
+                        });        
                     });   
                 });       
             }else{
@@ -103,7 +112,13 @@ module.exports = function(app){
     app.all("/updateBannerAction",function(req,res){
         var timestamp=new Date().getTime();
         var conditions = {"_id":ObjectID(req.body.id)};
-        var update = {"name":req.body.name,"type":req.body.type,"pageTo":req.body.pageTo,"isShow":req.body.isShow,"updateTime":timestamp};
+        var update = {
+            "name":req.body.name,
+            "type":req.body.type,
+            "pageTo":req.body.pageTo,
+            "isShow":req.body.isShow,
+            "updateTime":timestamp
+        };
         bannerDao.updateBanner(conditions,update,dbHelper,function(result){  
             console.log(JSON.stringify(result));
             res.json(result);
