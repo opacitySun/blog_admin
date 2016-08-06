@@ -48,7 +48,7 @@ module.exports = function(app){
     });
     //添加banner图片
     app.all("/addBannerImageAction",function(req,res){
-        uploadHelper.fileSingle(req,res,"images/","bannerImg",function(result){
+        uploadHelper.fileSingle(req,res,"bannerImg",function(result){
             var thisTime = new Date().getTime();
             var resourcesUrl = "/resources/images/";
             var imgType = "";

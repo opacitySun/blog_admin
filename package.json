@@ -15,6 +15,6 @@
     "serve-favicon": "~2.3.0",
     "ejs":"*",
     "express-partials":"*",
-    "multer":"*"
+    "multer":"~1.1.0"
   }
 }

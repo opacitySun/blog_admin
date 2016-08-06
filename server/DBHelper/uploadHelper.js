@@ -1,5 +1,4 @@
 var multer  = require('multer');
-var basedest = './public/resources/';	//上传路径
 var rename = function(){
 	var now = new Date();
     // 重命名为 年+月+日+时+分+秒+5位随机数
@@ -11,6 +10,22 @@ var rename = function(){
       ( '0' + now.getSeconds() ).slice(-2) +
       parseInt(10000 + Math.random() * 90000);
 };
+var multerConfig = {
+	dest:'./public/resources/',	//上传路径
+	rename:rename,
+	limits: {
+        fileSize: 10*1024*1024 // Max file size in bytes (10 MB)
+    },
+    fileFilter: function (req, file, cb) {
+        var mimetypes = (['text/*', 'image/*', 'video/*', 'audio/*', 'application/zip']).join(',');
+        var testItems = file.mimetype.split('/');
+        if ((new RegExp('\\b' + testItems[0] + '/\\*', 'i')).test(mimetypes) || (new RegExp('\\*/' + testItems[1] + '\\b', 'i')).test(mimetypes) || (new RegExp('\\b' + testItems[0] + '/' + testItems[1] + '\\b', 'i')).test(mimetypes)) {
+            cb(null, true);
+        } else {
+            return cb(new Error('Only image, plain text, audio, video and zip format files are allowed!'), false);
+        }
+    }
+};
 
 /** 
  * 接收一个叫做<fieldname>名字的附件，该附件将被保存到req.file属性中
@@ -21,8 +36,8 @@ var rename = function(){
  * @param fieldname 所接收附件的名字
  * @param callback 回调方法 
  */ 
-exports.fileSingle = function(req,res,detaildest,fieldname,callback){
-	var upload = multer({dest:basedest+detaildest,rename:rename}).single(fieldname);
+exports.fileSingle = function(req,res,fieldname,callback){
+	var upload = multer(multerConfig).single(fieldname);
 	upload(req, res, function(err){
 		if(err){
 			console.log(err);
@@ -44,8 +59,8 @@ exports.fileSingle = function(req,res,detaildest,fieldname,callback){
  * @param maxnum 允许的最大数量
  * @param callback 回调方法 
  */ 
-exports.fileArray = function(req,res,detaildest,fieldname,maxnum,callback){
-	var upload = multer({dest:basedest+detaildest,rename:rename}).array(fieldname,maxnum);
+exports.fileArray = function(req,res,fieldname,maxnum,callback){
+	var upload = multer(multerConfig).array(fieldname,maxnum);
 	upload(req, res, function(err){
 		if(err){
 			console.log(err);
@@ -69,8 +84,8 @@ exports.fileArray = function(req,res,detaildest,fieldname,maxnum,callback){
 	{ name: 'gallery', maxCount: 8 }
    ]
  */ 
-exports.fileFields = function(req,res,detaildest,fieldsarray,callback){
-	var upload = multer({dest:basedest+detaildest,rename:rename}).fields(fieldsarray);
+exports.fileFields = function(req,res,fieldsarray,callback){
+	var upload = multer(multerConfig).fields(fieldsarray);
 	upload(req, res, function(err){
 		if(err){
 			console.log(err);
@@ -94,8 +109,8 @@ exports.fileFields = function(req,res,detaildest,fieldsarray,callback){
 	{ name: 'gallery', maxCount: 8 }
    ]
  */ 
-exports.fileAny = function(req,res,detaildest,callback){
-	var upload = multer({dest:basedest+detaildest,rename:rename}).any();
+exports.fileAny = function(req,res,callback){
+	var upload = multer(multerConfig).any();
 	upload(req, res, function(err){
 		if(err){
 			console.log(err);
