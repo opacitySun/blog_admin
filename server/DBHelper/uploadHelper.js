@@ -1,5 +1,5 @@
 var multer  = require('multer');
-var basedest = '../../public/resources/';	//上传路径
+var basedest = './public/resources/';	//上传路径
 var rename = function(){
 	var now = new Date();
     // 重命名为 年+月+日+时+分+秒+5位随机数
@@ -29,7 +29,7 @@ exports.fileSingle = function(req,res,detaildest,fieldname,callback){
 			return;
 		}else{
 			console.log(req.file);
-			callback(req.file);
+			callback(req);
 		}
 	});
 }
@@ -52,7 +52,7 @@ exports.fileArray = function(req,res,detaildest,fieldname,maxnum,callback){
 			return;
 		}else{
 			console.log(req.files);
-			callback(req.files);
+			callback(req);
 		}
 	});
 }
@@ -77,7 +77,7 @@ exports.fileFields = function(req,res,detaildest,fieldsarray,callback){
 			return;
 		}else{
 			console.log(req.files);
-			callback(req.files);
+			callback(req);
 		}
 	});
 }
@@ -102,7 +102,7 @@ exports.fileAny = function(req,res,detaildest,callback){
 			return;
 		}else{
 			console.log(req.files);
-			callback(req.files);
+			callback(req);
 		}
 	});
 }

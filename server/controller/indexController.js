@@ -48,9 +48,9 @@ module.exports = function(app){
     });
     //添加banner图片
     app.all("/addBannerImageAction",function(req,res){
-        uploadHelper.fileSingle(req,res,"images/","bannerImg",function(file){
-            console.log(file.path);
-            console.log(req.body);
+        uploadHelper.fileSingle(req,res,"images/","bannerImg",function(result){
+            console.log(result.file.path);
+            console.log(result.body);
         });
         /*
         var conditions = req.body;
