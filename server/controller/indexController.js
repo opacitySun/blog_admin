@@ -51,28 +51,31 @@ module.exports = function(app){
         };
         bannerDao.addBanner(conditions0,dbHelper,function(result0){  
             if(result0.success == 1){
-                uploadHelper.fileArray(req,res,"bannerImg",6,function(result1){
-                    var resourcesUrl = "/resources/";
-                    var imgUrl = [];
-                    result1.files.forEach(function(obj){
-                        var imgOne = resourcesUrl + obj.filename;
-                        imgUrl.push(imgOne);
-                    });
-                    var conditions1 = {
-                        "bannerId":result0.result._id.toString(),
-                        "name":"banner"+thisTime,
-                        "url":imgUrl,
-                        "createTime":thisTime,
-                        "updateTime":thisTime
-                    };
-                    bannerImageDao.addBannerImage(conditions1,dbHelper,function(result2){  
-                        if(result2.success == 1){
-                            res.json(result0);
-                        }else{
-                            res.json(result2);
-                        }
-                    });    
-                });   
+                var conditions1 = {"createTime":thisTime};
+                bannerDao.findOneBanner(conditions1,dbHelper,function(result1){  
+                    uploadHelper.fileArray(req,res,"bannerImg",6,function(result2){
+                        var resourcesUrl = "/resources/";
+                        var imgUrl = [];
+                        result2.files.forEach(function(obj){
+                            var imgOne = resourcesUrl + obj.filename;
+                            imgUrl.push(imgOne);
+                        });
+                        var conditions2 = {
+                            "bannerId":result1.result._id.toString(),
+                            "name":"banner"+thisTime,
+                            "url":imgUrl,
+                            "createTime":thisTime,
+                            "updateTime":thisTime
+                        };
+                        bannerImageDao.addBannerImage(conditions2,dbHelper,function(result3){  
+                            if(result3.success == 1){
+                                res.json(result0);
+                            }else{
+                                res.json(result3);
+                            }
+                        });    
+                    });   
+                });       
             }else{
                 res.json(result0);
             }
