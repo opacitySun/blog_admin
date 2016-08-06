@@ -111,7 +111,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				return false;
 			}
 			var imgLen = $(".bannerImg").length;
-			if(imgLen <= 1 && $(".bannerImg")[0].val() == ''){
+			if(imgLen <= 1 && $("input[name='bannerImg']")[0].val() == ''){
 				alert("请上传至少一张图片");
 				return false;
 			}else if(imgLen > 6){
