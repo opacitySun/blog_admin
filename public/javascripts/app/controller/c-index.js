@@ -277,7 +277,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;
-							history.go(-1);
+							window.location.href="/index-banner";
 		                }else{
 		                    alert("删除失败");
 		                }

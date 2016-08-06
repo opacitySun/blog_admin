@@ -55,25 +55,23 @@ module.exports = function(app){
                 bannerDao.findOneBanner(conditions1,dbHelper,function(result1){  
                     uploadHelper.fileArray(req,res,"bannerImg",6,function(result2){
                         var resourcesUrl = "/resources/";
-                        var imgUrl = [];
                         result2.files.forEach(function(obj){
-                            var imgOne = resourcesUrl + obj.filename;
-                            imgUrl.push(imgOne);
-                        });
-                        var conditions2 = {
-                            "bannerId":result1.result._id.toString(),
-                            "name":"banner"+thisTime,
-                            "url":imgUrl,
-                            "createTime":thisTime,
-                            "updateTime":thisTime
-                        };
-                        bannerImageDao.addBannerImage(conditions2,dbHelper,function(result3){  
-                            if(result3.success == 1){
-                                res.json(result0);
-                            }else{
-                                res.json(result3);
-                            }
-                        });    
+                            var imgUrl = resourcesUrl + obj.filename;
+                            var conditions2 = {
+                                "bannerId":result1.result._id.toString(),
+                                "name":"banner"+thisTime,
+                                "url":imgUrl,
+                                "createTime":thisTime,
+                                "updateTime":thisTime
+                            };
+                            bannerImageDao.addBannerImage(conditions2,dbHelper,function(result3){  
+                                if(result3.success == 1){
+                                    res.json(result0);
+                                }else{
+                                    res.json(result3);
+                                }
+                            });    
+                        });   
                     });   
                 });       
             }else{
@@ -114,11 +112,17 @@ module.exports = function(app){
     //删除banner
     app.all("/deleteBannerAction",function(req,res){
         var id = req.body.id;
-        var conditions = {"_id":ObjectID(id)};
-        bannerDao.removeBanner(conditions,dbHelper,function(result){  
-            console.log(JSON.stringify(result));
-            res.json(result);
-        });    
+        var conditions0 = {"bannerId":id};
+        bannerImageDao.removeBannerImage(conditions,dbHelper,function(result0){  
+            if(result0.success == 1){
+                var conditions1 = {"_id":ObjectID(id)};
+                bannerDao.removeBanner(conditions1,dbHelper,function(result1){  
+                    res.json(result1);
+                });    
+            }else{
+                res.json(result0);
+            }
+        });      
     });
     //删除banner图片
     app.all("/deleteBannerImageAction",function(req,res){
