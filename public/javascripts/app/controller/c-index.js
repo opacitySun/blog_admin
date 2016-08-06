@@ -81,7 +81,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					window.location.href = "/banner-image-edit?id="+id;
 				});
 				$("button.image_delete").on("click",function(){
-					var id = $(this).parent().find(".banner_id").val();
+					var id = $(this).parent().find(".image_id").val();
 					cIndex.deleteBannerImage(id);
 				});
 			});
