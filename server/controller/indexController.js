@@ -50,7 +50,7 @@ module.exports = function(app){
     app.all("/addBannerImageAction",function(req,res){
         uploadHelper.fileSingle(req,res,"bannerImg",function(result){
             var thisTime = new Date().getTime();
-            var resourcesUrl = "/resources/images/";
+            var resourcesUrl = "/resources/";
             var imgUrl = resourcesUrl + result.file.filename;
             var conditions = {
                 "bannerId":result.body.bannerId,
