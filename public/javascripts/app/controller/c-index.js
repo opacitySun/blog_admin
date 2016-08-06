@@ -103,7 +103,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				$("#imageUpload").append('<input type="file" name="bannerImg" />');
 			});
 		},
-		//banner图管理提交
+		//banner提交
 		bannerEditSubmit : function(){
 			var bannerName = $("#bannerName").val();
 			if(bannerName == ''){
@@ -113,6 +113,9 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 			var imgLen = $(".bannerImg").length;
 			if(imgLen <= 1 && $(".bannerImg")[0].val() == ''){
 				alert("请上传至少一张图片");
+				return false;
+			}else if(imgLen > 6){
+				alert("图片不能超过6张");
 				return false;
 			}
 			if(confirm("确认提交新的banner数据吗？")){
@@ -132,7 +135,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				}
 			}
 		},
-		//banner图管理提交
+		//banner图提交
 		bannerImageEditSubmit : function(){
 			var bannerImageName = $("#bannerImageName").val();
 			if(bannerImageName == ''){

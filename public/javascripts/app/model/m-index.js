@@ -7,7 +7,7 @@ define(["./Base"],function(Base){
 		addBannerData : function(formData,callback){
 			var url = "/addBannerAction";
 			var data = formData;
-			modelBase.postAjax(url,data,function(res){
+			modelBase.postFormDataAjax(url,data,function(res){
 				callback(res);
 			});
 		},
