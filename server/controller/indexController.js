@@ -39,7 +39,7 @@ module.exports = function(app){
         });    
     });
     //添加banner
-    app.all("/addBannerAction",function(req,res){
+    app.all("/addBannerAction",function(req,res,next){
         var thisTime = new Date().getTime();
         var conditions0 = {
             "createTime":thisTime,

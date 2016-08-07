@@ -24,7 +24,12 @@ router.get('/banner-image', function(req, res, next) {
 
 /* banner-image-edit */
 router.get('/banner-image-edit', function(req, res, next) {
-  res.render('banner-image-edit', { title: '首页 -- banner图 -- 图片编辑',layout: 'layout.html' });
+  res.render('banner-image-edit', { title: 'banner图 -- 图片编辑',layout: 'layout.html' });
+});
+
+/* index-show */
+router.get('/index-show', function(req, res, next) {
+  res.render('index-show', { title: '首页 -- 显示模块管理',layout: 'layout.html' });
 });
 
 /* login */
