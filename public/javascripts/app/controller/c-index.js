@@ -48,11 +48,11 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 				$("#bannerList").html(html);
 				$("button.banner_look").on("click",function(){
 					var id = $(this).parent().find(".banner_id").val();
-					window.location.href = "/index-banner-edit?type=look&id="+id;
+					window.location.href = "/banner-edit?type=look&id="+id;
 				});
 				$("button.banner_edit").on("click",function(){
 					var id = $(this).parent().find(".banner_id").val();
-					window.location.href = "/index-banner-edit?type=edit&id="+id;
+					window.location.href = "/banner-edit?type=edit&id="+id;
 				});
 				$("button.banner_delete").on("click",function(){
 					var id = $(this).parent().find(".banner_id").val();
@@ -127,7 +127,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
-							window.location.href="/index-banner";
+							window.location.href="/banner";
 		                }else{
 		                    alert("提交失败");
 		                }
@@ -229,7 +229,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					$("#bannerForm").append('<button type="button" id="bannerSubmit" class="btn btn-primary">提交</button>');
 					$("#bannerForm").append('<button type="button" id="pageBack" class="btn btn-info">返回</button>');
 					$("#bannerImageEdit").on("click",function(){
-						window.location.href="/index-banner-image?id="+id;
+						window.location.href="/banner-image?id="+id;
 					});
 					$("#bannerSubmit").on("click",function(){
 						cIndex.updateBanner(id);
@@ -260,7 +260,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					if(res.success == 1){
 	                    alert("修改成功");
 						flag = true;
-						window.location.href="/index-banner";
+						window.location.href="/banner";
 	                }else{
 	                    alert("修改失败");
 	                }
@@ -277,7 +277,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;
-							window.location.href="/index-banner";
+							window.location.href="/banner";
 		                }else{
 		                    alert("删除失败");
 		                }

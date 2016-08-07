@@ -1,12 +1,12 @@
 
 define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],function($,fnbase,bootstrap,controller,model){
     var urlPath = fnbase.getRouterName();
-	if(urlPath == "/index-banner"){	//banner管理
+	if(urlPath == "/banner"){	//banner管理
 		controller.getBannerList();
 		$("#addBannerButton").on("click",function(){
 			window.location.href = "/index-banner-edit?type=add";
 		});	
-	}else if(urlPath == "/index-banner-edit"){	//banner编辑
+	}else if(urlPath == "/banner-edit"){	//banner编辑
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
@@ -33,7 +33,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
         	});
 			$("#pageHeader").html("首页 <small>banner修改</small>");
         }
-	}else if(urlPath == "/index-banner-image"){
+	}else if(urlPath == "/banner-image"){
         var requestGet = fnbase.GetRequest();
         var urlId = requestGet["id"];
         controller.getBannerImageList(urlId);
