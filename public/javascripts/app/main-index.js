@@ -4,7 +4,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
 	if(urlPath == "/banner"){	//banner管理
 		controller.getBannerList();
 		$("#addBannerButton").on("click",function(){
-			window.location.href = "/index-banner-edit?type=add";
+			window.location.href = "/banner-edit?type=add";
 		});	
 	}else if(urlPath == "/banner-edit"){	//banner编辑
 		var requestGet = fnbase.GetRequest();
@@ -20,16 +20,16 @@ define(['jquery','fnbase','bootstrap','./controller/c-index','./model/m-index'],
         }else if(urlType == "look"){
         	controller.lookBanner(urlId);
         	$("#pageBack").on("click",function(){
-        		window.location.href="/index-banner";
+        		window.location.href="/banner";
         	});
         	$("#pageHeader").html("首页 <small>banner查看</small>");
         }else if(urlType == "edit"){
         	controller.editBanner(urlId);
         	$("#pageBack").on("click",function(){
-        		window.location.href="/index-banner";
+        		window.location.href="/banner";
         	});
         	$("#bannerImageEdit").on("click",function(){
-        		window.location.href="/index-banner-image";
+        		window.location.href="/banner-image";
         	});
 			$("#pageHeader").html("首页 <small>banner修改</small>");
         }
