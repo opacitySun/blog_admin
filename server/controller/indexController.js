@@ -70,13 +70,15 @@ module.exports = function(app){
                                         "updateTime":thisTime
                                     };
                                     bannerImageDao.addBannerImage(conditions3,dbHelper,function(result4){  
-                                        if(result3.success == 1){
-                                            res.json(result0);
+                                        if(result4.success == 1){
+                                            next();
                                         }else{
                                             res.json(result4);
+                                            return;
                                         }
                                     });    
-                                });   
+                                }); 
+                                res.json(result0);  
                             }else{
                                 res.json(result3);
                             }

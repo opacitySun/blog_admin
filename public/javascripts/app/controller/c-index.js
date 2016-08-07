@@ -12,7 +12,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					html += '<tr>';
 					html += '<td>'+(key+1)+'</td>';
 					html += '<td>'+obj.name+'</td>';
-					switch(obj.type){
+					switch(Number(obj.type)){
 						case 1:
 							objType = "轮播图";
 							break;
@@ -20,7 +20,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 							objType = "单张图";
 					}
 					html += '<td>'+objType+'</td>';
-					switch(obj.pageTo){
+					switch(Number(obj.pageTo)){
 						case 1:
 							objPageTo = "作品列表页";
 							break;
@@ -28,7 +28,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 							objPageTo = "首页";
 					}
 					html += '<td>'+objPageTo+'</td>';
-					switch(obj.isShow){
+					switch(Number(obj.isShow)){
 						case 1:
 							objIsShow = "显示";
 							break;
