@@ -32,6 +32,16 @@ router.get('/index-show', function(req, res, next) {
   res.render('index-show', { title: '首页 -- 显示模块管理',layout: 'layout.html' });
 });
 
+/* user-list */
+router.get('/user', function(req, res, next) {
+  res.render('user', { title: '用户',layout: 'layout.html' });
+});
+
+/* user-edit */
+router.get('/user-edit', function(req, res, next) {
+  res.render('user-edit', { title: '用户 -- 编辑',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });

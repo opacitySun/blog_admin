@@ -1,0 +1,29 @@
+
+<div class="row">
+    <div class="col-lg-6">
+        <form role="form" id="bannerForm" enctype="multipart/form-data">
+        	<div class="form-group">
+	            <label>用户名：</label>
+	            <input class="form-control" name="userName" id="userName" />
+	            <p class="help-block"></p>
+	        </div>
+
+	        <div class="form-group">
+                <label>描述：</label>
+                <textarea class="form-control" rows="3" name="userDesc" id="userDesc"></textarea>
+                <p class="help-block"></p>
+            </div>
+
+            <div class="form-group image_upload" id="imageUpload">
+                <label>用户头像：</label>
+                <input type="file" name="userImg" />
+            </div>
+
+            <button type="button" id="userSubmit" class="btn btn-primary">提交</button>
+            <button type="reset" id="userReset" class="btn btn-default">重置</button>
+        </form>
+    </div>
+</div>
+<!-- /.row -->
+
+<script type="text/javascript" data-main="/javascripts/user.js" src="/javascripts/lib/require-min.js"></script>

@@ -1,3 +1,4 @@
+var ObjectID = require("mongodb").ObjectID;
 var dbHelper = require("../DBHelper/dbHelper");
 var userDao = require("../DBSql/userDao");
 var userInfoDao = require("../DBSql/userInfoDao");
@@ -7,11 +8,33 @@ var userInfoDao = require("../DBSql/userInfoDao");
  * @returns {Function}  
  */ 
 exports.outerConnectAction = function(app){
+    //查找用户列表
+    app.all("/outerUserListAction",function(req,res){
+        var conditions ={};  
+        userDao.findUser(conditions,dbHelper,function(result){  
+            res.json(result); 
+        });    
+    });
     //查找用户
     app.all("/outerUserFindAction",function(req,res){
         var conditions ={'name':req.body.name,'password':req.body.password};  
         userDao.findOneUser(conditions,dbHelper,function(result){  
             res.json(result); 
+        });    
+    });
+    //删除用户
+    app.all("/outerDeleteUserAction",function(req,res){
+        var id = req.body.id;
+        var conditions0 ={"_id":ObjectID(id)};  
+        userDao.removeUser(conditions0,dbHelper,function(result0){  
+            if(result0.success == 1){
+                var conditions1 ={"userId":id};  
+                userInfoDao.removeUserInfo(conditions1,dbHelper,function(result1){
+                    res.json(result1);
+                });
+            }else{
+                res.json(result0); 
+            }
         });    
     });
     //获取session信息
