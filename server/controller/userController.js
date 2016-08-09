@@ -82,7 +82,7 @@ exports.outerConnectAction = function(app){
         uploadHelper.fileSingle(req,res,"userImg",function(result0){
             var thisTime = new Date().getTime();
             var resourcesUrl = "/resources/";
-            var imgUrl = resourcesUrl + result.file.filename;
+            var imgUrl = resourcesUrl + result0.file.filename;
             var find = {"userId":result0.body.userId};
             userInfoDao.findOneUserInfo(find,dbHelper,function(result1){  
                 if(result1.success == 1){
