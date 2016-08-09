@@ -19,9 +19,9 @@ define(['./Base'],function(Base){
 			});
 		},
 		//查找用户信息
-		findUserInfo : function(userId,callback){
+		findUserInfo : function(id,callback){
 			var url = "/outerUserInfoFindAction";
-			var data = {"userId":userId};
+			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
