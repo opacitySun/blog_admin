@@ -76,12 +76,64 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 				if(res.success == 1){
 					$("#userName").val(res.result.name);
 					$("#userDesc").val(res.result.desc);
-					$("input[name='userImg']").val(res.result.image);
+					$("#userImg").css({
+						"width":"20px",
+						"height":"20px"
+					});
+					$("#userImg").parent().css("position","relative").append('<img src="'+res.result.image+'" />');
+					$("#userImg").parent().find("img").css({
+						"position":"absolute",
+						"width":"120px",
+						"height":"144px"
+					}).on("click",function(){
+						$("#userImg").click();
+					});
+					$("#userImg").on("change",function(){
+						if($(this).val() == ''){
+							$("#userInfoSubmit").on("click",function(){
+								cUser.userInfoEditSubmitNoImg(id);
+							});
+						}else{
+							$("#userInfoSubmit").on("click",function(){
+								cUser.userInfoEditSubmit();
+							});
+						}
+					});
+				}else{
+					$("#userInfoSubmit").on("click",function(){
+						cUser.userInfoEditSubmit();
+					});
 				}
 			});
-			$("#userInfoSubmit").on("click",function(){
-				cUser.userInfoEditSubmit();
-			});
+		},
+		//用户信息提交(无图片时)
+		userInfoEditSubmitNoImg : function(id){
+			var userName = $("#userName").val();
+			if(userName == ''){
+				$("#userName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+				return false;
+			}
+			var userDesc = $("#userDesc").val();
+			if(confirm("确认提交新的用户信息数据吗？")){
+				var flag = true;
+				var formData = {
+					"userId":id,
+					"name":userName,
+					"desc":userDesc
+				};
+				if(flag == true){
+					flag = false;
+					model.editUserInfoNoImg(formData,function(res){
+		                if(res.success == 1){
+		                    alert("提交成功");
+							flag = true;
+							history.go(-1);
+		                }else{
+		                    alert("提交失败");
+		                }
+		            });
+				}
+			}
 		},
         //用户信息提交
 		userInfoEditSubmit : function(){
@@ -90,7 +142,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 				$("#userName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			if($("input[name='userImg']").val() == ''){
+			if($("#userImg").val() == ''){
 				alert("请上传用户头像");
 				return false;
 			}

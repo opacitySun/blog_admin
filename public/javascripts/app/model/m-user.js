@@ -10,11 +10,19 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
-		//添加userInfo
+		//添加修改userInfo
 		editUserInfo : function(formData,callback){
 			var url = "/outerEditUserInfoAction";
 			var data = formData;
 			modelBase.postFormDataAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//添加修改userInfo,且不修改图片
+		editUserInfoNoImg : function(formData,callback){
+			var url = "/outerEditUserInfoNoImgAction";
+			var data = {"userId":formData.userId,"name":formData.name,"desc":formData.desc};
+			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},

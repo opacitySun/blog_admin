@@ -64,6 +64,19 @@ exports.outerConnectAction = function(app){
             res.json(result); 
         });    
     });
+    //修改用户信息（无图片时）
+    app.all("/outerEditUserInfoNoImgAction",function(req,res){
+        var thisTime = new Date().getTime();
+        var conditions ={"userId":ObjectID(req.body.userId)};  
+        var update ={
+            "name":req.body.name,
+            "desc":req.body.desc,
+            "updateTime":thisTime
+        };  
+        userInfoDao.updateUserInfo(conditions,update,dbHelper,function(result){  
+            res.json(result); 
+        });    
+    });
     //编辑用户信息
     app.all("/outerEditUserInfoAction",function(req,res){
         uploadHelper.fileSingle(req,res,"userImg",function(result0){
