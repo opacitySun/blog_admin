@@ -107,7 +107,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 		bannerEditSubmit : function(){
 			var bannerName = $("#bannerName").val();
 			if(bannerName == ''){
-				$("#bannerName").parent().addClass("has-warning has-feedback").find(".help-block").text("banner名称不能为空");
+				$("#bannerName").parent().addClass("has-error has-feedback").find(".help-block").text("banner名称不能为空");
 				return false;
 			}
 			var imgLen = $("input[name='bannerImg']").length;
@@ -139,7 +139,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 		bannerImageEditSubmit : function(){
 			var bannerImageName = $("#bannerImageName").val();
 			if(bannerImageName == ''){
-				$("#bannerImageName").parent().addClass("has-warning has-feedback").find(".help-block").text("名称不能为空");
+				$("#bannerImageName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
 			var files = $("input[name='bannerImg']").prop("files");
@@ -246,7 +246,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 		updateBanner : function(id){
 			var bannerName = $("#bannerName").val();
 			if(bannerName == ''){
-				$("#bannerName").parent().addClass("has-warning has-feedback").find(".help-block").text("banner名称不能为空");
+				$("#bannerName").parent().addClass("has-error has-feedback").find(".help-block").text("banner名称不能为空");
 				return false;
 			}
 			var bannerType = $("input[name='bannerType']:checked").val();

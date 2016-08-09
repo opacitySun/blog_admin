@@ -63,9 +63,9 @@ exports.removeUser = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.updateUser = function(conditions,update,options,dbHelper,callback) {  
+exports.updateUser = function(conditions,update,dbHelper,callback) {  
     var userModel =user.getModel();  
-    dbHelper.updateData(userModel,conditions,update,options,function(result){  
+    dbHelper.updateData(userModel,conditions,update,function(result){  
         callback(result);  
     });  
 }  

@@ -42,6 +42,11 @@ router.get('/user-edit', function(req, res, next) {
   res.render('user-edit', { title: '用户 -- 编辑',layout: 'layout.html' });
 });
 
+/* user-info-edit */
+router.get('/user-info-edit', function(req, res, next) {
+  res.render('user-info-edit', { title: '用户信息 -- 编辑',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });
