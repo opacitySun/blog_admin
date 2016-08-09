@@ -80,11 +80,13 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 						"width":"20px",
 						"height":"20px"
 					});
-					$("#userImg").parent().css("position","relative").append('<img src="'+res.result.image+'" />');
+					$("#userImg").parent().css("position","relative").css("height":"144px").append('<img src="'+res.result.image+'" />');
 					$("#userImg").parent().find("img").css({
 						"position":"absolute",
 						"width":"120px",
-						"height":"144px"
+						"height":"144px",
+						"top":"0",
+						"left":"0"
 					}).on("click",function(){
 						$("#userImg").click();
 					});
