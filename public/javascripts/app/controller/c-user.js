@@ -93,16 +93,15 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 					}).on("click",function(){
 						$("#userImg").click();
 					});
+					$("#userInfoSubmit").on("click",function(){
+						cUser.userInfoEditSubmitNoImg(id);
+					});
 					$("#userImg").on("change",function(){
-						if($(this).val() == ''){
-							$("#userInfoSubmit").on("click",function(){
-								cUser.userInfoEditSubmitNoImg(id);
-							});
-						}else{
-							$("#userInfoSubmit").on("click",function(){
-								cUser.userInfoEditSubmit();
-							});
-						}
+						$("#userImg").parent().removeAttr("style").find("img").remove();
+						$("#userImg").removeAttr("style");
+						$("#userInfoSubmit").on("click",function(){
+							cUser.userInfoEditSubmit();
+						});
 					});
 				}else{
 					$("#userInfoSubmit").on("click",function(){
