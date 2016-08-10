@@ -9,8 +9,8 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
         			html += '<tr>';
         			html += '<td>'+(key+1)+'</td>';
         			html += '<td>'+obj.workName+'</td>';
-        			html += '<td><img src="'+obj.workImg+'" /></td>';
-        			html += '<td><a target="_blank" href="'+obj.workUrl+'"></a></td>';
+        			html += '<td><img style="max-width:50px;height:auto;" src="'+obj.workImg+'" /></td>';
+        			html += '<td><a target="_blank" href="'+obj.workUrl+'">'+obj.workUrl+'</a></td>';
         			switch(Number(obj.type)){
 						case 1:
 							objType = "手机";
