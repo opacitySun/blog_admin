@@ -99,6 +99,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 					$("#userImg").on("change",function(){
 						$("#userImg").parent().removeAttr("style").find("img").remove();
 						$("#userImg").removeAttr("style");
+						$("#userInfoSubmit").off("click");
 						$("#userInfoSubmit").on("click",function(){
 							cUser.userInfoEditSubmit();
 						});
