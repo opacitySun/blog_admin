@@ -67,7 +67,7 @@ exports.outerConnectAction = function(app){
     //修改用户信息（无图片时）
     app.all("/outerEditUserInfoNoImgAction",function(req,res){
         var thisTime = new Date().getTime();
-        var conditions ={"userId":ObjectID(req.body.userId)};  
+        var conditions ={"userId":req.body.userId};  
         var update ={
             "name":req.body.name,
             "desc":req.body.desc,
