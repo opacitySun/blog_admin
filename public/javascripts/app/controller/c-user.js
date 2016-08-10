@@ -152,7 +152,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 			}
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
-				var formData = new FormData($("#userForm")[0]);
+				var formData = new FormData($("#userInfoForm")[0]);
 				if(flag == true){
 					flag = false;
 					model.editUserInfo(formData,function(res){
