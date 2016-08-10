@@ -1,4 +1,4 @@
-define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,model) {
+define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,model) {
     var cUser = {
         //获取用户列表
         getUserList : function(){
