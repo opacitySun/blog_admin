@@ -59,7 +59,17 @@ router.get('/works-edit', function(req, res, next) {
 
 /* study */
 router.get('/study', function(req, res, next) {
-  res.render('study', { title: '作品',layout: 'layout.html' });
+  res.render('study', { title: '学习分享',layout: 'layout.html' });
+});
+
+/* study-edit */
+router.get('/study-edit', function(req, res, next) {
+  res.render('study-edit', { title: '学习分享 -- 编辑详情',layout: 'layout.html' });
+});
+
+/* study-type */
+router.get('/study-type', function(req, res, next) {
+  res.render('study-type', { title: '学习分享 -- 编辑类型',layout: 'layout.html' });
 });
 
 /* login */
