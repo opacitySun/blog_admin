@@ -130,7 +130,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 					"workUrl":workUrl,
 					"type":type,
 					"status":status,
-					"userId",userId
+					"userId":userId
 				};
 				if(flag == true){
 					flag = false;
