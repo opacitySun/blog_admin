@@ -141,7 +141,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
-							history.go(-1);
+							window.location.href = "/works";
 		                }else{
 		                    alert("提交失败");
 		                }
