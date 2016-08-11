@@ -56,7 +56,10 @@ module.exports = function(app){
             var thisTime = new Date().getTime();
             var resourcesUrl = "/resources/";
             var imgUrl = resourcesUrl + result0.file.filename;
-            var find = {"_id":ObjectID(result0.body.workId)};
+            var find = {};
+            if(result0.body.workId != ''){
+                find = {"_id":ObjectID(result0.body.workId)};
+            }
             userWorksDao.findOneUserWorks(find,dbHelper,function(result1){  
                 if(result1.success == 1){
                     var conditions = {"_id":ObjectID(result0.body.workId)};
