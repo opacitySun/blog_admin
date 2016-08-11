@@ -52,7 +52,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 		editWorks : function(id){
 			model.getWorkById(id,function(res){
 				if(res.success == 1){
-					model.getWorkById(function(resUser){	//获取关联用户列表
+					model.getUserList(function(resUser){	//获取关联用户列表
 						if(resUser.success == 1){
 							var html = "";
 							$.each(resUser.result,function(obj){

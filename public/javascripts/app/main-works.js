@@ -10,7 +10,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-works','./model/m-works'],
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
         if(urlType == "add"){
-        	model.getWorkById(function(resUser){	//获取关联用户列表
+        	model.getUserList(function(resUser){	//获取关联用户列表
 				if(resUser.success == 1){
 					var html = "";
 					$.each(resUser.result,function(obj){
