@@ -56,7 +56,7 @@ module.exports = function(app){
             var thisTime = new Date().getTime();
             var resourcesUrl = "/resources/";
             var imgUrl = resourcesUrl + result0.file.filename;
-            var find = {"_id":ObjectID("111")};
+            var find = {"_id":"xxx"};
             if(result0.body.workId != ''){
                 find = {"_id":ObjectID(result0.body.workId)};
             }
