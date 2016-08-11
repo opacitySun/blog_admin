@@ -18,6 +18,14 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//添加作品信息
+		addWork : function(formData,callback){
+			var url = "/addWorkAction";
+			var data = formData;
+			modelBase.postFormDataAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//修改作品信息（无图片时）
 		editWorkNoImg : function(formData,callback){
 			var url = "/updateWorkByIdAction";
@@ -35,7 +43,7 @@ define(["./Base"],function(Base){
 		},
 		//修改作品信息
 		editWork : function(formData,callback){
-			var url = "/outerEditUserInfoAction";
+			var url = "/editWorkAction";
 			var data = formData;
 			modelBase.postFormDataAjax(url,data,function(res){
 				callback(res);

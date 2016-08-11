@@ -169,7 +169,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 				var formData = new FormData($("#workForm")[0]);
 				if(flag == true){
 					flag = false;
-					model.editUserInfo(formData,function(res){
+					model.editWork(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;

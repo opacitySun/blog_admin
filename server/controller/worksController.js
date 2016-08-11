@@ -57,7 +57,7 @@ module.exports = function(app){
             var resourcesUrl = "/resources/";
             var imgUrl = resourcesUrl + result0.file.filename;
             var find = {"_id":ObjectID(result0.body.workId)};
-            userInfoDao.findOneUserInfo(find,dbHelper,function(result1){  
+            userWorksDao.findOneUserWorks(find,dbHelper,function(result1){  
                 if(result1.success == 1){
                     var conditions = {"_id":ObjectID(result0.body.workId)};
                     var update = {
@@ -68,7 +68,7 @@ module.exports = function(app){
                         "userId":result0.body.userId,
                         "updateTime":thisTime
                     };
-                    userInfoDao.updateUserInfo(conditions,update,dbHelper,function(result3){  
+                    userWorksDao.updateUserWorks(conditions,update,dbHelper,function(result3){  
                         res.json(result3);
                     }); 
                 }else{
@@ -81,7 +81,7 @@ module.exports = function(app){
                         "createTime":thisTime,
                         "updateTime":thisTime
                     };
-                    userInfoDao.addUserInfo(conditions,dbHelper,function(result2){  
+                    userWorksDao.addUserWorks(conditions,dbHelper,function(result2){  
                         res.json(result2);
                     });    
                 }
