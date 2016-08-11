@@ -25,7 +25,7 @@ module.exports = function(app){
 
     //根据id获取作品信息
     app.all("/getWorkByIdAction",function(req,res){
-        var conditions = {};
+        var conditions = {"_id":ObjectID(req.body.id)};
         userWorksDao.findOneUserWorks(conditions,dbHelper,function(result){  
             console.log(result);
             res.json(result);

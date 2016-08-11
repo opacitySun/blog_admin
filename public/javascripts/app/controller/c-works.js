@@ -191,7 +191,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;
-							window.location.href="/user";
+							window.location.href="/works";
 		                }else{
 		                    alert("删除失败");
 		                }
