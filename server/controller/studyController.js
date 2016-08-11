@@ -5,7 +5,7 @@ var studyDetailDao = require("../DBSql/studyDetailDao");
 var studyTypeDao = require("../DBSql/studyTypeDao");
 
 module.exports = function(app){
-    //获取全部项目列表
+    //获取全部文章列表
     app.all("/studyAllListFindAction",function(req,res){
     	var result = {};
         var conditions = {};
@@ -24,6 +24,13 @@ module.exports = function(app){
             	res.json(result);
         	});    
         });     
+    });
+    //获取分享文章类型
+    app.all("/studyTypeListFindAction",function(req,res){
+        var conditions = {};
+        studyTypeDao.findStudyType(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
     });
     //详情
     app.all("/studyDetailAction",function(req,res){
