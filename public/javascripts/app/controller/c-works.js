@@ -62,6 +62,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 								html += '</label>';
 								html += '</div>';
 							});
+							$("#relationUser").append(html);
 						}else{
 							console.log(resUser);
 						}

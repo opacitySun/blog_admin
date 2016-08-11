@@ -10,6 +10,21 @@ define(['jquery','fnbase','bootstrap','./controller/c-works','./model/m-works'],
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
         if(urlType == "add"){
+        	model.getWorkById(function(resUser){	//获取关联用户列表
+				if(resUser.success == 1){
+					var html = "";
+					$.each(resUser.result,function(obj){
+						html += '<div class="radio">';
+						html += '<label>';
+						html += '<input type="radio" name="userId" value="'+obj._id.toString()+'">'+obj.name;
+						html += '</label>';
+						html += '</div>';
+					});
+					$("#relationUser").append(html);
+				}else{
+					console.log(resUser);
+				}
+			});
 			$("#workSubmit").on("click",function(){
 				controller.worksEditSubmit();
 			});
