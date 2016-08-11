@@ -122,9 +122,9 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 			if(workUrl == ''){
 				workUrl = "javascript:void(0)";
 			}
-			var type = $("input[name='type']").is(":checked").val();
-			var status = $("input[name='status']").is(":checked").val();
-			var userId = $("input[name='userId']").is(":checked").val();
+			var type = $("input[name='type']:checked").val();
+			var status = $("input[name='status']:checked").val();
+			var userId = $("input[name='userId']:checked").val();
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
 				var formData = {
