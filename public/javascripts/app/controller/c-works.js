@@ -1,7 +1,9 @@
 define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,model) {
-    var cUser = {
+	var staticPath = $("#staticPath").val();
+
+    var cWorks = {
         //获取用户列表
-        getUserList : function(){
+        getWorksList : function(){
         	model.getWorksList(function(res){
         		html = "";
         		$.each(res.result,function(key,obj){
@@ -9,7 +11,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
         			html += '<tr>';
         			html += '<td>'+(key+1)+'</td>';
         			html += '<td>'+obj.workName+'</td>';
-        			html += '<td><img style="max-width:50px;height:auto;" src="'+obj.workImg+'" /></td>';
+        			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.workImg+'" /></td>';
         			html += '<td><a target="_blank" href="'+obj.workUrl+'">'+obj.workUrl+'</a></td>';
         			switch(Number(obj.type)){
 						case 1:
@@ -38,7 +40,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
         		$("#worksList").html(html);
         		$("button.works_edit").on("click",function(){
 					var id = $(this).parent().find(".works_id").val();
-					window.location.href = "/works-edit?id="+id;
+					window.location.href = "/works-edit?type=edit&&id="+id;
 				});
 				$("button.works_delete").on("click",function(){
 					var id = $(this).parent().find(".works_id").val();
@@ -48,64 +50,91 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
         },
 		//编辑作品
 		editWorks : function(id){
-			$("#userId").val(id);
-			model.getUserInfo(id,function(res){
+			model.getWorkById(id,function(res){
 				if(res.success == 1){
-					$("#userName").val(res.result.name);
-					$("#userDesc").val(res.result.desc);
-					$("#userImg").css({
+					model.getWorkById(function(resUser){	//获取关联用户列表
+						if(resUser.success == 1){
+							var html = "";
+							$.each(resUser.result,function(obj){
+								html += '<div class="radio">';
+								html += '<label>';
+								html += '<input type="radio" name="userId" value="'+obj._id.toString()+'">'+obj.name;
+								html += '</label>';
+								html += '</div>';
+							});
+						}else{
+							console.log(resUser);
+						}
+					});
+					$("#workId").val(res.result._id.toString());
+					$("#workName").val(res.result.workName);
+					$("#workUrl").val(res.result.workUrl);
+					$("input[name='type']").prop("checked",false);
+					$("input[id='type"+res.result.type+"']").prop("checked",true);
+					$("input[name='status']").prop("checked",false);
+					$("input[id='status"+res.result.status+"']").prop("checked",true);
+					$("#workImg").css({
 						"width":"20px",
 						"height":"20px"
 					});
-					$("#userImg").parent().css({
+					$("#workImg").parent().css({
 						"position":"relative",
-						"height":"144px"
-					}).append('<img src="'+res.result.image+'" />');
-					$("#userImg").parent().find("img").css({
+						"height":"140px"
+					}).append('<img src="'+res.result.workImg+'" />');
+					$("#workImg").parent().find("img").css({
 						"position":"absolute",
-						"width":"120px",
-						"height":"144px",
+						"width":"188px",
+						"height":"140px",
 						"top":"0",
 						"left":"0"
 					}).on("click",function(){
-						$("#userImg").click();
+						$("#workImg").click();
 					});
-					$("#userInfoSubmit").on("click",function(){
-						cUser.userInfoEditSubmitNoImg(id);
+					$("#workSubmit").on("click",function(){
+						cWorks.worksEditSubmitNoImg(id);
 					});
-					$("#userImg").on("change",function(){
-						$("#userImg").parent().removeAttr("style").find("img").remove();
-						$("#userImg").removeAttr("style");
-						$("#userInfoSubmit").off("click");
-						$("#userInfoSubmit").on("click",function(){
-							cUser.userInfoEditSubmit();
+					$("#workImg").on("change",function(){
+						$("#workImg").parent().removeAttr("style").find("img").remove();
+						$("#workImg").removeAttr("style");
+						$("#workSubmit").off("click");
+						$("#workSubmit").on("click",function(){
+							cWorks.worksEditSubmit();
 						});
 					});
 				}else{
-					$("#userInfoSubmit").on("click",function(){
-						cUser.userInfoEditSubmit();
+					$("#workSubmit").on("click",function(){
+						cWorks.worksEditSubmit();
 					});
 				}
 			});
 		},
 		//作品提交(无图片时)
 		worksEditSubmitNoImg : function(id){
-			var userName = $("#userName").val();
-			if(userName == ''){
-				$("#userName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+			var workName = $("#workName").val();
+			if(workName == ''){
+				$("#workName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			var userDesc = $("#userDesc").val();
+			var workUrl = $("#workUrl").val();
+			if(workUrl == ''){
+				workUrl = "javascript:void(0)";
+			}
+			var type = $("input[name='type']").is(":checked").val();
+			var status = $("input[name='status']").is(":checked").val();
+			var userId = $("input[name='userId']").is(":checked").val();
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
 				var formData = {
-					"userId":id,
-					"name":userName,
-					"desc":userDesc
+					"id":id,
+					"workName":workName,
+					"workUrl":workUrl,
+					"type":type,
+					"status":status,
+					"userId",userId
 				};
 				if(flag == true){
 					flag = false;
-					model.editUserInfoNoImg(formData,function(res){
+					model.editWorkNoImg(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
@@ -119,18 +148,22 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 		},
         //作品提交
 		worksEditSubmit : function(){
-			var userName = $("#userName").val();
-			if(userName == ''){
-				$("#userName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+			var workName = $("#workName").val();
+			if(workName == ''){
+				$("#workName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			if($("#userImg").val() == ''){
-				alert("请上传用户头像");
+			var workUrl = $("#workUrl").val();
+			if(workUrl == ''){
+				$("#workUrl").val("javascript:void(0)");
+			}
+			if($("#workImg").val() == ''){
+				alert("请上传作品截图");
 				return false;
 			}
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
-				var formData = new FormData($("#userInfoForm")[0]);
+				var formData = new FormData($("#workForm")[0]);
 				if(flag == true){
 					flag = false;
 					model.editUserInfo(formData,function(res){
@@ -165,5 +198,5 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
         }
     };
 
-    return cUser;
+    return cWorks;
 });
