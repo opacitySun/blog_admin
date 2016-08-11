@@ -13,11 +13,10 @@ define(['jquery','fnbase','bootstrap','./controller/c-works','./model/m-works'],
         	model.getUserList(function(resUser){	//获取关联用户列表
 				if(resUser.success == 1){
 					var html = "";
-					$.each(resUser.result,function(obj){
-						var userId = obj._id;
+					$.each(resUser.result,function(key,obj){
 						html += '<div class="radio">';
 						html += '<label>';
-						html += '<input type="radio" name="userId" value="'+userId.toString()+'">'+obj.name;
+						html += '<input type="radio" name="userId" value="'+obj._id.toString()+'">'+obj.name;
 						html += '</label>';
 						html += '</div>';
 					});

@@ -55,7 +55,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 					model.getUserList(function(resUser){	//获取关联用户列表
 						if(resUser.success == 1){
 							var html = "";
-							$.each(resUser.result,function(obj){
+							$.each(resUser.result,function(key,obj){
 								html += '<div class="radio">';
 								html += '<label>';
 								html += '<input type="radio" name="userId" value="'+obj._id.toString()+'">'+obj.name;
