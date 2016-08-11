@@ -41,6 +41,14 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//删除作品
+		deleteWork : function(id,callback){
+			var url = "/deleteWorkAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//获取用户列表
 		getUserList : function(callback){
 			var url = "/outerUserListAction";

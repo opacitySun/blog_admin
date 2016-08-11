@@ -187,7 +187,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 				var flag = true;
 				if(flag == true){
 					flag = false;
-					model.deleteWorks(id,function(res){
+					model.deleteWork(id,function(res){
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;

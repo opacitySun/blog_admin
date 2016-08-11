@@ -93,4 +93,13 @@ module.exports = function(app){
             });  
         });   
     });
+
+    //删除作品
+    app.all("/deleteWorkAction",function(req,res){
+        var id = req.body.id;
+        var conditions0 ={"_id":ObjectID(id)};  
+        userWorksDao.removeUserWorks(conditions0,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
 }
