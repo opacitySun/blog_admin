@@ -6,7 +6,8 @@
         paths : {
             'jquery':'lib/jquery-1.11.3.min',
             'fnbase':'lib/fnbase',
-            'bootstrap':'lib/bootstrap-sb-admin/js/bootstrap.min'
+            'bootstrap':'lib/bootstrap-sb-admin/js/bootstrap.min',
+            'editor':'lib/LineControl-Editor/js/editor'
         },
         map : {
             '*':{
@@ -18,6 +19,15 @@
             'bootstrap':{
                 deps:['jquery'],
                 exports:'bootstrap'
+            },
+            'editor':{
+                deps:[
+                'jquery',
+                'bootstrap',
+                'css!../javascripts/lib/LineControl-Editor/css/default.css',
+                'css!../javascripts/lib/LineControl-Editor/css/editor.css'
+                ],
+                exports:'editor'
             }
         }
     });
