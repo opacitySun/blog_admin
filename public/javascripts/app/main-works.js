@@ -2,7 +2,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-works','./model/m-works'],
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/works"){	//作品管理
 		controller.getWorksList();
-		$("#addUserButton").on("click",function(){
+		$("#addButton").on("click",function(){
 			window.location.href = "/works-edit?type=add";
 		});	
 	}else if(urlPath == "/works-edit"){	//作品编辑

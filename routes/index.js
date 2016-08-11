@@ -57,6 +57,11 @@ router.get('/works-edit', function(req, res, next) {
   res.render('works-edit', { title: '作品 -- 编辑',layout: 'layout.html' });
 });
 
+/* study */
+router.get('/study', function(req, res, next) {
+  res.render('study', { title: '作品',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });
