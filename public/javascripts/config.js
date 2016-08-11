@@ -24,7 +24,6 @@
                 deps:[
                 'jquery',
                 'bootstrap',
-                'css!../javascripts/lib/LineControl-Editor/css/default.css',
                 'css!../javascripts/lib/LineControl-Editor/css/editor.css'
                 ],
                 exports:'editor'
