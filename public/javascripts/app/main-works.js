@@ -14,11 +14,13 @@ define(['jquery','fnbase','bootstrap','./controller/c-works','./model/m-works'],
 				if(resUser.success == 1){
 					var html = "";
 					$.each(resUser.result,function(key,obj){
-						html += '<div class="radio">';
-						html += '<label>';
-						html += '<input type="radio" name="userId" value="'+obj._id.toString()+'">'+obj.name;
-						html += '</label>';
-						html += '</div>';
+						if(key > 0){
+							html += '<div class="radio">';
+							html += '<label>';
+							html += '<input type="radio" name="userId" value="'+obj._id.toString()+'">'+obj.name;
+							html += '</label>';
+							html += '</div>';
+						}
 					});
 					$("#relationUser").append(html);
 				}else{
