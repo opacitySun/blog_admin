@@ -9,7 +9,7 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
-        $("#article").Editor();
+        $("#articleEditor").Editor();
         model.getStudyTypeList(function(resType){	//获取分享文章类型
 			if(resType.success == 1){
 				var html = "";
