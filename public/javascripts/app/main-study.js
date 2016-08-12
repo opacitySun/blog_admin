@@ -19,7 +19,7 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 					if(key > 0){
 						html += '<input type="radio" name="type" value="'+obj.type+'">'+obj.name;
 					}else{
-						html += '<input type="radio" name="type" value="'+obj.type+'" cheched>'+obj.name;
+						html += '<input type="radio" name="type" value="'+obj.type+'" checked>'+obj.name;
 					}
 					html += '</label>';
 					html += '</div>';
