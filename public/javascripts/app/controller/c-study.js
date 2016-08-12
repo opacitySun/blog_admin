@@ -31,6 +31,12 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 				});
         	});
         },
+        //编辑文章
+        editStudy : function(id){
+        	model.getStudyInfoById(id,function(res){
+
+        	});
+        },
         //提交分享文章
         studyEditSubmit : function(){
         	var studyName = $("#studyName").val();
@@ -43,16 +49,12 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 				$("#author").parent().addClass("has-error has-feedback").find(".help-block").text("作者不能为空");
 				return false;
 			}
-			if($("#workImg").val() == ''){
-				alert("请上传作品截图");
-				return false;
-			}
-			if(confirm("确认提交新的用户信息数据吗？")){
+			if(confirm("确认提交数据吗？")){
 				var flag = true;
 				var formData = new FormData($("#studyForm")[0]);
 				if(flag == true){
 					flag = false;
-					model.editWork(formData,function(res){
+					model.editStudy(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;

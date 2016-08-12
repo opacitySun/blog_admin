@@ -41,7 +41,6 @@ var multerConfig = {
  * Accept a single file with the name fieldname. The single file will be stored in req.file.
  * @param req 请求
  * @param res 响应
- * @param detaildest 详细路径
  * @param fieldname 所接收附件的名字
  * @param callback 回调方法 
  */ 
@@ -63,7 +62,6 @@ exports.fileSingle = function(req,res,fieldname,callback){
  * Accept an array of files, all with the name fieldname. Optionally error out if more than maxCountfiles are uploaded. The array of files will be stored in req.files.
  * @param req 请求
  * @param res 响应
- * @param detaildest 详细路径
  * @param fieldname 所接收附件的名字
  * @param maxnum 允许的最大数量
  * @param callback 回调方法 
@@ -86,7 +84,6 @@ exports.fileArray = function(req,res,fieldname,maxnum,callback){
  * Accept a mix of files, specified by fields. An object with arrays of files will be stored inreq.files.fields should be an array of objects with name and optionally a maxCount.
  * @param req 请求
  * @param res 响应
- * @param detaildest 详细路径
  * @param fieldsarray 配置数组,例如：
    [
 	{ name: 'avatar', maxCount: 1 },
@@ -111,12 +108,6 @@ exports.fileFields = function(req,res,fieldsarray,callback){
  * Accepts all files that comes over the wire. An array of files will be stored in req.files.
  * @param req 请求
  * @param res 响应
- * @param detaildest 详细路径
- * @param fieldsarray 配置数组,例如：
-   [
-	{ name: 'avatar', maxCount: 1 },
-	{ name: 'gallery', maxCount: 8 }
-   ]
  */ 
 exports.fileAny = function(req,res,callback){
 	var upload = multer(multerConfig).any();

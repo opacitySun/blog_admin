@@ -14,13 +14,15 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 			if(resType.success == 1){
 				var html = "";
 				$.each(resType.result,function(key,obj){
+					html += '<div class="radio">';
+					html += '<label>';
 					if(key > 0){
-						html += '<div class="radio">';
-						html += '<label>';
 						html += '<input type="radio" name="type" value="'+obj.type+'">'+obj.name;
-						html += '</label>';
-						html += '</div>';
+					}else{
+						html += '<input type="radio" name="type" value="'+obj.type+'" cheched>'+obj.name;
 					}
+					html += '</label>';
+					html += '</div>';
 				});
 				$("#studyType").append(html);
 			}else{
@@ -37,7 +39,7 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
         	$("#pageBack").on("click",function(){
         		window.location.href="/study";
         	});
-			$("#pageHeader").html("学习分享 <small>添加文章</small>");
+			$("#pageHeader").html("学习分享 <small>修改文章</small>");
         }
 	}else if(urlPath == "/study-type"){	//编辑类型
 		var requestGet = fnbase.GetRequest();

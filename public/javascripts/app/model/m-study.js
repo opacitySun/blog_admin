@@ -18,6 +18,22 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//根据id获取文章内容
+		getStudyInfoById : function(id,callback){
+			var url = "/studyInfoFindByIdAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//添加或修改分享文章
+		editStudy : function(formData,callback){
+			var url = "/editStudyAction";
+			var data = formData;
+			modelBase.postFormDataAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//删除分享资料
 		deleteStudy : function(id,callback){
 			var url = "/deleteStudyAction";

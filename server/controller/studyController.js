@@ -1,5 +1,6 @@
 var ObjectID = require("mongodb").ObjectID;
 var dbHelper = require("../DBHelper/dbHelper");
+var uploadHelper = require("../DBHelper/uploadHelper");
 var studyDao = require("../DBSql/studyDao");
 var studyDetailDao = require("../DBSql/studyDetailDao");
 var studyTypeDao = require("../DBSql/studyTypeDao");
@@ -40,6 +41,20 @@ module.exports = function(app){
             console.log(JSON.stringify(result));
             res.json(result);
         });    
+    });
+    //根据id获取文章内容
+    app.all("/studyInfoFindByIdAction",function(req,res){
+        var id = req.body.id;
+        var conditions0 = {"_id":ObjectID(id)};
+        studyDao.findOneStudy(conditions0,dbHelper,function(result0){  
+            
+        });    
+    });
+    //添加或修改分享文章
+    app.all("/editStudyAction",function(req,res){
+        uploadHelper.fileAny(req,res,function(result){
+            console.log(result);
+        });
     });
     //删除分享资料
     app.all("/deleteStudyAction",function(req,res){
