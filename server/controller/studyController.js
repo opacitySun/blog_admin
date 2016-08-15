@@ -46,8 +46,22 @@ module.exports = function(app){
     app.all("/studyInfoFindByIdAction",function(req,res){
         var id = req.body.id;
         var conditions0 = {"_id":ObjectID(id)};
+        var jsonRes = {};
         studyDao.findOneStudy(conditions0,dbHelper,function(result0){  
-            
+            if(result0.success == 1){
+                jsonRes = result0;
+                var conditions1 = {"studyId":id};
+                studyDetailDao.findOneStudyDetail(conditions1,dbHelper,function(result1){
+                    if(result1.success == 1){
+                        jsonRes.result["article"] = result1.result.article;
+                        res.json(jsonRes);
+                    }else{
+                        res.json(result1);
+                    }
+                });
+            }else{
+                res.json(result0);
+            }
         });    
     });
     //添加或修改分享文章

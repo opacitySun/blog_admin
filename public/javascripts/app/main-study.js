@@ -17,9 +17,9 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 					html += '<div class="radio">';
 					html += '<label>';
 					if(key > 0){
-						html += '<input type="radio" name="type" value="'+obj.type+'">'+obj.name;
+						html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
 					}else{
-						html += '<input type="radio" name="type" value="'+obj.type+'" checked>'+obj.name;
+						html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
 					}
 					html += '</label>';
 					html += '</div>';
@@ -29,6 +29,9 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 				console.log(resType);
 			}
 		});
+		$("#pageBack").on("click",function(){
+    		window.location.href="/study";
+    	});
         if(urlType == "add"){
 			$("#studySubmit").on("click",function(){
 				controller.studyEditSubmit();
@@ -36,9 +39,6 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 			$("#pageHeader").html("学习分享 <small>添加文章</small>");
         }else if(urlType == "edit"){
         	controller.editStudy(urlId);
-        	$("#pageBack").on("click",function(){
-        		window.location.href="/study";
-        	});
 			$("#pageHeader").html("学习分享 <small>修改文章</small>");
         }
 	}else if(urlPath == "/study-type"){	//编辑类型

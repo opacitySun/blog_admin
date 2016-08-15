@@ -34,7 +34,15 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
         //编辑文章
         editStudy : function(id){
         	model.getStudyInfoById(id,function(res){
-
+        		$("#studyName").val(res.result.name);
+        		$("#author").val(res.result.author);
+        		$("input[name='type']").prop("checked",false);
+        		$("input[id='type"+res.result.type+"']").prop("checked",true);
+        		$("#articleEditor").Editor("setText",decodeURI(res.result.article));
+        		$("#article").val(decodeURI(res.result.article));
+        		$("#studySubmit").on("click",function(){
+					cStudy.studyEditSubmit();
+				});
         	});
         },
         //提交分享文章
