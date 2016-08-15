@@ -40,36 +40,38 @@ module.exports = function(app){
     });
     //添加或修改新闻消息
     app.all("/editNewsAction",function(req,res){
-        var thisTime = new Date().getTime();
-        var find = {"_id":"xxx"};
-        if(req.body.newsId != ''){
-            find = {"_id":ObjectID(req.body.newsId)};
-        }
-        newsDao.findOneNews(find,dbHelper,function(result1){  
-            if(result1.success == 1){
-                var conditions = {"_id":ObjectID(req.body.newsId)};
-                var update = {
-                    "name":req.body.name,
-                    "type":Number(req.body.type),
-                    "desc":req.body.desc,
-                    "updateTime":thisTime
-                };
-                newsDao.updateNews(conditions,update,dbHelper,function(result2){  
-                    res.json(result2);
-                }); 
-            }else{
-                var conditions = {
-                    "name":req.body.name,
-                    "type":Number(req.body.type),
-                    "desc":req.body.desc,
-                    "createTime":thisTime,
-                    "updateTime":thisTime
-                };
-                newsDao.addNews(conditions,dbHelper,function(result2){  
-                    res.json(result2);
-                });    
+        uploadHelper.fileAny(req,res,function(result0){
+            var thisTime = new Date().getTime();
+            var find = {"_id":"xxx"};
+            if(result0.body.newsId != ''){
+                find = {"_id":ObjectID(result0.body.newsId)};
             }
-        });  
+            newsDao.findOneNews(find,dbHelper,function(result1){  
+                if(result1.success == 1){
+                    var conditions = {"_id":ObjectID(result0.body.newsId)};
+                    var update = {
+                        "name":result0.body.newsName,
+                        "type":Number(result0.body.type),
+                        "desc":result0.body.desc,
+                        "updateTime":thisTime
+                    };
+                    newsDao.updateNews(conditions,update,dbHelper,function(result2){  
+                        res.json(result2);
+                    }); 
+                }else{
+                    var conditions = {
+                        "name":result0.body.newsName,
+                        "type":Number(result0.body.type),
+                        "desc":result0.body.desc,
+                        "createTime":thisTime,
+                        "updateTime":thisTime
+                    };
+                    newsDao.addNews(conditions,dbHelper,function(result2){  
+                        res.json(result2);
+                    });    
+                }
+            });  
+        });
     });
     //添加或修改类型
     app.all("/editNewsTypeAction",function(req,res){

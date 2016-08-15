@@ -29,7 +29,7 @@ define(['require','jquery'],function(require,$){
                 cache : false,
                 data : data,
                 url : url,
-                //timeout:1000,
+                timeout:1000,
                 dataType : "json",
                 async : true,
                 type : "post",
