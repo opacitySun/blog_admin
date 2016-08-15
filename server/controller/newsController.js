@@ -1,5 +1,6 @@
 var ObjectID = require("mongodb").ObjectID;
 var dbHelper = require("../DBHelper/dbHelper");
+var uploadHelper = require("../DBHelper/uploadHelper");
 var newsDao = require("../DBSql/newsDao");
 var newsTypeDao = require("../DBSql/newsTypeDao");
 
@@ -22,12 +23,86 @@ module.exports = function(app){
         	});    
         });     
     });
-    //新闻详情
-    app.all("/newsDetailAction",function(req,res){
+    //获取类型
+    app.all("/newsTypeListFindAction",function(req,res){
+        var conditions = {};
+        newsTypeDao.findNewsType(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
+    //根据id获取新闻内容
+    app.all("/newsFindByIdAction",function(req,res){
         var id = req.body.id;
         var conditions = {"_id":ObjectID(id)};
         newsDao.findOneNews(conditions,dbHelper,function(result){  
-            console.log(JSON.stringify(result));
+            res.json(result);
+        });    
+    });
+    //添加或修改新闻消息
+    app.all("/editNewsAction",function(req,res){
+        uploadHelper.fileAny(req,res,function(result0){
+            var thisTime = new Date().getTime();
+            var find = {"_id":"xxx"};
+            if(result0.body.newsId != ''){
+                find = {"_id":ObjectID(result0.body.newsId)};
+            }
+            newsDao.findOneNews(find,dbHelper,function(result1){  
+                if(result1.success == 1){
+                    var conditions = {"_id":ObjectID(result0.body.newsId)};
+                    var update = {
+                        "name":result0.body.newsName,
+                        "type":Number(result0.body.type),
+                        "desc":result0.body.desc,
+                        "updateTime":thisTime
+                    };
+                    newsDao.updateNews(conditions,update,dbHelper,function(result2){  
+                        res.json(result2);
+                    }); 
+                }else{
+                    var conditions = {
+                        "name":result0.body.newsName,
+                        "type":Number(result0.body.type),
+                        "desc":result0.body.desc,
+                        "createTime":thisTime,
+                        "updateTime":thisTime
+                    };
+                    newsDao.addNews(conditions,dbHelper,function(result2){  
+                        res.json(result2);
+                    });    
+                }
+            });  
+        });
+    });
+    //添加或修改分享类型
+    app.all("/editNewsTypeAction",function(req,res){
+        var conditions0 = {};
+        newsTypeDao.findNewsType(conditions0,dbHelper,function(result0){
+            if(result0.success == 1){
+                var typeArr = [];
+                result0.result.forEach(function(obj){
+                    typeArr.push(obj.type);
+                });
+                var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
+                var thisTime = new Date().getTime();
+                var conditions1 = {
+                    "name":req.body.name,
+                    "type":Number(typeMax+1),
+                    "createTime":thisTime,
+                    "updateTime":thisTime
+                };
+                newsTypeDao.addNewsType(conditions1,dbHelper,function(result1){  
+                    res.json(result1);
+                });    
+            }else{
+                res.json(result0);
+            }
+        });
+    });
+    //删除消息新闻
+    app.all("/deleteNewsAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        newsDao.removeNews(conditions,dbHelper,function(result){  
             res.json(result);
         });    
     });

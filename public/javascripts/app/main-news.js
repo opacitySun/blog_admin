@@ -9,12 +9,12 @@ define(['jquery','fnbase','editor','./controller/c-news','./model/m-news'],funct
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
-        $("#articleEditor").Editor();
+        $("#descEditor").Editor();
 		$("#pageBack").on("click",function(){
     		window.location.href="/news";
     	});
         if(urlType == "add"){
-        	model.getStudyTypeList(function(resType){	//获取新闻消息类型
+        	model.getNewsTypeList(function(resType){	//获取新闻消息类型
 				if(resType.success == 1){
 					var html = "";
 					$.each(resType.result,function(key,obj){
@@ -28,22 +28,22 @@ define(['jquery','fnbase','editor','./controller/c-news','./model/m-news'],funct
 						html += '</label>';
 						html += '</div>';
 					});
-					$("#studyType").append(html);
+					$("#newsType").append(html);
 				}else{
 					console.log(resType);
 				}
 			});
-			$("#studySubmit").on("click",function(){
-				controller.studyEditSubmit();
+			$("#newsSubmit").on("click",function(){
+				controller.newsEditSubmit();
 			});
 			$("#pageHeader").html("新闻消息 <small>添加文章</small>");
         }else if(urlType == "edit"){
-        	controller.editStudy(urlId);
+        	controller.editNews(urlId);
 			$("#pageHeader").html("新闻消息 <small>修改文章</small>");
         }
 	}else if(urlPath == "/news-type"){	//编辑类型
-		$("#studySubmit").on("click",function(){
-			controller.studyTypeSubmit();
+		$("#newsSubmit").on("click",function(){
+			controller.newsTypeSubmit();
 		});
 		$("#pageBack").on("click",function(){
     		window.location.href="/news";

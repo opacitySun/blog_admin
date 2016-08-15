@@ -11,40 +11,40 @@ define(["./Base"],function(Base){
 			});
 		},
 		//获取分享文章类型
-		getStudyTypeList : function(callback){
-			var url = "/studyTypeListFindAction";
+		getNewsTypeList : function(callback){
+			var url = "/newsTypeListFindAction";
 			var data = {};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},
 		//根据id获取文章内容
-		getStudyInfoById : function(id,callback){
-			var url = "/studyInfoFindByIdAction";
+		getNewsById : function(id,callback){
+			var url = "/newsFindByIdAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},
-		//添加或修改分享文章
-		editStudy : function(formData,callback){
-			var url = "/editStudyAction";
+		//添加或修改新闻消息
+		editNews : function(formData,callback){
+			var url = "/editNewsAction";
 			var data = formData;
 			modelBase.postFormDataAjax(url,data,function(res){
 				callback(res);
 			});
 		},
-		//添加或修改分享类型
-		editStudyType : function(formData,callback){
-			var url = "/editStudyTypeAction";
+		//添加或修改类型
+		editNewsType : function(formData,callback){
+			var url = "/editNewsTypeAction";
 			var data = {"name":formData.name};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},
-		//删除分享资料
-		deleteStudy : function(id,callback){
-			var url = "/deleteStudyAction";
+		//删除新闻消息
+		deleteNews : function(id,callback){
+			var url = "/deleteNewsAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);

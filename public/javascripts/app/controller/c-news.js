@@ -26,14 +26,14 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 				});
 				$("button.news_delete").on("click",function(){
 					var id = $(this).parent().find(".news_id").val();
-					cNews.deleteStudy(id);
+					cNews.deleteNews(id);
 				});
         	});
         },
         //编辑文章
-        editStudy : function(id){
-        	model.getStudyInfoById(id,function(res){
-        		model.getStudyTypeList(function(resType){	//获取分享文章类型
+        editNews : function(id){
+        	model.getNewsById(id,function(res){
+        		model.getNewsTypeList(function(resType){	//获取类型
 					if(resType.success == 1){
 						var html = "";
 						$.each(resType.result,function(key,obj){
@@ -47,15 +47,14 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 							html += '</label>';
 							html += '</div>';
 						});
-						$("#studyType").append(html);
-						$("#studyName").val(res.result.name);
-		        		$("#author").val(res.result.author);
+						$("#newsType").append(html);
+						$("#newsName").val(res.result.name);
 		        		$("input[name='type']").prop("checked",false);
 		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
-		        		$("#articleEditor").Editor("setText",decodeURI(res.result.article));
-		        		$("#article").val(decodeURI(res.result.article));
-		        		$("#studySubmit").on("click",function(){
-							cStudy.studyEditSubmit();
+		        		$("#descEditor").Editor("setText",decodeURI(res.result.desc));
+		        		$("#desc").val(decodeURI(res.result.desc));
+		        		$("#newsSubmit").on("click",function(){
+							cNews.newsEditSubmit();
 						});
 					}else{
 						console.log(resType);
@@ -63,26 +62,21 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 				});
         	});
         },
-        //提交分享文章
-        studyEditSubmit : function(){
-        	var studyName = $("#studyName").val();
-			if(studyName == ''){
-				$("#studyName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+        //提交消息新闻
+        newsEditSubmit : function(){
+        	var newsName = $("#newsName").val();
+			if(newsName == ''){
+				$("#newsName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			var author = $("#author").val();
-			if(author == ''){
-				$("#author").parent().addClass("has-error has-feedback").find(".help-block").text("作者不能为空");
-				return false;
-			}
-			var article = $("#articleEditor").Editor("getText");
-			$("#article").val(encodeURI(article));
+			var desc = $("#descEditor").Editor("getText");
+			$("#desc").val(encodeURI(desc));
 			if(confirm("确认提交数据吗？")){
 				var flag = true;
-				var formData = new FormData($("#studyForm")[0]);
+				var formData = new FormData($("#newsForm")[0]);
 				if(flag == true){
 					flag = false;
-					model.editStudy(formData,function(res){
+					model.editNews(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
@@ -94,8 +88,8 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 				}
 			}
         },
-        //分享类型提交
-        studyTypeSubmit : function(){
+        //类型提交
+        newsTypeSubmit : function(){
         	var typeName = $("#typeName").val();
 			if(typeName == ''){
 				$("#typeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
@@ -108,11 +102,11 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 				};
 				if(flag == true){
 					flag = false;
-					model.editStudyType(formData,function(res){
+					model.editNewsType(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
-							window.location.href = "/study-type";
+							window.location.href = "/news-type";
 		                }else{
 		                    alert("提交失败");
 		                }
@@ -121,12 +115,12 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 			}
         },
         //删除作品
-        deleteStudy : function(id){
+        deleteNews : function(id){
         	if(confirm("确认删除该数据吗？")){
 				var flag = true;
 				if(flag == true){
 					flag = false;
-					model.deleteStudy(id,function(res){
+					model.deleteNews(id,function(res){
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;
