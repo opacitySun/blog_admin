@@ -34,14 +34,33 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
         //编辑文章
         editStudy : function(id){
         	model.getStudyInfoById(id,function(res){
-        		$("#studyName").val(res.result.name);
-        		$("#author").val(res.result.author);
-        		$("input[name='type']").prop("checked",false);
-        		$("input[id='type"+res.result.type+"']").prop("checked",true);
-        		$("#articleEditor").Editor("setText",decodeURI(res.result.article));
-        		$("#article").val(decodeURI(res.result.article));
-        		$("#studySubmit").on("click",function(){
-					cStudy.studyEditSubmit();
+        		model.getStudyTypeList(function(resType){	//获取分享文章类型
+					if(resType.success == 1){
+						var html = "";
+						$.each(resType.result,function(key,obj){
+							html += '<div class="radio">';
+							html += '<label>';
+							if(key > 0){
+								html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
+							}else{
+								html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
+							}
+							html += '</label>';
+							html += '</div>';
+						});
+						$("#studyType").append(html);
+						$("#studyName").val(res.result.name);
+		        		$("#author").val(res.result.author);
+		        		$("input[name='type']").prop("checked",false);
+		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
+		        		$("#articleEditor").Editor("setText",decodeURI(res.result.article));
+		        		$("#article").val(decodeURI(res.result.article));
+		        		$("#studySubmit").on("click",function(){
+							cStudy.studyEditSubmit();
+						});
+					}else{
+						console.log(resType);
+					}
 				});
         	});
         },

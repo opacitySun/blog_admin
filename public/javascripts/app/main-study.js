@@ -10,29 +10,29 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
         $("#articleEditor").Editor();
-        model.getStudyTypeList(function(resType){	//获取分享文章类型
-			if(resType.success == 1){
-				var html = "";
-				$.each(resType.result,function(key,obj){
-					html += '<div class="radio">';
-					html += '<label>';
-					if(key > 0){
-						html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
-					}else{
-						html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
-					}
-					html += '</label>';
-					html += '</div>';
-				});
-				$("#studyType").append(html);
-			}else{
-				console.log(resType);
-			}
-		});
 		$("#pageBack").on("click",function(){
     		window.location.href="/study";
     	});
         if(urlType == "add"){
+        	model.getStudyTypeList(function(resType){	//获取分享文章类型
+				if(resType.success == 1){
+					var html = "";
+					$.each(resType.result,function(key,obj){
+						html += '<div class="radio">';
+						html += '<label>';
+						if(key > 0){
+							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
+						}else{
+							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
+						}
+						html += '</label>';
+						html += '</div>';
+					});
+					$("#studyType").append(html);
+				}else{
+					console.log(resType);
+				}
+			});
 			$("#studySubmit").on("click",function(){
 				controller.studyEditSubmit();
 			});
