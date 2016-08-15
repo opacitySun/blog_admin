@@ -55,7 +55,7 @@ module.exports = function(app){
         uploadHelper.fileAny(req,res,function(result0){
             var thisTime = new Date().getTime();
             var find = {"_id":"xxx"};
-            if(result0.body.workId != ''){
+            if(result0.body.studyId != ''){
                 find = {"_id":ObjectID(result0.body.studyId)};
             }
             studyDao.findOneStudy(find,dbHelper,function(result1){  
