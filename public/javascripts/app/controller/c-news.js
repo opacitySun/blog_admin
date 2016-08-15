@@ -1,4 +1,4 @@
-define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,model) {
+define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,model) {
 	var staticPath = $("#staticPath").val();
 
 	var cNews = {
