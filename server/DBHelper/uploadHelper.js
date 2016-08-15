@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
 var multerConfig = {
 	storage:storage,
 	limits: {
-        fileSize: 10*1024*1024 // Max file size in bytes (10 MB)
+        fileSize: 16*1024*1024 // Max file size in bytes (16 MB)
     },
     fileFilter: function (req, file, cb) {
         var mimetypes = (['text/*', 'image/*', 'video/*', 'audio/*', 'application/zip']).join(',');
