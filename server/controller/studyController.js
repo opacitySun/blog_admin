@@ -52,8 +52,64 @@ module.exports = function(app){
     });
     //添加或修改分享文章
     app.all("/editStudyAction",function(req,res){
-        uploadHelper.fileAny(req,res,function(result){
-            console.log(result);
+        uploadHelper.fileAny(req,res,function(result0){
+            var thisTime = new Date().getTime();
+            var find = {"_id":"xxx"};
+            if(result0.body.workId != ''){
+                find = {"_id":ObjectID(result0.body.studyId)};
+            }
+            studyDao.findOneStudy(find,dbHelper,function(result1){  
+                if(result1.success == 1){
+                    var conditions = {"_id":ObjectID(result0.body.studyId)};
+                    var update = {
+                        "name":result0.body.studyName,
+                        "author":result0.body.author,
+                        "type":Number(result0.body.type),
+                        "updateTime":thisTime
+                    };
+                    studyDao.updateStudy(conditions,update,dbHelper,function(result2){  
+                        if(result2.success == 1){
+                            var conditions1 = {"studyId":result0.body.studyId};
+                            var update1 = {
+                                "name":result0.body.studyName,
+                                "author":result0.body.author,
+                                "article":result0.body.article,
+                                "updateTime":thisTime
+                            };
+                            studyDetailDao.updateStudyDetail(conditions1,update1,dbHelper,function(result3){
+                                res.json(result3);
+                            });
+                        }else{
+                            res.json(result2);
+                        }
+                    }); 
+                }else{
+                    var conditions = {
+                        "name":result0.body.studyName,
+                        "author":result0.body.author,
+                        "type":Number(result0.body.type),
+                        "createTime":thisTime,
+                        "updateTime":thisTime
+                    };
+                    studyDao.addStudy(conditions,dbHelper,function(result2){  
+                        if(result2.success == 1){
+                            var conditions1 = {
+                                "studyId":result0.body.studyId,
+                                "name":result0.body.studyName,
+                                "author":result0.body.author,
+                                "article":result0.body.article,
+                                "createTime":thisTime,
+                                "updateTime":thisTime
+                            };
+                            studyDetailDao.addStudyDetail(conditions1,dbHelper,function(result3){
+                                res.json(result3);
+                            });
+                        }else{
+                            res.json(result2);
+                        }
+                    });    
+                }
+            });  
         });
     });
     //删除分享资料
