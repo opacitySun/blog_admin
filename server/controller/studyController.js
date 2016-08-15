@@ -94,7 +94,7 @@ module.exports = function(app){
                     studyDao.addStudy(conditions,dbHelper,function(result2){  
                         if(result2.success == 1){
                             var conditions1 = {
-                                "studyId":result0.body.studyId,
+                                "studyId":result2.result._id.toString(),
                                 "name":result0.body.studyName,
                                 "author":result0.body.author,
                                 "article":result0.body.article,
