@@ -34,6 +34,14 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//添加或修改分享类型
+		editStudyType : function(formData,callback){
+			var url = "/editStudyTypeAction";
+			var data = {"name":formData.name};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//删除分享资料
 		deleteStudy : function(id,callback){
 			var url = "/deleteStudyAction";

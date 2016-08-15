@@ -42,20 +42,9 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 			$("#pageHeader").html("学习分享 <small>修改文章</small>");
         }
 	}else if(urlPath == "/study-type"){	//编辑类型
-		var requestGet = fnbase.GetRequest();
-		var urlType = requestGet["type"];
-        var urlId = requestGet["id"];
-        if(urlType == "add"){
-			$("#studySubmit").on("click",function(){
-				controller.studyEditSubmit();
-			});
-			$("#pageHeader").html("学习分享 <small>添加类型</small>");
-        }else if(urlType == "edit"){
-        	controller.editWorks(urlId);
-        	$("#pageBack").on("click",function(){
-        		window.location.href="/works";
-        	});
-			$("#pageHeader").html("学习分享 <small>修改类型</small>");
-        }
+		$("#studySubmit").on("click",function(){
+			controller.studyTypeSubmit();
+		});
+		$("#pageHeader").html("学习分享 <small>添加类型</small>");
 	}
 });

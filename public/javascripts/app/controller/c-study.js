@@ -95,6 +95,32 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 				}
 			}
         },
+        //分享类型提交
+        studyTypeSubmit : function(){
+        	var typeName = $("#typeName").val();
+			if(typeName == ''){
+				$("#typeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+				return false;
+			}
+			if(confirm("确认提交新的数据吗？")){
+				var flag = true;
+				var formData = {
+					"name":typeName
+				};
+				if(flag == true){
+					flag = false;
+					model.editStudyType(formData,function(res){
+		                if(res.success == 1){
+		                    alert("提交成功");
+							flag = true;
+							window.location.href = "/study-type";
+		                }else{
+		                    alert("提交失败");
+		                }
+		            });
+				}
+			}
+        },
         //删除作品
         deleteStudy : function(id){
         	if(confirm("确认删除该数据吗？")){

@@ -33,15 +33,6 @@ module.exports = function(app){
             res.json(result);
         });    
     });
-    //详情
-    app.all("/studyDetailAction",function(req,res){
-        var id = req.body.id;
-        var conditions = {"studyId":id};
-        studyDetailDao.findOneStudyDetail(conditions,dbHelper,function(result){  
-            console.log(JSON.stringify(result));
-            res.json(result);
-        });    
-    });
     //根据id获取文章内容
     app.all("/studyInfoFindByIdAction",function(req,res){
         var id = req.body.id;
@@ -127,6 +118,31 @@ module.exports = function(app){
                     });    
                 }
             });  
+        });
+    });
+    //添加或修改分享类型
+    app.all("/editStudyTypeAction",function(req,res){
+        var conditions0 = {};
+        studyTypeDao.findStudyType(conditions0,dbHelper,function(result0){
+            if(result0.success == 1){
+                var typeArr = [];
+                result0.result.forEach(function(obj){
+                    typeArr.push(obj.type);
+                });
+                var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
+                var thisTime = new Date().getTime();
+                var conditions1 = {
+                    "name":req.body.name,
+                    "type":Number(typeMax+1),
+                    "createTime":thisTime,
+                    "updateTime":thisTime
+                };
+                studyTypeDao.addStudyType(conditions1,dbHelper,function(result1){  
+                    res.json(result1);
+                });    
+            }else{
+                res.json(result0);
+            }
         });
     });
     //删除分享资料
