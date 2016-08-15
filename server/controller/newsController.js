@@ -7,24 +7,17 @@ module.exports = function(app){
     //获取全部项目列表
     app.all("/newsAllListFindAction",function(req,res){
     	var result = {};
-
         var conditions = {};
-        newsTypeDao.findNewsType(conditions,dbHelper,function(newsTypeResult){  
-            console.log(JSON.stringify(newsTypeResult));
-            result = newsTypeResult;
-            newsDao.findNews(conditions,dbHelper,function(newsResult){  
-            	console.log(JSON.stringify(newsResult));
+        newsDao.findNews(conditions,dbHelper,function(newsResult){  
+            result = newsResult;
+            newsTypeDao.findNewsType(conditions,dbHelper,function(newsTypeResult){  
             	result.result.forEach(function(obj){
-            		var newsArr = [];
-            		newsResult.result.forEach(function(o){
-            			if(obj.type == o.type){
-            				newsArr.push(o);
-            			}
-            		});
-            		if(newsArr.length > 0){
-            			obj["data"] = newsArr;
-            		}
-            	});
+                    newsTypeResult.result.forEach(function(o){
+                        if(obj.type == o.type){
+                            obj["typeName"] = o.name;
+                        }
+                    });
+                });
             	res.json(result);
         	});    
         });     

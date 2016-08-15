@@ -72,6 +72,21 @@ router.get('/study-type', function(req, res, next) {
   res.render('study-type', { title: '学习分享 -- 编辑类型',layout: 'layout.html' });
 });
 
+/* news */
+router.get('/news', function(req, res, next) {
+  res.render('news', { title: '新闻消息',layout: 'layout.html' });
+});
+
+/* news-edit */
+router.get('/news-edit', function(req, res, next) {
+  res.render('news-edit', { title: '新闻消息 -- 编辑详情',layout: 'layout.html' });
+});
+
+/* news-type */
+router.get('/news-type', function(req, res, next) {
+  res.render('news-type', { title: '新闻消息 -- 编辑类型',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });
