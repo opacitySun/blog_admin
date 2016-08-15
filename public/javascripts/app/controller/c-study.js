@@ -50,7 +50,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 				return false;
 			}
 			var article = $("#articleEditor").Editor("getText");
-			$("#article").val(article);
+			$("#article").val(encodeURI(article));
 			if(confirm("确认提交数据吗？")){
 				var flag = true;
 				var formData = new FormData($("#studyForm")[0]);
