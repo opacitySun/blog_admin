@@ -93,17 +93,20 @@ module.exports = function(app){
                     };
                     studyDao.addStudy(conditions,dbHelper,function(result2){  
                         if(result2.success == 1){
-                            var conditions1 = {
-                                "studyId":result2.result._id.toString(),
-                                "name":result0.body.studyName,
-                                "author":result0.body.author,
-                                "article":result0.body.article,
-                                "createTime":thisTime,
-                                "updateTime":thisTime
-                            };
-                            studyDetailDao.addStudyDetail(conditions1,dbHelper,function(result3){
-                                res.json(result3);
-                            });
+                            var conditions1 = {"createTime":thisTime};
+                            studyDao.findOneStudy(conditions1,dbHelper,function(result3){
+                                var conditions2 = {
+                                    "studyId":result3.result._id.toString(),
+                                    "name":result0.body.studyName,
+                                    "author":result0.body.author,
+                                    "article":result0.body.article,
+                                    "createTime":thisTime,
+                                    "updateTime":thisTime
+                                };
+                                studyDetailDao.addStudyDetail(conditions2,dbHelper,function(result4){
+                                    res.json(result4);
+                                });
+                            });  
                         }else{
                             res.json(result2);
                         }
