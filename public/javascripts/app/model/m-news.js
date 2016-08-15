@@ -29,8 +29,13 @@ define(["./Base"],function(Base){
 		//添加或修改新闻消息
 		editNews : function(formData,callback){
 			var url = "/editNewsAction";
-			var data = formData;
-			modelBase.postFormDataAjax(url,data,function(res){
+			var data = {
+				"newsId":formData.newsId,
+				"name":formData.name,
+				"type":formData.type,
+				"desc":formData.desc
+			};
+			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},

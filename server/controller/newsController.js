@@ -49,7 +49,7 @@ module.exports = function(app){
             if(result1.success == 1){
                 var conditions = {"_id":ObjectID(req.body.newsId)};
                 var update = {
-                    "name":req.body.newsName,
+                    "name":req.body.name,
                     "type":Number(req.body.type),
                     "desc":req.body.desc,
                     "updateTime":thisTime
@@ -59,7 +59,7 @@ module.exports = function(app){
                 }); 
             }else{
                 var conditions = {
-                    "name":req.body.newsName,
+                    "name":req.body.name,
                     "type":Number(req.body.type),
                     "desc":req.body.desc,
                     "createTime":thisTime,

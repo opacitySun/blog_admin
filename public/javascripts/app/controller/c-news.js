@@ -64,16 +64,23 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
         },
         //提交消息新闻
         newsEditSubmit : function(){
+        	var newsId = $("#newsId").val();
         	var newsName = $("#newsName").val();
 			if(newsName == ''){
 				$("#newsName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
+			var newsType = $("input[name='type']:checked").val();
 			var desc = $("#descEditor").Editor("getText");
 			$("#desc").val(encodeURI(desc));
 			if(confirm("确认提交数据吗？")){
 				var flag = true;
-				var formData = new FormData($("#newsForm")[0]);
+				var formData = {
+					"newsId":newsId,
+					"name":newsName,
+					"type":newsType,
+					"desc":encodeURI(desc)
+				};
 				if(flag == true){
 					flag = false;
 					model.editNews(formData,function(res){
