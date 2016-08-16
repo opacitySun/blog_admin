@@ -1,5 +1,5 @@
 var ObjectID = require("mongodb").ObjectID;
-var fs = reqiure("fs");
+var fs = require("fs");
 var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var recreationDao = require("../DBSql/recreationDao");
