@@ -1,4 +1,4 @@
-define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],function($,fnbase,editor,controller,model){
+define(['jquery','fnbase','ueditor','./controller/c-study','./model/m-study'],function($,fnbase,ueditor,controller,model){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/study"){	//分享文章管理
 		controller.getStudyList();
@@ -9,7 +9,7 @@ define(['jquery','fnbase','editor','./controller/c-study','./model/m-study'],fun
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
-        $("#articleEditor").Editor();
+        var ue = UE.getEditor('articleEditor');
 		$("#pageBack").on("click",function(){
     		window.location.href="/study";
     	});
