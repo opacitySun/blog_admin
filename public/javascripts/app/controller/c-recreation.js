@@ -50,6 +50,7 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 						});
 						$("#recreationType").append(html);
 						$("#recreationName").val(res.result.name);
+						$("#recreationUrl").val(res.result.url);
 		        		$("input[name='type']").prop("checked",false);
 		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
 		        		$("#desc").val(res.result.desc);
@@ -87,7 +88,15 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 							});
 						}
 		        		$("#recreationSubmit").on("click",function(){
-							cRecreation.recreationEditSubmit();
+							cRecreation.recreationEditSubmitNoImg(id);
+						});
+						$("#recreationImg").on("change",function(){
+							$("#recreationImg").parent().removeAttr("style").find("img").remove();
+							$("#recreationImg").removeAttr("style");
+							$("#recreationSubmit").off("click");
+							$("#recreationSubmit").on("click",function(){
+								cRecreation.recreationEditSubmit();
+							});
 						});
 					}else{
 						console.log(resType);
@@ -95,11 +104,53 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 				});
         	});
         },
+        //提交(无图片时)
+		recreationEditSubmitNoImg : function(id){
+			var recreationName = $("#recreationName").val();
+			if(recreationName == ''){
+				$("#recreationName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+				return false;
+			}
+			var recreationUrl = $("#recreationUrl").val();
+			if(recreationUrl == ''){
+				$("#recreationUrl").parent().addClass("has-error has-feedback").find(".help-block").text("链接地址不能为空");
+				return false;
+			}
+			var type = $("input[name='type']:checked").val();
+			var desc = $("#desc").val();
+			if(confirm("确认提交新的用户信息数据吗？")){
+				var flag = true;
+				var formData = {
+					"id":id,
+					"name":recreationName,
+					"url":recreationUrl,
+					"type":type,
+					"desc":desc
+				};
+				if(flag == true){
+					flag = false;
+					model.editRecreationNoImg(formData,function(res){
+		                if(res.success == 1){
+		                    alert("提交成功");
+							flag = true;
+							window.location.href = "/recreation";
+		                }else{
+		                    alert("提交失败");
+		                }
+		            });
+				}
+			}
+		},
         //提交
         recreationEditSubmit : function(){
         	var recreationName = $("#recreationName").val();
 			if(recreationName == ''){
 				$("#recreationName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+				return false;
+			}
+			var recreationUrl = $("#recreationUrl").val();
+			if(recreationUrl == ''){
+				$("#recreationUrl").parent().addClass("has-error has-feedback").find(".help-block").text("链接地址不能为空");
 				return false;
 			}
 			if(confirm("确认提交数据吗？")){

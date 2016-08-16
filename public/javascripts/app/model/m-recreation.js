@@ -34,6 +34,20 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//修改（无图片时）
+		editRecreationNoImg : function(formData,callback){
+			var url = "/updateRecreationByIdAction";
+			var data = {
+				"id":formData.id,
+				"name":formData.name,
+				"url":formData.url,
+				"type":formData.type,
+				"desc":formData.desc
+			};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//添加或修改类型
 		editRecreationType : function(formData,callback){
 			var url = "/editRecreationTypeAction";

@@ -53,6 +53,7 @@ module.exports = function(app){
                     var conditions = {"_id":ObjectID(result0.body.recreationId)};
                     var update = {
                         "name":result0.body.recreationName,
+                        "url":result0.body.recreationUrl,
                         "type":Number(result0.body.type),
                         "desc":result0.body.desc,
                         "image":imgUrl,
@@ -64,6 +65,7 @@ module.exports = function(app){
                 }else{
                     var conditions = {
                         "name":result0.body.recreationName,
+                        "url":result0.body.recreationUrl,
                         "type":Number(result0.body.type),
                         "desc":result0.body.desc,
                         "image":imgUrl,
@@ -76,6 +78,21 @@ module.exports = function(app){
                 }
             });  
         });
+    });
+    //根据id修改
+    app.all("/updateRecreationByIdAction",function(req,res){
+        var thisTime = new Date().getTime();
+        var conditions = {"_id":ObjectID(req.body.id)};
+        var update = {
+            "name":req.body.name,
+            "url":req.body.url,
+            "type":req.body.type,
+            "desc":req.body.desc,
+            "updateTime":thisTime
+        };
+        recreationDao.updateRecreation(conditions,update,dbHelper,function(result){  
+            res.json(result);
+        });    
     });
     //添加或修改类型
     app.all("/editRecreationTypeAction",function(req,res){
