@@ -1,4 +1,4 @@
-define(['jquery','fnbase','editor','./controller/c-news','./model/m-news'],function($,fnbase,editor,controller,model){
+define(['jquery','fnbase','ueditor','./controller/c-news','./model/m-news'],function($,fnbase,ueditor,controller,model){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/news"){	//新闻消息管理
 		controller.getNewsList();
@@ -9,7 +9,7 @@ define(['jquery','fnbase','editor','./controller/c-news','./model/m-news'],funct
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
-        $("#descEditor").Editor();
+        var ue = UE.getEditor('descEditor');
 		$("#pageBack").on("click",function(){
     		window.location.href="/news";
     	});

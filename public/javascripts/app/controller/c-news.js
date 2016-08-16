@@ -48,10 +48,11 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 							html += '</div>';
 						});
 						$("#newsType").append(html);
+						$("#newsId").val(id);
 						$("#newsName").val(res.result.name);
 		        		$("input[name='type']").prop("checked",false);
 		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
-		        		$("#descEditor").Editor("setText",decodeURI(res.result.desc));
+		        		UE.getEditor('descEditor').setContent(decodeURI(res.result.desc));
 		        		$("#desc").val(decodeURI(res.result.desc));
 		        		$("#newsSubmit").on("click",function(){
 							cNews.newsEditSubmit();
@@ -69,7 +70,7 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 				$("#newsName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			var desc = $("#descEditor").Editor("getText");
+			var desc = UE.getEditor('descEditor').getContent();
 			$("#desc").val(encodeURI(desc));
 			if(confirm("确认提交数据吗？")){
 				var flag = true;
