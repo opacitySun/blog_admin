@@ -29,12 +29,13 @@ module.exports = function(app){
         var imageConditions = {"bannerId":id};
         bannerDao.findOneBanner(conditions,dbHelper,function(result){  
             bannerImageDao.findBannerImage(imageConditions,dbHelper,function(imageResult){
-                var images = [];
-                imageResult.result.forEach(function(obj){
-                    images.push(obj.url);
-                });
-                result.result["images"] = images;
-                console.log(JSON.stringify(result));
+                if(imageResult.success == 1){
+                    var images = [];
+                    imageResult.result.forEach(function(obj){
+                        images.push(obj.url);
+                    });
+                    result.result["images"] = images;
+                } 
                 res.json(result);
             });       
         });    
