@@ -8,8 +8,8 @@
             'fnbase':'lib/fnbase',
             'bootstrap':'lib/bootstrap-sb-admin/js/bootstrap.min',
             'editor':'lib/LineControl-Editor/js/editor',
-            'ueditor':'lib/ueditor/ueditor.all.min',
-            'ueditor-config':'lib/ueditor/ueditor.config'
+            'ueditor':'../ueditor/ueditor.all.min',
+            'ueditor-config':'../ueditor/ueditor.config'
         },
         map : {
             '*':{

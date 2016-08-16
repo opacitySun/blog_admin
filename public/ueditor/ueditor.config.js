@@ -20,7 +20,7 @@
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
     //var URL = window.UEDITOR_HOME_URL || getUEBasePath();
-    var URL = "http://www.sunbowei.com:3000/javascripts/lib/ueditor/";
+    var URL = "http://www.sunbowei.com:3000/ueditor/";
 
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。

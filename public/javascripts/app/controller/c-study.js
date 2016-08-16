@@ -53,7 +53,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 		        		$("#author").val(res.result.author);
 		        		$("input[name='type']").prop("checked",false);
 		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
-		        		$("#articleEditor").Editor("setText",decodeURI(res.result.article));
+		        		UE.getEditor('articleEditor').setContent(decodeURI(res.result.article));
 		        		$("#article").val(decodeURI(res.result.article));
 		        		$("#studySubmit").on("click",function(){
 							cStudy.studyEditSubmit();

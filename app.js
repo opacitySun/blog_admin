@@ -63,7 +63,7 @@ app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res
   else {
     res.setHeader('Content-Type', 'application/json');
     // 这里填写 ueditor.config.json 这个文件的路径
-    res.redirect('/javascripts/lib/ueditor/ueditor.config.json');
+    res.redirect('/ueditor/ueditor.config.json');
 }}));
 
 //将express与控制器相关联来达到路由的目的
