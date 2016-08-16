@@ -120,14 +120,14 @@ module.exports = function(app){
             }
         });
     });
-    //删除消息新闻
+    //删除
     app.all("/deleteRecreationAction",function(req,res){
         var id = req.body.id;
         var conditions = {"_id":ObjectID(id)};
         recreationDao.findOneRecreation(conditions,dbHelper,function(result0){  
             var imgUrl = result0.result.image;
             recreationDao.removeRecreation(conditions,dbHelper,function(result1){  
-                fs.unlinkSync('imgUrl');
+                fs.unlinkSync(imgUrl);
                 res.json(result1);
             });    
         });  
