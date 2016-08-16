@@ -1,32 +1,33 @@
-define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,model) {
+define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fnbase,model) {
 	var staticPath = $("#staticPath").val();
 
-	var cNews = {
+	var cRecreation = {
 		//获取用户列表
-        getNewsList : function(){
-        	model.getNewsList(function(res){
+        getRecreationList : function(){
+        	model.getRecreationList(function(res){
         		html = "";
         		$.each(res.result,function(key,obj){
         			html += '<tr>';
         			html += '<td>'+(key+1)+'</td>';
         			html += '<td>'+obj.name+'</td>';
         			html += '<td>'+obj.typeName+'</td>';
+        			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.image+'" /></td>';
         			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
         			html += '<td>';
-					html += '<input type="hidden" class="news_id" value="'+obj._id.toString()+'" />';
-					html += '<button type="button" class="btn btn-link news_edit">编辑</button>';
-					html += '<button type="button" class="btn btn-link news_delete">删除</button>';
+					html += '<input type="hidden" class="recreation_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link recreation_edit">编辑</button>';
+					html += '<button type="button" class="btn btn-link recreation_delete">删除</button>';
 					html += '</td>';
         			html += '</tr>';
         		});
-        		$("#newsList").html(html);
-        		$("button.news_edit").on("click",function(){
-					var id = $(this).parent().find(".news_id").val();
-					window.location.href = "/news-edit?type=edit&&id="+id;
+        		$("#recreationList").html(html);
+        		$("button.recreation_edit").on("click",function(){
+					var id = $(this).parent().find(".recreation_id").val();
+					window.location.href = "/recreation-edit?type=edit&&id="+id;
 				});
-				$("button.news_delete").on("click",function(){
-					var id = $(this).parent().find(".news_id").val();
-					cNews.deleteNews(id);
+				$("button.recreation_delete").on("click",function(){
+					var id = $(this).parent().find(".recreation_id").val();
+					cRecreation.deleteRecreation(id);
 				});
         	});
         },
@@ -114,8 +115,8 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 				}
 			}
         },
-        //删除作品
-        deleteNews : function(id){
+        //删除娱乐
+        deleteRecreation : function(id){
         	if(confirm("确认删除该数据吗？")){
 				var flag = true;
 				if(flag == true){
@@ -134,5 +135,5 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
         }
 	};
 
-	return cNews;
+	return cRecreation;
 });

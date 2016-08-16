@@ -87,6 +87,21 @@ router.get('/news-type', function(req, res, next) {
   res.render('news-type', { title: '新闻消息 -- 编辑类型',layout: 'layout.html' });
 });
 
+/* recreation */
+router.get('/recreation', function(req, res, next) {
+  res.render('recreation', { title: '娱乐',layout: 'layout.html' });
+});
+
+/* recreation-edit */
+router.get('/recreation-edit', function(req, res, next) {
+  res.render('recreation-edit', { title: '娱乐 -- 编辑详情',layout: 'layout.html' });
+});
+
+/* recreation-type */
+router.get('/recreation-type', function(req, res, next) {
+  res.render('recreation-type', { title: '娱乐 -- 编辑类型',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });
