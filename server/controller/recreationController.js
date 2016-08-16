@@ -127,7 +127,7 @@ module.exports = function(app){
         recreationDao.findOneRecreation(conditions,dbHelper,function(result0){  
             var imgUrl = result0.result.image;
             recreationDao.removeRecreation(conditions,dbHelper,function(result1){  
-                fs.unlinkSync(imgUrl);
+                fs.unlinkSync('./public'+imgUrl);
                 res.json(result1);
             });    
         });  
