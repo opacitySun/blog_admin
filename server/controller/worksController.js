@@ -1,4 +1,5 @@
 var ObjectID = require("mongodb").ObjectID;
+var fs = require("fs");
 var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var userWorksDao = require("../DBSql/userWorksDao");
@@ -97,9 +98,13 @@ module.exports = function(app){
     //删除作品
     app.all("/deleteWorkAction",function(req,res){
         var id = req.body.id;
-        var conditions0 ={"_id":ObjectID(id)};  
-        userWorksDao.removeUserWorks(conditions0,dbHelper,function(result){  
-            res.json(result);
-        });    
+        var conditions ={"_id":ObjectID(id)};  
+        userWorksDao.findOneUserWorks(conditions,dbHelper,function(result1){
+            var imgUrl = result1.result.workImg;
+            userWorksDao.removeUserWorks(conditions,dbHelper,function(result){  
+                fs.unlinkSync('./public'+imgUrl);
+                res.json(result);
+            });   
+        });   
     });
 }

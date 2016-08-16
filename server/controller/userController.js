@@ -1,4 +1,5 @@
 var ObjectID = require("mongodb").ObjectID;
+var fs = require("fs");
 var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var userDao = require("../DBSql/userDao");
@@ -119,9 +120,13 @@ exports.outerConnectAction = function(app){
         userDao.removeUser(conditions0,dbHelper,function(result0){  
             if(result0.success == 1){
                 var conditions1 ={"userId":id};  
-                userInfoDao.removeUserInfo(conditions1,dbHelper,function(result1){
-                    res.json(result1);
-                });
+                userInfoDao.findOneUserInfo(conditions1,dbHelper,function(result2){
+                    var imgUrl = result2.result.image;
+                    userInfoDao.removeUserInfo(conditions1,dbHelper,function(result1){
+                        fs.unlinkSync('./public'+imgUrl);
+                        res.json(result1);
+                    });
+                });  
             }else{
                 res.json(result0); 
             }

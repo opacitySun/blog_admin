@@ -1,4 +1,5 @@
 var ObjectID = require("mongodb").ObjectID;
+var fs = require("fs");
 var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var bannerDao = require("../DBSql/bannerDao");
@@ -130,24 +131,33 @@ module.exports = function(app){
     app.all("/deleteBannerAction",function(req,res){
         var id = req.body.id;
         var conditions0 = {"bannerId":id};
-        bannerImageDao.removeBannerImage(conditions0,dbHelper,function(result0){  
-            if(result0.success == 1){
-                var conditions1 = {"_id":ObjectID(id)};
-                bannerDao.removeBanner(conditions1,dbHelper,function(result1){  
-                    res.json(result1);
-                });    
-            }else{
-                res.json(result0);
-            }
-        });      
+        bannerImageDao.findBannerImage(conditions0,dbHelper,function(result2){
+            result2.result.forEach(function(obj){
+                var imgUrl = obj.url;
+                fs.unlinkSync('./public'+imgUrl);
+            });
+            bannerImageDao.removeBannerImage(conditions0,dbHelper,function(result0){  
+                if(result0.success == 1){
+                    var conditions1 = {"_id":ObjectID(id)};
+                    bannerDao.removeBanner(conditions1,dbHelper,function(result1){  
+                        res.json(result1);
+                    });    
+                }else{
+                    res.json(result0);
+                }
+            });      
+        });   
     });
     //删除banner图片
     app.all("/deleteBannerImageAction",function(req,res){
         var id = req.body.id;
         var conditions = {"_id":ObjectID(id)};
-        bannerImageDao.removeBannerImage(conditions,dbHelper,function(result){  
-            console.log(JSON.stringify(result));
-            res.json(result);
+        bannerImageDao.findOneBannerImage(conditions,dbHelper,function(result1){
+            var imgUrl = result1.result.url;
+            bannerImageDao.removeBannerImage(conditions,dbHelper,function(result){  
+                fs.unlinkSync('./public'+imgUrl);
+                res.json(result);
+            });  
         });    
     });
 }
