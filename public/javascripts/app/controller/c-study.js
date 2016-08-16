@@ -49,6 +49,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 							html += '</div>';
 						});
 						$("#studyType").append(html);
+						$("#studyId").val(id);
 						$("#studyName").val(res.result.name);
 		        		$("#author").val(res.result.author);
 		        		$("input[name='type']").prop("checked",false);
