@@ -48,6 +48,7 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 							html += '</label>';
 							html += '</div>';
 						});
+						$("#recreationId").val(id);
 						$("#recreationType").append(html);
 						$("#recreationName").val(res.result.name);
 						$("#recreationUrl").val(res.result.url);
