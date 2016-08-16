@@ -95,6 +95,8 @@ exports.outerConnectAction = function(app){
                         "updateTime":thisTime
                     };
                     userInfoDao.updateUserInfo(conditions,update,dbHelper,function(result3){  
+                        var oldImg = result1.result.image;
+                        fs.unlinkSync('./public'+oldImg);   //删除老图片
                         res.json(result3);
                     }); 
                 }else{

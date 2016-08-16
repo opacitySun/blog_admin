@@ -74,6 +74,8 @@ module.exports = function(app){
                         "updateTime":thisTime
                     };
                     userWorksDao.updateUserWorks(conditions,update,dbHelper,function(result3){  
+                        var oldImg = result1.result.workImg;
+                        fs.unlinkSync('./public'+oldImg);
                         res.json(result3);
                     }); 
                 }else{
