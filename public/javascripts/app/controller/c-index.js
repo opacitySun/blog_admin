@@ -219,9 +219,11 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 					imgHtml += '<i class="fa fa-pencil-square"></i>编辑图片';
 					imgHtml += '</span>';
 					imgHtml += '<p>';
-					$.each(res.result.images,function(key,obj){
-						imgHtml += '<img src="'+staticPath+obj+'">';
-					});
+					if(res.result.images){
+						$.each(res.result.images,function(key,obj){
+							imgHtml += '<img src="'+staticPath+obj+'">';
+						});
+					}
 					imgHtml += '</p>';
 					imgHtml += '</div>';
 					$("#bannerForm").append(imgHtml);
