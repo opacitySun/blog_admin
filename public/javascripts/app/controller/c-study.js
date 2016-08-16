@@ -76,7 +76,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 				$("#author").parent().addClass("has-error has-feedback").find(".help-block").text("作者不能为空");
 				return false;
 			}
-			var article = $("#articleEditor").Editor("getText");
+			var article = UE.getEditor('articleEditor').getContent();
 			$("#article").val(encodeURI(article));
 			if(confirm("确认提交数据吗？")){
 				var flag = true;
