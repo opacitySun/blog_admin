@@ -31,10 +31,10 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 				});
         	});
         },
-        //编辑文章
-        editNews : function(id){
-        	model.getNewsById(id,function(res){
-        		model.getNewsTypeList(function(resType){	//获取类型
+        //编辑
+        editRecreation : function(id){
+        	model.getRecreationById(id,function(res){
+        		model.getRecreationTypeList(function(resType){	//获取类型
 					if(resType.success == 1){
 						var html = "";
 						$.each(resType.result,function(key,obj){
@@ -48,14 +48,46 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 							html += '</label>';
 							html += '</div>';
 						});
-						$("#newsType").append(html);
-						$("#newsName").val(res.result.name);
+						$("#recreationType").append(html);
+						$("#recreationName").val(res.result.name);
 		        		$("input[name='type']").prop("checked",false);
 		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
-		        		$("#descEditor").Editor("setText",decodeURI(res.result.desc));
-		        		$("#desc").val(decodeURI(res.result.desc));
-		        		$("#newsSubmit").on("click",function(){
-							cNews.newsEditSubmit();
+		        		$("#desc").val(res.result.desc);
+		        		$("#recreationImg").css({
+							"width":"20px",
+							"height":"20px"
+						});
+						if(res.result.type == 0 || res.result.type == 1){
+							$("#recreationImg").parent().css({
+								"position":"relative",
+								"height":"200px"
+							}).append('<img src="'+res.result.image+'" />');
+							$("#recreationImg").parent().find("img").css({
+								"position":"absolute",
+								"width":"150px",
+								"height":"200px",
+								"top":"0",
+								"left":"0"
+							}).on("click",function(){
+								$("#recreationImg").click();
+							});
+						}else{
+							$("#recreationImg").parent().css({
+								"position":"relative",
+								"height":"130px"
+							}).append('<img src="'+res.result.image+'" />');
+							$("#recreationImg").parent().find("img").css({
+								"position":"absolute",
+								"width":"184px",
+								"height":"130px",
+								"top":"0",
+								"left":"0"
+							}).on("click",function(){
+								$("#recreationImg").click();
+							});
+						}
+		        		$("#recreationSubmit").on("click",function(){
+							cRecreation.recreationEditSubmit();
 						});
 					}else{
 						console.log(resType);
@@ -63,21 +95,19 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 				});
         	});
         },
-        //提交消息新闻
-        newsEditSubmit : function(){
-        	var newsName = $("#newsName").val();
-			if(newsName == ''){
-				$("#newsName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+        //提交
+        recreationEditSubmit : function(){
+        	var recreationName = $("#recreationName").val();
+			if(recreationName == ''){
+				$("#recreationName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			var desc = $("#descEditor").Editor("getText");
-			$("#desc").val(encodeURI(desc));
 			if(confirm("确认提交数据吗？")){
 				var flag = true;
-				var formData = new FormData($("#newsForm")[0]);
+				var formData = new FormData($("#recreationForm")[0]);
 				if(flag == true){
 					flag = false;
-					model.editNews(formData,function(res){
+					model.editRecreation(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
@@ -90,7 +120,7 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 			}
         },
         //类型提交
-        newsTypeSubmit : function(){
+        recreationTypeSubmit : function(){
         	var typeName = $("#typeName").val();
 			if(typeName == ''){
 				$("#typeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
@@ -103,11 +133,11 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 				};
 				if(flag == true){
 					flag = false;
-					model.editNewsType(formData,function(res){
+					model.editRecreationType(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
-							window.location.href = "/news-type";
+							window.location.href = "/recreation-type";
 		                }else{
 		                    alert("提交失败");
 		                }
@@ -121,11 +151,11 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 				var flag = true;
 				if(flag == true){
 					flag = false;
-					model.deleteNews(id,function(res){
+					model.deleteRecreation(id,function(res){
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;
-							window.location.href="/news";
+							window.location.href="/recreation";
 		                }else{
 		                    alert("删除失败");
 		                }

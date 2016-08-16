@@ -48,9 +48,9 @@ exports.removeRecreationType = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.updateRecreationType = function(conditions,update,options,dbHelper,callback) {  
+exports.updateRecreationType = function(conditions,update,dbHelper,callback) {  
     var dbModel =recreationType.getModel();  
-    dbHelper.updateData(dbModel,conditions,update,options,function(result){  
+    dbHelper.updateData(dbModel,conditions,update,function(result){  
         callback(result);  
     });  
 }  

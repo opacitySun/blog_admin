@@ -10,7 +10,7 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
-		//获取分享文章类型
+		//获取新闻类型
 		getNewsTypeList : function(callback){
 			var url = "/newsTypeListFindAction";
 			var data = {};

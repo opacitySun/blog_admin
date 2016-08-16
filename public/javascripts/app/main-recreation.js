@@ -13,7 +13,7 @@ define(['jquery','fnbase','./controller/c-recreation','./model/m-recreation'],fu
     		window.location.href="/recreation";
     	});
         if(urlType == "add"){
-        	model.getNewsTypeList(function(resType){	//获取类型
+        	model.getRecreationTypeList(function(resType){	//获取类型
 				if(resType.success == 1){
 					var html = "";
 					$.each(resType.result,function(key,obj){
@@ -27,22 +27,22 @@ define(['jquery','fnbase','./controller/c-recreation','./model/m-recreation'],fu
 						html += '</label>';
 						html += '</div>';
 					});
-					$("#newsType").append(html);
+					$("#recreationType").append(html);
 				}else{
 					console.log(resType);
 				}
 			});
-			$("#newsSubmit").on("click",function(){
-				controller.newsEditSubmit();
+			$("#recreationSubmit").on("click",function(){
+				controller.recreationEditSubmit();
 			});
 			$("#pageHeader").html("娱乐 <small>添加</small>");
         }else if(urlType == "edit"){
-        	controller.editNews(urlId);
+        	controller.editRecreation(urlId);
 			$("#pageHeader").html("娱乐 <small>修改</small>");
         }
 	}else if(urlPath == "/recreation-type"){	//编辑类型
-		$("#newsSubmit").on("click",function(){
-			controller.newsTypeSubmit();
+		$("#recreationSubmit").on("click",function(){
+			controller.recreationTypeSubmit();
 		});
 		$("#pageBack").on("click",function(){
     		window.location.href="/recreation";

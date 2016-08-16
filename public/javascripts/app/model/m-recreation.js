@@ -10,41 +10,41 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
-		//获取分享文章类型
-		getNewsTypeList : function(callback){
-			var url = "/newsTypeListFindAction";
+		//获取娱乐类型
+		getRecreationTypeList : function(callback){
+			var url = "/recreationTypeListFindAction";
 			var data = {};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},
 		//根据id获取文章内容
-		getNewsById : function(id,callback){
-			var url = "/newsFindByIdAction";
+		getRecreationById : function(id,callback){
+			var url = "/recreationFindByIdAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},
-		//添加或修改新闻消息
-		editNews : function(formData,callback){
-			var url = "/editNewsAction";
+		//添加或修改
+		editRecreation : function(formData,callback){
+			var url = "/editRecreationAction";
 			var data = formData;
 			modelBase.postFormDataAjax(url,data,function(res){
 				callback(res);
 			});
 		},
 		//添加或修改类型
-		editNewsType : function(formData,callback){
-			var url = "/editNewsTypeAction";
+		editRecreationType : function(formData,callback){
+			var url = "/editRecreationTypeAction";
 			var data = {"name":formData.name};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
 		},
-		//删除新闻消息
-		deleteNews : function(id,callback){
-			var url = "/deleteNewsAction";
+		//删除
+		deleteRecreation : function(id,callback){
+			var url = "/deleteRecreationAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);

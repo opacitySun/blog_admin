@@ -28,6 +28,21 @@ exports.findRecreation = function(conditions,dbHelper,callback) {
 }  
 
 /** 
+ * 调用公共findOne方法并且传入操作数据库的模型user 
+ * @param conditions 
+ * @param dbHelper 
+ * @param callback 
+ */  
+exports.findOneRecreation = function(conditions,dbHelper,callback) {  
+    var dbModel =recreation.getModel();  
+    var fields   = {};  
+    var options  = {};  
+    dbHelper.findOneData(dbModel,conditions,fields,options,function(result){  
+        callback(result);
+    });  
+}  
+
+/** 
  * 调用公共remove方法并且传入操作数据库的模型user 
  * @param conditions 
  * @param dbHelper 
@@ -48,9 +63,9 @@ exports.removeRecreation = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.updateRecreation = function(conditions,update,options,dbHelper,callback) {  
+exports.updateRecreation = function(conditions,update,dbHelper,callback) {  
     var dbModel =recreation.getModel();  
-    dbHelper.updateData(dbModel,conditions,update,options,function(result){  
+    dbHelper.updateData(dbModel,conditions,update,function(result){  
         callback(result);  
     });  
 }  
