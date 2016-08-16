@@ -9,7 +9,8 @@
             'bootstrap':'lib/bootstrap-sb-admin/js/bootstrap.min',
             'editor':'lib/LineControl-Editor/js/editor',
             'ueditor':'../ueditor/ueditor.all.min',
-            'ueditor-config':'../ueditor/ueditor.config'
+            'ueditor-config':'../ueditor/ueditor.config',
+            'ueditor-ZeroClipboard':'../ueditor/third-party/zeroclipboard/ZeroClipboard.min'
         },
         map : {
             '*':{
@@ -31,7 +32,7 @@
                 exports:'editor'
             },
             'ueditor':{
-                deps:['ueditor-config'],
+                deps:['ueditor-config','ueditor-ZeroClipboard'],
                 exports:'ueditor'
             }
         }
