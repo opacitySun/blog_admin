@@ -1,4 +1,5 @@
 var ObjectID = require("mongodb").ObjectID;
+var fs = reqiure("fs");
 var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var recreationDao = require("../DBSql/recreationDao");
@@ -123,8 +124,12 @@ module.exports = function(app){
     app.all("/deleteRecreationAction",function(req,res){
         var id = req.body.id;
         var conditions = {"_id":ObjectID(id)};
-        recreationDao.removeRecreation(conditions,dbHelper,function(result){  
-            res.json(result);
-        });    
+        recreationDao.findOneRecreation(conditions,dbHelper,function(result0){  
+            var imgUrl = result0.result.image;
+            recreationDao.removeRecreation(conditions,dbHelper,function(result1){  
+                fs.unlinkSync('imgUrl');
+                res.json(result1);
+            });    
+        });  
     });
 }
