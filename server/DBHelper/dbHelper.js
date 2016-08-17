@@ -92,7 +92,9 @@ exports.findData = function(model,conditions,fields,options,callback) {
         } else {  
             if(result.length!=0){  
                 console.log('find success!');  
-                callback({success: 1, flag: "find data success",result:result,total:result.length});  
+                model.find(conditions).toArray(function(err,res){
+                    callback({success: 1, flag: "find data success",result:result,total:res.length});  
+                });
             }  
             else{  
                 console.log('find fail:no this data!');  
