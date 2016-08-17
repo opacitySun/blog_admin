@@ -1,4 +1,4 @@
-define(['jquery','fnbase','ueditor','./controller/c-news','./model/m-news'],function($,fnbase,ueditor,controller,model){
+define(['jquery','fnbase','ueditor','./controller/c-news','./model/m-news','./controller/c-page'],function($,fnbase,ueditor,controller,model,cPage){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/news"){	//新闻消息管理
 		controller.getNewsList(1,function(total){
