@@ -3,7 +3,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 
 	var cStudy = {
 		//获取用户列表
-        getStudyList : function(currentPage){
+        getStudyList : function(currentPage,callback){
         	var pageSize = $("#pageSize").val();
         	var formData = {
         		"currentPage":currentPage,
@@ -25,7 +25,6 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 					html += '</td>';
         			html += '</tr>';
         		});
-        		$("#dataTotal").val(res.total);
         		$("#studyList").html(html);
         		$("button.study_edit").on("click",function(){
 					var id = $(this).parent().find(".study_id").val();
@@ -35,6 +34,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
 					var id = $(this).parent().find(".study_id").val();
 					cStudy.deleteStudy(id);
 				});
+				callback(res.total);
         	});
         },
         //编辑文章
