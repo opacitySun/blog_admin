@@ -18,9 +18,8 @@ exports.addNews = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.findNews = function(conditions,dbHelper,callback) {  
+exports.findNews = function(conditions,fields,dbHelper,callback) {  
     var dbModel =news.getModel();  
-    var fields   = {};  
     var options  = {};  
     dbHelper.findData(dbModel,conditions,fields,options,function(result){  
         callback(result);

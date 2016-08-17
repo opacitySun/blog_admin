@@ -3,8 +3,13 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 
 	var cNews = {
 		//获取用户列表
-        getNewsList : function(){
-        	model.getNewsList(function(res){
+        getNewsList : function(currentPage,callback){
+        	var pageSize = $("#pageSize").val();
+        	var formData = {
+        		"currentPage":currentPage,
+				"pageSize":pageSize
+        	};
+        	model.getNewsList(formData,function(res){
         		html = "";
         		$.each(res.result,function(key,obj){
         			html += '<tr>';
@@ -28,6 +33,7 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
 					var id = $(this).parent().find(".news_id").val();
 					cNews.deleteNews(id);
 				});
+				callback(res.total);
         	});
         },
         //编辑文章

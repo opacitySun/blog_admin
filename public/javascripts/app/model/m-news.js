@@ -3,9 +3,12 @@ define(["./Base"],function(Base){
 
 	var mNews = {
 		//获取分享文章列表
-		getNewsList : function(callback){
+		getNewsList : function(formData,callback){
 			var url = "/newsAllListFindAction";
-			var data = {};
+			var data = {
+				"currentPage":formData.currentPage,
+				"pageSize":formData.pageSize
+			};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});

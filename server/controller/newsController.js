@@ -7,9 +7,15 @@ var newsTypeDao = require("../DBSql/newsTypeDao");
 module.exports = function(app){
     //获取全部项目列表
     app.all("/newsAllListFindAction",function(req,res){
+        var currentPage = req.body.currentPage;
+        var pageSize = req.body.pageSize;
     	var result = {};
         var conditions = {};
-        newsDao.findNews(conditions,dbHelper,function(newsResult){  
+        var fields = {
+            "currentPage":currentPage,
+            "pageSize":pageSize
+        };
+        newsDao.findNews(conditions,fields,dbHelper,function(newsResult){  
             result = newsResult;
             newsTypeDao.findNewsType(conditions,dbHelper,function(newsTypeResult){  
             	result.result.forEach(function(obj){

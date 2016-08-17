@@ -1,7 +1,13 @@
 define(['jquery','fnbase','ueditor','./controller/c-news','./model/m-news'],function($,fnbase,ueditor,controller,model){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/news"){	//新闻消息管理
-		controller.getNewsList();
+		controller.getNewsList(1,function(total){
+			var pageSize = $("#pageSize").val();
+			var buttons = $("#pageButton").val();
+			cPage.createPage(pageSize,buttons,total,function(pageIndex){
+				controller.getNewsList(pageIndex,function(){});
+			});
+		});
 		$("#addButton").on("click",function(){
 			window.location.href = "/news-edit?type=add";
 		});	
