@@ -261,7 +261,7 @@
                         if(goPage > showPage){
                             pageStart = goPage-showPage;
                         }else{
-                            pageStart = 0;
+                            pageStart = 1;
                         }
 					}
 					if((pageStart+showPage-1) <= maxPage){
