@@ -256,9 +256,13 @@
 					var html = '';
 					var pageStart = 0,pageEnd = 0;
 					if(maxPage < goPage){
-						pageStart = maxPage;
+						pageStart = maxPage-showPage;
 					}else{
-						pageStart = goPage;
+                        if(goPage > showPage){
+                            pageStart = goPage-showPage;
+                        }else{
+                            pageStart = 0;
+                        }
 					}
 					if((pageStart+showPage-1) <= maxPage){
 						pageEnd = pageStart+showPage-1;
