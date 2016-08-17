@@ -13,7 +13,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
         		html = "";
         		$.each(res.result,function(key,obj){
         			html += '<tr>';
-        			html += '<td>'+(key+1)+'</td>';
+        			html += '<td>'+Number(((currentPage-1)*pageSize)+(key+1))+'</td>';
         			html += '<td>'+obj.name+'</td>';
         			html += '<td>'+obj.author+'</td>';
         			html += '<td>'+obj.typeName+'</td>';

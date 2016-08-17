@@ -14,7 +14,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
         		$.each(res.result,function(key,obj){
         			var objType,objStatus;
         			html += '<tr>';
-        			html += '<td>'+(key+1)+'</td>';
+        			html += '<td>'+Number(((currentPage-1)*pageSize)+(key+1))+'</td>';
         			html += '<td>'+obj.workName+'</td>';
         			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.workImg+'" /></td>';
         			html += '<td><a target="_blank" href="'+obj.workUrl+'">'+obj.workUrl+'</a></td>';
