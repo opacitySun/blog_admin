@@ -34,6 +34,12 @@ define(function(){
         return isjson;
     }
     /*
+     * 判断是否为函数
+     */
+    fnBase.isFunc = function(obj){
+        return typeof obj == 'function';
+    }
+    /*
      * 检测数组中是否存在指定元素
      */
     fnBase.inArray = function(value,arr){

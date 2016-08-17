@@ -10,7 +10,7 @@
             'editor':'lib/LineControl-Editor/js/editor',
             'ueditor':'../ueditor/ueditor.all.min',
             'ueditor-config':'../ueditor/ueditor.config',
-            'ueditor-ZeroClipboard':'../ueditor/third-party/zeroclipboard/ZeroClipboard.min'
+            'pagination':'lib/jBootstrapPage/jBootstrapPage'
         },
         map : {
             '*':{
@@ -32,8 +32,12 @@
                 exports:'editor'
             },
             'ueditor':{
-                deps:['ueditor-config','ueditor-ZeroClipboard'],
+                deps:['ueditor-config'],
                 exports:'ueditor'
+            },
+            'pagination':{
+                deps:['jquery','bootstrap'],
+                exports:'pagination'
             }
         }
     });
