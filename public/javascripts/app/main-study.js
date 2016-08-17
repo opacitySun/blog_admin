@@ -5,7 +5,7 @@ define(['jquery','fnbase','ueditor','./controller/c-study','./model/m-study','./
 			var pageSize = $("#pageSize").val();
 			var buttons = $("#pageButton").val();
 			cPage.createPage(pageSize,buttons,total,function(pageIndex){
-				controller.getStudyList(pageIndex);
+				controller.getStudyList(pageIndex,function(){});
 			});
 		});
 		$("#addButton").on("click",function(){
