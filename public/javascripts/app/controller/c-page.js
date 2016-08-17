@@ -11,7 +11,7 @@ define(['./Base','jquery','fnbase','pagination'], function (Base,$,fnbase,pagina
 	                if(fnbase.isFunc(func)){
 	                	var totalPage = 1;
 	                	if((total/pageSize) > 1){
-	                		totalPage = total/pageSize;
+	                		totalPage = Math.ceil(total/pageSize);
 	                	}
 	                	$(".pageInfo").text((pageIndex+1)+"/"+totalPage);
 	                    func(pageIndex+1);
