@@ -9,6 +9,7 @@ define(['./Base','jquery','fnbase','pagination'], function (Base,$,fnbase,pagina
 	            pageInfo:true,  //显示分页信息
 	            onPageClicked: function(obj, pageIndex) {
 	                if(fnbase.isFunc(func)){
+	                	$(".pageInfo").text((pageIndex+1)+"/"+(total/pageSize));
 	                    func(pageIndex+1);
 	                }
 	            }
