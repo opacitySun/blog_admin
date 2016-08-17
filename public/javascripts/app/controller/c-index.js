@@ -36,7 +36,7 @@ define(["./Base","jquery","fnbase","../model/m-index"],function(Base,$,fnbase,mo
 							objIsShow = "隐藏";
 					}
 					html += '<td>'+objIsShow+'</td>';
-					html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
+					html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
 					html += '<td>';
 					html += '<input type="hidden" class="banner_id" value="'+obj._id.toString()+'" />';
 					html += '<button type="button" class="btn btn-link banner_look">查看</button>';

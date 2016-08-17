@@ -17,7 +17,7 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
         			html += '<td>'+obj.name+'</td>';
         			html += '<td>'+obj.typeName+'</td>';
         			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.image+'" /></td>';
-        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
 					html += '<input type="hidden" class="recreation_id" value="'+obj._id.toString()+'" />';
 					html += '<button type="button" class="btn btn-link recreation_edit">编辑</button>';

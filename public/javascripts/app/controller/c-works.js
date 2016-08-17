@@ -34,7 +34,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 							objStatus = "在线";
 					}
         			html += '<td>'+objStatus+'</td>';
-        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
 					html += '<input type="hidden" class="works_id" value="'+obj._id.toString()+'" />';
 					html += '<button type="button" class="btn btn-link works_edit">编辑</button>';

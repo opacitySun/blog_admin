@@ -8,7 +8,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
         			html += '<tr>';
         			html += '<td>'+(key+1)+'</td>';
         			html += '<td>'+obj.name+'</td>';
-        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
 					html += '<input type="hidden" class="user_id" value="'+obj._id.toString()+'" />';
 					html += '<button type="button" class="btn btn-link user_edit_info">编辑详情</button>';

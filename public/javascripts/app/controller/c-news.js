@@ -16,7 +16,7 @@ define(["./Base","jquery","fnbase","../model/m-news"], function (Base,$,fnbase,m
         			html += '<td>'+Number(((currentPage-1)*pageSize)+(key+1))+'</td>';
         			html += '<td>'+obj.name+'</td>';
         			html += '<td>'+obj.typeName+'</td>';
-        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
 					html += '<input type="hidden" class="news_id" value="'+obj._id.toString()+'" />';
 					html += '<button type="button" class="btn btn-link news_edit">编辑</button>';

@@ -17,7 +17,7 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
         			html += '<td>'+obj.name+'</td>';
         			html += '<td>'+obj.author+'</td>';
         			html += '<td>'+obj.typeName+'</td>';
-        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,false)+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
 					html += '<input type="hidden" class="study_id" value="'+obj._id.toString()+'" />';
 					html += '<button type="button" class="btn btn-link study_edit">编辑</button>';
