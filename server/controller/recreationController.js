@@ -4,6 +4,7 @@ var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var recreationDao = require("../DBSql/recreationDao");
 var recreationTypeDao = require("../DBSql/recreationTypeDao");
+var apeAlgorithm = require("ape-algorithm");  //升序降序插件
 
 module.exports = function(app){
     //获取全部项目列表
