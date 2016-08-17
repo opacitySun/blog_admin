@@ -3,9 +3,12 @@ define(["./Base"],function(Base){
 
 	var mStudy = {
 		//获取分享文章列表
-		getStudyList : function(callback){
+		getStudyList : function(formData,callback){
 			var url = "/studyAllListFindAction";
-			var data = {};
+			var data = {
+				"currentPage":formData.currentPage,
+				"pageSize":formData.pageSize
+			};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});

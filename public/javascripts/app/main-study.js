@@ -1,7 +1,13 @@
-define(['jquery','fnbase','ueditor','./controller/c-study','./model/m-study'],function($,fnbase,ueditor,controller,model){
+define(['jquery','fnbase','ueditor','./controller/c-study','./model/m-study','./controller/c-page'],function($,fnbase,ueditor,controller,model,cPage){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/study"){	//分享文章管理
-		controller.getStudyList();
+		controller.getStudyList(1);
+		var pageSize = $("#pageSize").val();
+		var buttons = $("#pageButton").val();
+		var total = $("#dataTotal").val();
+		cPage.createPage(pageSize,buttons,total,function(pageIndex){
+			controller.getStudyList(pageIndex);
+		});
 		$("#addButton").on("click",function(){
 			window.location.href = "/study-edit?type=add";
 		});	

@@ -18,9 +18,8 @@ exports.addStudy = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.findStudy = function(conditions,dbHelper,callback) {  
-    var dbModel =study.getModel();  
-    var fields   = {};  
+exports.findStudy = function(conditions,fields,dbHelper,callback) {  
+    var dbModel =study.getModel();   
     var options  = {};  
     dbHelper.findData(dbModel,conditions,fields,options,function(result){  
         callback(result);

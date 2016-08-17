@@ -73,15 +73,26 @@ exports.removeData = function(model,conditions,callback) {
  * @param options 
  * @param callback 
  */  
-exports.findData = function(model,conditions,fields,options,callback) {    
-    model.find(conditions, fields, options).toArray(function(error, result){  
+exports.findData = function(model,conditions,fields,options,callback) {   
+    var skip,limit;
+    if(fields.currentPage){
+        skip = (fields.currentPage-1)*fields.pageSize;
+        limit = fields.pageSize;
+    }else{
+        skip = 1000;
+        limit = 1000;
+    }
+    model.find(conditions, options)
+    .skip(skip)
+    .limit(limit)
+    .toArray(function(error, result){  
         if(error) {  
             console.log(error);  
             callback({success: 0, flag: "find data fail"});  
         } else {  
             if(result.length!=0){  
                 console.log('find success!');  
-                callback({success: 1, flag: "find data success",result:result});  
+                callback({success: 1, flag: "find data success",result:result,total:result.length});  
             }  
             else{  
                 console.log('find fail:no this data!');  

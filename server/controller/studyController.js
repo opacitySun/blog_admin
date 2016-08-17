@@ -8,13 +8,17 @@ var studyTypeDao = require("../DBSql/studyTypeDao");
 module.exports = function(app){
     //获取全部文章列表
     app.all("/studyAllListFindAction",function(req,res){
+        var currentPage = req.body.currentPage;
+        var pageSize = req.body.pageSize;
     	var result = {};
         var conditions = {};
-        studyDao.findStudy(conditions,dbHelper,function(studyResult){  
-            console.log(studyResult);
+        var fields = {
+            "currentPage":currentPage,
+            "pageSize":pageSize
+        };
+        studyDao.findStudy(conditions,fields,dbHelper,function(studyResult){  
             result = studyResult;
             studyTypeDao.findStudyType(conditions,dbHelper,function(studyTypeResult){  
-            	console.log(studyTypeResult);
             	result.result.forEach(function(obj){
             		studyTypeResult.result.forEach(function(o){
             			if(obj.type == o.type){
