@@ -9,6 +9,7 @@ var expressSession = require('express-session');
 var partials = require('express-partials');
 var nodexcn = require('nodexcn');
 var ueditor = require("ueditor");
+var apeAlgorithm = require("ape-algorithm");  //升序降序插件
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
