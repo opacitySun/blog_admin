@@ -13,7 +13,7 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
         		html = "";
         		$.each(res.result,function(key,obj){
         			html += '<tr>';
-        			html += '<td>'+(key+1)+'</td>';
+        			html += '<td>'+((currentPage-1)*pageSize)+(key+1)+'</td>';
         			html += '<td>'+obj.name+'</td>';
         			html += '<td>'+obj.typeName+'</td>';
         			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.image+'" /></td>';
