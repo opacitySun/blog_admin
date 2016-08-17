@@ -6,8 +6,8 @@ define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,
         getStudyList : function(currentPage){
         	var pageSize = $("#pageSize").val();
         	var formData = {
-        		"currentPage":currentPage,
-				"pageSize":pageSize
+        		"currentPage":Number(currentPage),
+				"pageSize":Number(pageSize)
         	};
         	model.getStudyList(formData,function(res){
         		html = "";
