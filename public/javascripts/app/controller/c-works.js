@@ -3,8 +3,13 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 
     var cWorks = {
         //获取用户列表
-        getWorksList : function(){
-        	model.getWorksList(function(res){
+        getWorksList : function(currentPage,callback){
+        	var pageSize = $("#pageSize").val();
+        	var formData = {
+        		"currentPage":currentPage,
+				"pageSize":pageSize
+        	};
+        	model.getWorksList(formData,function(res){
         		html = "";
         		$.each(res.result,function(key,obj){
         			var objType,objStatus;
@@ -46,6 +51,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 					var id = $(this).parent().find(".works_id").val();
 					cWorks.deleteWorks(id);
 				});
+				callback(res.total);
         	});
         },
 		//编辑作品

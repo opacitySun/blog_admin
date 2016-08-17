@@ -17,8 +17,14 @@ module.exports = function(app){
 
     //获取全部项目列表
     app.all("/worksAllListFindAction",function(req,res){
+        var currentPage = req.body.currentPage;
+        var pageSize = req.body.pageSize;
         var conditions = {};
-        userWorksDao.findUserWorks(conditions,dbHelper,function(result){  
+        var fields = {
+            "currentPage":currentPage,
+            "pageSize":pageSize
+        };
+        userWorksDao.findUserWorks(conditions,fields,dbHelper,function(result){  
             console.log(result);
             res.json(result);
         });    

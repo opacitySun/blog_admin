@@ -3,9 +3,12 @@ define(["./Base"],function(Base){
 
 	var mWorks = {
 		//获取作品列表
-		getWorksList : function(callback){
+		getWorksList : function(formData,callback){
 			var url = "/worksAllListFindAction";
-			var data = {};
+			var data = {
+				"currentPage":formData.currentPage,
+				"pageSize":formData.pageSize
+			};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});

@@ -18,9 +18,8 @@ exports.addUserWorks = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.findUserWorks = function(conditions,dbHelper,callback) {  
+exports.findUserWorks = function(conditions,fields,dbHelper,callback) {  
     var dbModel =userWorks.getModel();  
-    var fields   = {};  
     var options  = {};  
     dbHelper.findData(dbModel,conditions,fields,options,function(result){  
         callback(result);

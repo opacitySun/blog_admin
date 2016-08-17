@@ -1,7 +1,13 @@
-define(['jquery','fnbase','bootstrap','./controller/c-works','./model/m-works'],function($,fnbase,bootstrap,controller,model){
+define(['jquery','fnbase','bootstrap','./controller/c-works','./model/m-works','./controller/c-page'],function($,fnbase,bootstrap,controller,model,cPage){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/works"){	//作品管理
-		controller.getWorksList();
+		controller.getWorksList(1,function(total){
+			var pageSize = $("#pageSize").val();
+			var buttons = $("#pageButton").val();
+			cPage.createPage(pageSize,buttons,total,function(pageIndex){
+				controller.getWorksList(pageIndex,function(){});
+			});
+		});
 		$("#addButton").on("click",function(){
 			window.location.href = "/works-edit?type=add";
 		});	
