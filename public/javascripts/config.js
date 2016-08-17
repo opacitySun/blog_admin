@@ -6,6 +6,7 @@
         paths : {
             'jquery':'lib/jquery-1.11.3.min',
             'fnbase':'lib/fnbase',
+            'fnvalidate':'lib/fnvalidate',
             'bootstrap':'lib/bootstrap-sb-admin/js/bootstrap.min',
             'editor':'lib/LineControl-Editor/js/editor',
             'ueditor':'../ueditor/ueditor.all.min',
@@ -36,7 +37,7 @@
                 exports:'ueditor'
             },
             'pagination':{
-                deps:['jquery','bootstrap'],
+                deps:['jquery','bootstrap','fnvalidate'],
                 exports:'pagination'
             }
         }

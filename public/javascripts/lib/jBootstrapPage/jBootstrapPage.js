@@ -351,12 +351,8 @@
 				else if(selectedText == '前往') {
 					var selectedIndex = parseInt(selectedBtn.text())-1;
 					var pageGo = $(".pageGo").find("input").val();
-					if(!Common.Number.test(pageGo)){
-						Modal.alert({
-							msg: '只能输入大于等于1的正整数',
-							title: '温馨提示',
-							btnok: '确定'
-						});
+					if(!fnValidate.Number.test(pageGo)){
+                        alert("只能输入大于等于1的正整数");
 						return false;
 					}
 					pageGo = parseInt(pageGo);
