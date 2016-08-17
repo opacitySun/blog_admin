@@ -248,6 +248,7 @@
 
 			function mathGoPage(currPage,goPage, maxPage, showPage) {
 				if(maxPage < 1) return;
+                if(goPage > maxPage) alert("您查询的页数已超过最大页数，因此查询的是最后一页信息");
 
 				if(currPage != goPage){
 					$this.find('li.page').remove();
