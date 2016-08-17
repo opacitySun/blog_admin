@@ -83,6 +83,7 @@ exports.findData = function(model,conditions,fields,options,callback) {
         limit = 1000;
     }
     model.find(conditions, options)
+    .sort({"updateTime":-1})    //按照updateTime字段降序排列
     .skip(skip)
     .limit(limit)
     .toArray(function(error, result){  

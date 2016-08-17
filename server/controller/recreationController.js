@@ -27,7 +27,7 @@ module.exports = function(app){
                         }
                     });
                 });
-                result["result"] = apeAlgorithm.quicksort.sortObj(result.result,'updateTime','desc');
+                //result["result"] = apeAlgorithm.quicksort.sortObj(result.result,'updateTime','desc');
             	res.json(result);
         	});    
         });     
