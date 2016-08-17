@@ -254,12 +254,12 @@
 
 					var pNum = 0;
 					var html = '';
-					var pageStart = 0,pageEnd = 0;
+					var pageStart,pageEnd;
 					if(maxPage < goPage){
 						pageStart = maxPage-showPage;
 					}else{
                         if(goPage > showPage){
-                            pageStart = goPage-showPage;
+                            pageStart = goPage-showPage+1;
                         }else{
                             pageStart = 1;
                         }
