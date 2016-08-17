@@ -1,7 +1,13 @@
-define(['jquery','fnbase','./controller/c-recreation','./model/m-recreation'],function($,fnbase,controller,model){
+define(['jquery','fnbase','./controller/c-recreation','./model/m-recreation','./controller/c-page'],function($,fnbase,controller,model,cPage){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/recreation"){	//娱乐管理
-		controller.getRecreationList();
+		controller.getRecreationList(1,function(total){
+			var pageSize = $("#pageSize").val();
+			var buttons = $("#pageButton").val();
+			cPage.createPage(pageSize,buttons,total,function(pageIndex){
+				controller.getRecreationList(pageIndex,function(){});
+			});
+		});
 		$("#addButton").on("click",function(){
 			window.location.href = "/recreation-edit?type=add";
 		});	

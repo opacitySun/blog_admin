@@ -8,9 +8,15 @@ var recreationTypeDao = require("../DBSql/recreationTypeDao");
 module.exports = function(app){
     //获取全部项目列表
     app.all("/recreationAllListFindAction",function(req,res){
+        var currentPage = req.body.currentPage;
+        var pageSize = req.body.pageSize;
     	var result = {};
         var conditions = {};
-        recreationDao.findRecreation(conditions,dbHelper,function(recreationResult){  
+        var fields = {
+            "currentPage":currentPage,
+            "pageSize":pageSize
+        };
+        recreationDao.findRecreation(conditions,fields,dbHelper,function(recreationResult){  
             result = recreationResult;
             recreationTypeDao.findRecreationType(conditions,dbHelper,function(recreationTypeResult){  
             	result.result.forEach(function(obj){

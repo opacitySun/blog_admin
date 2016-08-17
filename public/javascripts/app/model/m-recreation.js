@@ -3,9 +3,12 @@ define(["./Base"],function(Base){
 
 	var mRecreation = {
 		//获取娱乐列表
-		getRecreationList : function(callback){
+		getRecreationList : function(formData,callback){
 			var url = "/recreationAllListFindAction";
-			var data = {};
+			var data = {
+				"currentPage":formData.currentPage,
+				"pageSize":formData.pageSize
+			};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});

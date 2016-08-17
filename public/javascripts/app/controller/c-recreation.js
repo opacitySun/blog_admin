@@ -3,8 +3,13 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 
 	var cRecreation = {
 		//获取用户列表
-        getRecreationList : function(){
-        	model.getRecreationList(function(res){
+        getRecreationList : function(currentPage,callback){
+        	var pageSize = $("#pageSize").val();
+        	var formData = {
+        		"currentPage":currentPage,
+				"pageSize":pageSize
+        	};
+        	model.getRecreationList(formData,function(res){
         		html = "";
         		$.each(res.result,function(key,obj){
         			html += '<tr>';
@@ -29,6 +34,7 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 					var id = $(this).parent().find(".recreation_id").val();
 					cRecreation.deleteRecreation(id);
 				});
+				callback(res.total);
         	});
         },
         //编辑

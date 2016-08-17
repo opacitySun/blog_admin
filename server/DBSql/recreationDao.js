@@ -18,9 +18,8 @@ exports.addRecreation = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.findRecreation = function(conditions,dbHelper,callback) {  
-    var dbModel =recreation.getModel();  
-    var fields   = {};  
+exports.findRecreation = function(conditions,fields,dbHelper,callback) {  
+    var dbModel =recreation.getModel();   
     var options  = {};  
     dbHelper.findData(dbModel,conditions,fields,options,function(result){  
         callback(result);
