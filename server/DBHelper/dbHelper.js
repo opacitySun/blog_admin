@@ -77,7 +77,7 @@ exports.findData = function(model,conditions,fields,options,callback) {
     var skip,limit;
     if(fields.currentPage){
         skip = (fields.currentPage-1)*fields.pageSize;
-        limit = fields.pageSize;
+        limit = Number(fields.pageSize);
     }else{
         skip = 1000;
         limit = 1000;
