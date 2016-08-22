@@ -28,6 +28,7 @@ define(["./Base"],function(Base){
 				"id":formData.id,
 				"workName":formData.workName,
 				"workUrl":formData.workUrl,
+				"workDesc":formData.workDesc,
 				"type":formData.type,
 				"status":formData.status,
 				"userId":formData.userId

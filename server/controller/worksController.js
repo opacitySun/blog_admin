@@ -46,6 +46,7 @@ module.exports = function(app){
         var update = {
             "workName":req.body.workName,
             "workUrl":req.body.workUrl,
+            "workDesc":req.body.workDesc,
             "type":req.body.type,
             "status":req.body.status,
             "userId":req.body.userId,
@@ -73,6 +74,7 @@ module.exports = function(app){
                     var update = {
                         "workName":result0.body.workName,
                         "workUrl":result0.body.workUrl,
+                        "workDesc":result0.body.workDesc,
                         "workImg":imgUrl,
                         "type":Number(result0.body.type),
                         "status":Number(result0.body.status),
@@ -88,6 +90,7 @@ module.exports = function(app){
                     var conditions = {
                         "workName":result0.body.workName,
                         "workUrl":result0.body.workUrl,
+                        "workDesc":result0.body.workDesc,
                         "workImg":imgUrl,
                         "type":Number(result0.body.type),
                         "status":Number(result0.body.status),
