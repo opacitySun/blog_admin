@@ -142,7 +142,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 					"id":id,
 					"workName":workName,
 					"workUrl":workUrl,
-					"workDesc":workDesc
+					"workDesc":workDesc,
 					"type":type,
 					"status":status,
 					"userId":userId
