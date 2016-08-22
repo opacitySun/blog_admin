@@ -47,8 +47,8 @@ module.exports = function(app){
             "workName":req.body.workName,
             "workUrl":req.body.workUrl,
             "workDesc":req.body.workDesc,
-            "type":req.body.type,
-            "status":req.body.status,
+            "type":Number(req.body.type),
+            "status":Number(req.body.status),
             "userId":req.body.userId,
             "updateTime":thisTime
         };
