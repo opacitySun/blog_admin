@@ -124,6 +124,11 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 				$("#workName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
+			var workDesc = $("#workDesc").val();
+			if(workDesc.length > 40){
+				$("#workDesc").parent().addClass("has-error has-feedback").find(".help-block").text("描述不能超过40个字");
+				return false;
+			}
 			var workUrl = $("#workUrl").val();
 			if(workUrl == ''){
 				workUrl = "javascript:void(0)";
@@ -137,6 +142,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 					"id":id,
 					"workName":workName,
 					"workUrl":workUrl,
+					"workDesc":workDesc
 					"type":type,
 					"status":status,
 					"userId":userId
@@ -160,6 +166,11 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 			var workName = $("#workName").val();
 			if(workName == ''){
 				$("#workName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+				return false;
+			}
+			var workDesc = $("#workDesc").val();
+			if(workDesc.length > 40){
+				$("#workDesc").parent().addClass("has-error has-feedback").find(".help-block").text("描述不能超过40个字");
 				return false;
 			}
 			var workUrl = $("#workUrl").val();
