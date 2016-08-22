@@ -78,7 +78,7 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 					$("#workId").val(res.result._id.toString());
 					$("#workName").val(res.result.workName);
 					$("#workUrl").val(res.result.workUrl);
-					$("#workUrl").val(res.result.workDesc);
+					$("#workDesc").val(res.result.workDesc);
 					$("input[name='type']").prop("checked",false);
 					$("input[id='type"+res.result.type+"']").prop("checked",true);
 					$("input[name='status']").prop("checked",false);
