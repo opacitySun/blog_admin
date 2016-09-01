@@ -3,6 +3,7 @@ var fs = require("fs");
 var dbHelper = require("../DBHelper/dbHelper");
 var uploadHelper = require("../DBHelper/uploadHelper");
 var userDao = require("../DBSql/userDao");
+var userTypeDao = require("../DBSql/userTypeDao");
 var userInfoDao = require("../DBSql/userInfoDao");
 
 /**  
@@ -12,9 +13,26 @@ var userInfoDao = require("../DBSql/userInfoDao");
 exports.outerConnectAction = function(app){
     //查找用户列表
     app.all("/outerUserListAction",function(req,res){
-        var conditions ={};  
-        userDao.findUser(conditions,dbHelper,function(result){  
-            res.json(result); 
+        var conditions ={};   
+        userDao.findUser(conditions,fields,dbHelper,function(userResult){  
+            result = userResult;
+            userTypeDao.findUserType(conditions,dbHelper,function(userTypeResult){  
+                result.result.forEach(function(obj){
+                    userTypeResult.result.forEach(function(o){
+                        if(obj.type == o.type){
+                            obj["typeName"] = o.name;
+                        }
+                    });
+                });
+                res.json(result);
+            });    
+        });     
+    });
+    //获取权限列表
+    app.all("/outerUserTypeListFindAction",function(req,res){
+        var conditions = {};
+        userTypeDao.findUserType(conditions,dbHelper,function(result){  
+            res.json(result);
         });    
     });
     //查找用户
@@ -46,6 +64,7 @@ exports.outerConnectAction = function(app){
         var conditions ={
             "name":req.body.name,
             "password":req.body.password,
+            "type":Number(req.body.type),
             "createTime":thisTime,
             "updateTime":thisTime
         };  
@@ -59,6 +78,7 @@ exports.outerConnectAction = function(app){
         var conditions ={"_id":ObjectID(req.body.id)};  
         var update ={
             "password":req.body.password,
+            "type":Number(req.body.type),
             "updateTime":thisTime
         };  
         userDao.updateUser(conditions,update,dbHelper,function(result){  

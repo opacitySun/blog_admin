@@ -8,6 +8,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
         			html += '<tr>';
         			html += '<td>'+(key+1)+'</td>';
         			html += '<td>'+obj.name+'</td>';
+        			html += '<td>'+obj.typeName+'</td>';
         			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
 					html += '<input type="hidden" class="user_id" value="'+obj._id.toString()+'" />';
@@ -49,11 +50,13 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 				$("#comfirmPwd").parent().addClass("has-error has-feedback").find(".help-block").text("两次密码输入不一致");
 				return false;
 			}
+			var type = $("input[name='type']:checked").val();
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
 				var data = {
 					"name":userName,
-					"password":pwd
+					"password":pwd,
+					"type":type
 				};
 				if(flag == true){
 					flag = false;
@@ -168,15 +171,36 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 				}
 			}
 		},
-		//修改用户密码
+		//编辑用户密码
 		editPassword : function(id){
 			model.getUserById(id,function(res){
 				if(res.success == 1){
-					$("#userName").val(res.result.name);
-					$("#userName").attr("disabled",true);
-					$("#userSubmit").on("click",function(){
-						cUser.updatePassword(id);
-					});
+					model.getUserTypeList(function(resType){	//获取用户权限
+						if(resType.success == 1){
+							var html = "";
+							$.each(resType.result,function(key,obj){
+								html += '<div class="radio">';
+								html += '<label>';
+								if(key > 0){
+									html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
+								}else{
+									html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
+								}
+								html += '</label>';
+								html += '</div>';
+							});
+							$("#userType").append(html);
+							$("#userName").val(res.result.name);
+							$("#userName").attr("disabled",true);
+							$("#userSubmit").on("click",function(){
+								cUser.updatePassword(id);
+							});
+							$("input[name='type']").prop("checked",false);
+		        			$("input[id='type"+res.result.type+"']").prop("checked",true);
+						}else{
+							console.log(resType);
+						}
+					});	
 				}else{
 					console.log(res);
 				}
@@ -194,7 +218,13 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 				$("#comfirmPwd").parent().addClass("has-error has-feedback").find(".help-block").text("两次密码输入不一致");
 				return false;
 			}
-			model.updateUserPwd(id,pwd,function(res){
+			var type = $("input[name='type']:checked").val();
+			var formData = {
+				"id":id,
+				"password":pwd,
+				"type":type
+			};
+			model.updateUserPwd(formData,function(res){
 				if(res.success == 1){
 					alert("修改成功");
 					flag = true;

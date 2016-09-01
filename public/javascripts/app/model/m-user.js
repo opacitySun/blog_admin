@@ -5,7 +5,15 @@ define(["./Base"],function(Base){
 		//添加user
 		addUser : function(formData,callback){
 			var url = "/outerAddUserAction";
-			var data = {"name":formData.name,"password":formData.password};
+			var data = {"name":formData.name,"password":formData.password,"type":formData.type};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//获取用户权限列表
+		getUserTypeList : function(callback){
+			var url = "/outerUserTypeListFindAction";
+			var data = {};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
@@ -51,9 +59,9 @@ define(["./Base"],function(Base){
 			});
 		},
 		//修改用户密码
-		updateUserPwd : function(id,pwd,callback){
+		updateUserPwd : function(formData,callback){
 			var url = "/outerUpdateUserPwdAction";
-			var data = {"id":id,"password":pwd};
+			var data = {"id":formData.id,"password":formData.password,"type":formData.type};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});

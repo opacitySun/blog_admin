@@ -10,6 +10,25 @@ define(['jquery','fnbase','bootstrap','./controller/c-user','./model/m-user'],fu
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
         if(urlType == "add"){
+        	model.getUserTypeList(function(resType){	//获取用户权限
+				if(resType.success == 1){
+					var html = "";
+					$.each(resType.result,function(key,obj){
+						html += '<div class="radio">';
+						html += '<label>';
+						if(key > 0){
+							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
+						}else{
+							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
+						}
+						html += '</label>';
+						html += '</div>';
+					});
+					$("#userType").append(html);
+				}else{
+					console.log(resType);
+				}
+			});
 			$("#userSubmit").on("click",function(){
 				controller.userEditSubmit();
 			});
