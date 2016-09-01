@@ -14,7 +14,7 @@ exports.outerConnectAction = function(app){
     //查找用户列表
     app.all("/outerUserListAction",function(req,res){
         var conditions ={};   
-        userDao.findUser(conditions,fields,dbHelper,function(userResult){  
+        userDao.findUser(conditions,dbHelper,function(userResult){  
             result = userResult;
             userTypeDao.findUserType(conditions,dbHelper,function(userTypeResult){  
                 result.result.forEach(function(obj){

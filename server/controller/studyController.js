@@ -16,7 +16,7 @@ module.exports = function(app){
             "currentPage":currentPage,
             "pageSize":pageSize
         };
-        studyDao.findStudy(conditions,dbHelper,function(studyResult){  
+        studyDao.findStudy(conditions,fields,dbHelper,function(studyResult){  
             result = studyResult;
             studyTypeDao.findStudyType(conditions,dbHelper,function(studyTypeResult){  
             	result.result.forEach(function(obj){
