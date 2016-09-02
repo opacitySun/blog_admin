@@ -175,10 +175,10 @@ exports.outerConnectAction = function(app){
             if(result0.success == 1){
                 var conditions1 ={"userId":id};  
                 userInfoDao.findOneUserInfo(conditions1,dbHelper,function(result1){
-                    if(result2.success == 1){
+                    if(result1.success == 1){
                         var imgUrl = result1.result.image;
                         userInfoDao.removeUserInfo(conditions1,dbHelper,function(result2){
-                            if(result1.success == 1){
+                            if(result2.success == 1){
                                 if(imgUrl != ''){
                                     fs.unlinkSync('./public'+imgUrl);
                                 }
@@ -186,17 +186,17 @@ exports.outerConnectAction = function(app){
                                     res.json(result3);
                                 });
                             }else{
-                                res.json(result1);
+                                res.json(result2);
                             } 
                         });
                     }else{
                         userInfoDao.removeUserInfo(conditions1,dbHelper,function(result2){
-                            if(result1.success == 1){
+                            if(result2.success == 1){
                                 fairyDao.removeFairy(conditions1,dbHelper,function(result3){
                                     res.json(result3);
                                 });
                             }else{
-                                res.json(result1);
+                                res.json(result2);
                             } 
                         });
                     }
