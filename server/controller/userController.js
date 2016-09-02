@@ -41,7 +41,7 @@ exports.outerConnectAction = function(app){
     app.all("/outerFairyTypeListFindAction",function(req,res){
         var conditions = {};
         var fields = {};
-        fairyTypeDao.findfairyType(conditions,fields,dbHelper,function(result){  
+        fairyTypeDao.findFairyType(conditions,fields,dbHelper,function(result){  
             res.json(result);
         });    
     });
