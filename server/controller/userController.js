@@ -174,21 +174,32 @@ exports.outerConnectAction = function(app){
         userDao.removeUser(conditions0,dbHelper,function(result0){  
             if(result0.success == 1){
                 var conditions1 ={"userId":id};  
-                userInfoDao.findOneUserInfo(conditions1,dbHelper,function(result2){
-                    var imgUrl = result2.result.image;
-                    userInfoDao.removeUserInfo(conditions1,dbHelper,function(result1){
-                        if(result1.success == 1){
-                            if(imgUrl != ''){
-                                fs.unlinkSync('./public'+imgUrl);
-                            }
-                            var conditions3 = {"userId":id};
-                            fairyDao.removeFairy(conditions3,dbHelper,function(result3){
-                                res.json(result3);
-                            });
-                        }else{
-                            res.json(result1);
-                        } 
-                    });
+                userInfoDao.findOneUserInfo(conditions1,dbHelper,function(result1){
+                    if(result2.success == 1){
+                        var imgUrl = result1.result.image;
+                        userInfoDao.removeUserInfo(conditions1,dbHelper,function(result2){
+                            if(result1.success == 1){
+                                if(imgUrl != ''){
+                                    fs.unlinkSync('./public'+imgUrl);
+                                }
+                                fairyDao.removeFairy(conditions1,dbHelper,function(result3){
+                                    res.json(result3);
+                                });
+                            }else{
+                                res.json(result1);
+                            } 
+                        });
+                    }else{
+                        userInfoDao.removeUserInfo(conditions1,dbHelper,function(result2){
+                            if(result1.success == 1){
+                                fairyDao.removeFairy(conditions1,dbHelper,function(result3){
+                                    res.json(result3);
+                                });
+                            }else{
+                                res.json(result1);
+                            } 
+                        });
+                    }
                 });  
             }else{
                 res.json(result0); 
