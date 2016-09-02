@@ -1,4 +1,5 @@
 define(['jquery','fnbase','bootstrap','./controller/c-user','./model/m-user'],function($,fnbase,bootstrap,controller,model){
+	var staticPath = $("#staticPath").val();
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/user"){	//用户管理
 		controller.getUserList();
@@ -42,7 +43,7 @@ define(['jquery','fnbase','bootstrap','./controller/c-user','./model/m-user'],fu
 							html += '<input type="radio" name="fairyType" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
 						}
 						html += '</label>';
-						html += '<img src="'+obj.image+'" style="max-width:150px;height:auto;" />';
+						html += '<img src="'+staticPath+obj.image+'" style="max-width:150px;height:auto;" />';
 						html += '</div>';
 					});
 					$("#fairyName").parent().after(html);
