@@ -5,7 +5,13 @@ define(["./Base"],function(Base){
 		//添加user
 		addUser : function(formData,callback){
 			var url = "/outerAddUserAction";
-			var data = {"name":formData.name,"password":formData.password,"type":formData.type};
+			var data = {
+				"name":formData.name,
+				"password":formData.password,
+				"type":formData.type,
+				"fairyName":formData.fairyName,
+				"fairyType":formData.fairyType
+			};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
@@ -13,6 +19,14 @@ define(["./Base"],function(Base){
 		//获取用户权限列表
 		getUserTypeList : function(callback){
 			var url = "/outerUserTypeListFindAction";
+			var data = {};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//获取精灵列表
+		getFairyTypeList : function(callback){
+			var url = "/outerFairyTypeListFindAction";
 			var data = {};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);

@@ -1,10 +1,12 @@
-var ObjectID = require("mongodb").ObjectID;
-var fs = require("fs");
-var dbHelper = require("../DBHelper/dbHelper");
-var uploadHelper = require("../DBHelper/uploadHelper");
-var userDao = require("../DBSql/userDao");
-var userTypeDao = require("../DBSql/userTypeDao");
-var userInfoDao = require("../DBSql/userInfoDao");
+var ObjectID = require("mongodb").ObjectID,
+    fs = require("fs"),
+    dbHelper = require("../DBHelper/dbHelper"),
+    uploadHelper = require("../DBHelper/uploadHelper"),
+    userDao = require("../DBSql/userDao"),
+    userTypeDao = require("../DBSql/userTypeDao"),
+    userInfoDao = require("../DBSql/userInfoDao"),
+    fairyDao = require("../DBSql/fairyDao"),
+    fairyTypeDao = require("../DBSql/fairyTypeDao");
 
 /**  
  * 提供操作表的公共路由，以供ajax访问  
@@ -35,6 +37,13 @@ exports.outerConnectAction = function(app){
             res.json(result);
         });    
     });
+    //获取精灵列表
+    app.all("/outerFairyTypeListFindAction",function(req,res){
+        var conditions = {};
+        fairyTypeDao.findfairyType(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
     //查找用户
     app.all("/outerUserFindAction",function(req,res){
         var conditions ={'name':req.body.name,'password':req.body.password};  
@@ -61,15 +70,37 @@ exports.outerConnectAction = function(app){
     //添加用户
     app.all("/outerAddUserAction",function(req,res){
         var thisTime = new Date().getTime();
-        var conditions ={
+        var conditions0 ={
             "name":req.body.name,
             "password":req.body.password,
             "type":Number(req.body.type),
             "createTime":thisTime,
             "updateTime":thisTime
         };  
-        userDao.addUser(conditions,dbHelper,function(result){  
-            res.json(result); 
+        userDao.addUser(conditions0,dbHelper,function(result0){  
+            if(result0.success == 1){
+                var conditions1 = {"createTime":thisTime};
+                userDao.findOneUser(conditions1,dbHelper,function(result1){
+                    if(result1.success == 1){
+                        var conditions2 ={
+                            "userId":result1.result._id.toString(),
+                            "name":req.body.fairyName,
+                            "type":Number(req.body.fairyType),
+                            "level":1,
+                            "exp":0,
+                            "createTime":thisTime,
+                            "updateTime":thisTime
+                        };
+                        fairyDao.addFairy(conditions2,dbHelper,function(result2){
+                            res.json(result2); 
+                        });
+                    }else{
+                        res.json(result1); 
+                    }
+                });
+            }else{
+                res.json(result0); 
+            }
         });    
     });
     //修改用户密码

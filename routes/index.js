@@ -102,6 +102,26 @@ router.get('/recreation-type', function(req, res, next) {
   res.render('recreation-type', { title: '娱乐 -- 编辑类型',layout: 'layout.html' });
 });
 
+/* fairy */
+router.get('/fairy', function(req, res, next) {
+  res.render('fairy', { title: '精灵',layout: 'layout.html' });
+});
+
+/* fairy-edit */
+router.get('/fairy-edit', function(req, res, next) {
+  res.render('fairy-edit', { title: '精灵 -- 编辑详情',layout: 'layout.html' });
+});
+
+/* fairy-type */
+router.get('/fairy-type', function(req, res, next) {
+  res.render('fairy-type', { title: '精灵 -- 类型列表',layout: 'layout.html' });
+});
+
+/* fairy-type-edit */
+router.get('/fairy-type-edit', function(req, res, next) {
+  res.render('fairy-type-edit', { title: '精灵 -- 类型编辑',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });

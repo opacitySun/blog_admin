@@ -29,6 +29,27 @@ define(['jquery','fnbase','bootstrap','./controller/c-user','./model/m-user'],fu
 					console.log(resType);
 				}
 			});
+			model.getFairyTypeList(function(resFairy){	//获取精灵列表
+				if(resFairy.success == 1){
+					var html = "";
+					$.each(resFairy.result,function(key,obj){
+						html += '<div class="radio">';
+						html += '<label>';
+						html += '<input type="hidden" class="fairyName" value="'+obj.name+'" />';
+						if(key > 0){
+							html += '<input type="radio" name="fairyType" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
+						}else{
+							html += '<input type="radio" name="fairyType" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
+						}
+						html += '</label>';
+						html += '<img src="'+obj.image+'" style="max-width:150px;height:auto;" />';
+						html += '</div>';
+					});
+					$("#fairyName").parent().after(html);
+				}else{
+					console.log(resFairy);
+				}
+			});
 			$("#userSubmit").on("click",function(){
 				controller.userEditSubmit();
 			});

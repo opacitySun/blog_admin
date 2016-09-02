@@ -50,13 +50,20 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 				$("#comfirmPwd").parent().addClass("has-error has-feedback").find(".help-block").text("两次密码输入不一致");
 				return false;
 			}
+			var fairyName = $("#fairyName").val();
+			if(fairyName == ''){
+				fairyName = $("input[name='fairyType']:checked").parent().find(".fairyName").val();
+			}
 			var type = $("input[name='type']:checked").val();
+			var fairyType = $("input[name='fairyType']:checked").val();
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
 				var data = {
 					"name":userName,
 					"password":pwd,
-					"type":type
+					"type":type,
+					"fairyName":fairyName,
+					"fairyType":fairyType
 				};
 				if(flag == true){
 					flag = false;
@@ -192,6 +199,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 							$("#userType").append(html);
 							$("#userName").val(res.result.name);
 							$("#userName").attr("disabled",true);
+							$("#fairyName").parent().remove();
 							$("#userSubmit").on("click",function(){
 								cUser.updatePassword(id);
 							});
