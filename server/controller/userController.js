@@ -40,7 +40,8 @@ exports.outerConnectAction = function(app){
     //获取精灵列表
     app.all("/outerFairyTypeListFindAction",function(req,res){
         var conditions = {};
-        fairyTypeDao.findfairyType(conditions,dbHelper,function(result){  
+        var fields = {};
+        fairyTypeDao.findfairyType(conditions,fields,dbHelper,function(result){  
             res.json(result);
         });    
     });
