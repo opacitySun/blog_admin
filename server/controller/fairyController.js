@@ -17,17 +17,17 @@ module.exports = function(app){
             "currentPage":currentPage,
             "pageSize":pageSize
         };
-        recreationDao.findRecreation(conditions,fields,dbHelper,function(recreationResult){  
-            result = recreationResult;
-            recreationTypeDao.findRecreationType(conditions,dbHelper,function(recreationTypeResult){  
+        fairyDao.findFairy(conditions,fields,dbHelper,function(fairyResult){  
+            result = fairyResult;
+            fairyTypeDao.findFairyType(conditions,dbHelper,function(fairyTypeResult){  
             	result.result.forEach(function(obj){
-                    recreationTypeResult.result.forEach(function(o){
+                    fairyTypeResult.result.forEach(function(o){
                         if(obj.type == o.type){
                             obj["typeName"] = o.name;
+                            obj["image"] = o.image;
                         }
                     });
                 });
-                //result["result"] = apeAlgorithm.quicksort.sortObj(result.result,'updateTime','desc');
             	res.json(result);
         	});    
         });     

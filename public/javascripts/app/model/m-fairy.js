@@ -1,10 +1,10 @@
 define(["./Base"],function(Base){
 	var modelBase = new Base();
 
-	var mRecreation = {
-		//获取娱乐列表
-		getRecreationList : function(formData,callback){
-			var url = "/recreationAllListFindAction";
+	var mFairy = {
+		//获取精灵列表
+		getFairyList : function(formData,callback){
+			var url = "/fairyAllListFindAction";
 			var data = {
 				"currentPage":formData.currentPage,
 				"pageSize":formData.pageSize
@@ -13,7 +13,7 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
-		//获取娱乐类型
+		//获取类型
 		getRecreationTypeList : function(callback){
 			var url = "/recreationTypeListFindAction";
 			var data = {};
@@ -69,5 +69,5 @@ define(["./Base"],function(Base){
 		}
 	};
 
-	return mRecreation;
+	return mFairy;
 });

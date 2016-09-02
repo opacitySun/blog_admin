@@ -1,15 +1,45 @@
-define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fnbase,model) {
+define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,model) {
 	var staticPath = $("#staticPath").val();
 
-	var cRecreation = {
+	var cFairy = {
 		//获取用户列表
-        getRecreationList : function(currentPage,callback){
+        getFairyList : function(currentPage,callback){
         	var pageSize = $("#pageSize").val();
         	var formData = {
         		"currentPage":currentPage,
 				"pageSize":pageSize
         	};
-        	model.getRecreationList(formData,function(res){
+        	model.getFairyList(formData,function(res){
+        		html = "";
+        		$.each(res.result,function(key,obj){
+        			html += '<tr>';
+        			html += '<td>'+Number(((currentPage-1)*pageSize)+(key+1))+'</td>';
+        			html += '<td>'+obj.name+'</td>';
+        			html += '<td>'+obj.typeName+'</td>';
+        			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.image+'" /></td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
+        			html += '<td>';
+					html += '<input type="hidden" class="fairy_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link fairy_edit">编辑</button>';
+					html += '</td>';
+        			html += '</tr>';
+        		});
+        		$("#fairyList").html(html);
+        		$("button.fairy_edit").on("click",function(){
+					var id = $(this).parent().find(".fairy_id").val();
+					window.location.href = "/fairy-edit?type=edit&&id="+id;
+				});
+				callback(res.total);
+        	});
+        },
+        //获取用户列表
+        getFairyTypeList : function(currentPage,callback){
+        	var pageSize = $("#pageSize").val();
+        	var formData = {
+        		"currentPage":currentPage,
+				"pageSize":pageSize
+        	};
+        	model.getFairyList(formData,function(res){
         		html = "";
         		$.each(res.result,function(key,obj){
         			html += '<tr>';
@@ -25,7 +55,7 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
 					html += '</td>';
         			html += '</tr>';
         		});
-        		$("#recreationList").html(html);
+        		$("#fairyTypeList").html(html);
         		$("button.recreation_edit").on("click",function(){
 					var id = $(this).parent().find(".recreation_id").val();
 					window.location.href = "/recreation-edit?type=edit&&id="+id;
@@ -223,5 +253,5 @@ define(["./Base","jquery","fnbase","../model/m-recreation"], function (Base,$,fn
         }
 	};
 
-	return cRecreation;
+	return cFairy;
 });

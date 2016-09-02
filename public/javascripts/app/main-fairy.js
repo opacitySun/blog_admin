@@ -1,11 +1,11 @@
 define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller/c-page'],function($,fnbase,controller,model,cPage){
     var urlPath = fnbase.getRouterName();
 	if(urlPath == "/fairy"){	//精灵管理
-		controller.getRecreationList(1,function(total){
+		controller.getFairyList(1,function(total){
 			var pageSize = $("#pageSize").val();
 			var buttons = $("#pageButton").val();
 			cPage.createPage(pageSize,buttons,total,function(pageIndex){
-				controller.getRecreationList(pageIndex,function(){});
+				controller.getFairyList(pageIndex,function(){});
 			});
 		});
 		$("#addButton").on("click",function(){
