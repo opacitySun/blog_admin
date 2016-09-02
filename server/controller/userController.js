@@ -190,14 +190,8 @@ exports.outerConnectAction = function(app){
                             } 
                         });
                     }else{
-                        userInfoDao.removeUserInfo(conditions1,dbHelper,function(result2){
-                            if(result2.success == 1){
-                                fairyDao.removeFairy(conditions1,dbHelper,function(result3){
-                                    res.json(result3);
-                                });
-                            }else{
-                                res.json(result2);
-                            } 
+                        fairyDao.removeFairy(conditions1,dbHelper,function(result3){
+                            res.json(result3);
                         });
                     }
                 });  
