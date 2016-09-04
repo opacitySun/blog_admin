@@ -1,4 +1,4 @@
-define(["./Base","jquery","fnbase","fnvalidate","../model/m-fairy"], function (Base,$,fnbase,fnvalidate,model) {
+define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,model) {
 	var staticPath = $("#staticPath").val();
 
 	var cFairy = {
@@ -108,7 +108,7 @@ define(["./Base","jquery","fnbase","fnvalidate","../model/m-fairy"], function (B
 				return false;
 			}
 			var fairyExp = $("#fairyExp").val();
-			if(fairyExp == '' || !fnvalidate.PositiveInteger.test(fairyExp)){
+			if(fairyExp == '' || !fnbase.fnValidate.PositiveInteger.test(fairyExp)){
 				$("#fairyExp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能为空且必须为正整数");
 				return false;
 			}
