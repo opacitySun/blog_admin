@@ -31,6 +31,9 @@ define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller
 			window.location.href = "/fairy-type-edit?type=add";
 		});
 	}else if(urlPath == "/fairy-type-edit"){	//编辑类型
+		var requestGet = fnbase.GetRequest();
+		var urlType = requestGet["type"];
+        var urlId = requestGet["id"];
 		$("#pageBack").on("click",function(){
     		window.location.href="/fairy-type";
     	});
