@@ -290,7 +290,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				return false;
 			}
 			var exp = $("#exp").val();
-			if(exp == '' || !fnbase.fnValidate.PositiveInteger.test(fairyExp)){
+			if(exp == '' || !fnbase.fnValidate.PositiveInteger.test(exp)){
 				$("#exp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能为空且必须是正整数");
 				return false;
 			}
@@ -333,7 +333,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				return false;
 			}
 			var exp = $("#exp").val();
-			if(exp == '' || !fnbase.fnValidate.PositiveInteger.test(fairyExp)){
+			if(exp == '' || !fnbase.fnValidate.PositiveInteger.test(exp)){
 				$("#exp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能为空且必须是正整数");
 				return false;
 			}
