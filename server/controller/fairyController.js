@@ -85,8 +85,8 @@ module.exports = function(app){
         var update = {
             "name":req.body.name,
             "type":req.body.type,
-            "level":req.body.level,
-            "exp":req.body.exp,
+            "level":Number(req.body.level),
+            "exp":Number(req.body.exp),
             "updateTime":thisTime
         };
         fairyDao.updateFairy(conditions,update,dbHelper,function(result){  
