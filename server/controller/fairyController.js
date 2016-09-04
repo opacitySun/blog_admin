@@ -84,7 +84,7 @@ module.exports = function(app){
         var conditions = {"_id":ObjectID(req.body.id)};
         var update = {
             "name":req.body.name,
-            "type":req.body.type,
+            "type":Number(req.body.type),
             "level":Number(req.body.level),
             "exp":Number(req.body.exp),
             "updateTime":thisTime
