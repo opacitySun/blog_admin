@@ -20,15 +20,24 @@ module.exports = function(app){
         fairyDao.findFairy(conditions,fields,dbHelper,function(fairyResult){  
             result = fairyResult;
             fairyTypeDao.findFairyType(conditions,{},dbHelper,function(fairyTypeResult){  
-            	result.result.forEach(function(obj){
-                    fairyTypeResult.result.forEach(function(o){
-                        if(obj.type == o.type){
-                            obj["typeName"] = o.name;
-                            obj["image"] = o.image;
-                        }
+                userDao.findUser(conditions,dbHelper,function(userResult){
+                    result.result.forEach(function(obj){
+                        fairyTypeResult.result.forEach(function(o){
+                            if(obj.type == o.type){
+                                obj["typeName"] = o.name;
+                                obj["image"] = o.image;
+                            }
+                        });
                     });
+                    result.result.forEach(function(obj){
+                        userResult.result.forEach(function(o){
+                            if(obj.userId == o._id.toString()){
+                                obj["owner"] = o.name;
+                            }
+                        });
+                    });
+                    res.json(result);
                 });
-            	res.json(result);
         	});    
         });     
     });

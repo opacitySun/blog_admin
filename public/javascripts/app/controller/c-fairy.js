@@ -17,6 +17,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
         			html += '<td>'+obj.name+'</td>';
         			html += '<td>'+obj.typeName+'</td>';
         			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.image+'" /></td>';
+        			html += '<td>'+obj.owner+'</td>';
         			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
 					html += '<input type="hidden" class="fairy_id" value="'+obj._id.toString()+'" />';
