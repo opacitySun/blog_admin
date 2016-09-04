@@ -41,18 +41,18 @@ define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller
 			$("#recreationSubmit").on("click",function(){
 				controller.recreationEditSubmit();
 			});
-			$("#pageHeader").html("娱乐 <small>添加</small>");
+			$("#pageHeader").html("精灵 <small>添加</small>");
         }else if(urlType == "edit"){
         	controller.editRecreation(urlId);
-			$("#pageHeader").html("娱乐 <small>修改</small>");
+			$("#pageHeader").html("精灵 <small>修改</small>");
         }
 	}else if(urlPath == "/recreation-type"){	//编辑类型
 		$("#recreationSubmit").on("click",function(){
 			controller.recreationTypeSubmit();
 		});
 		$("#pageBack").on("click",function(){
-    		window.location.href="/recreation";
+    		window.location.href="/fairy-type";
     	});
-		$("#pageHeader").html("娱乐 <small>添加类型</small>");
+		$("#pageHeader").html("精灵 <small>添加类型</small>");
 	}
 });
