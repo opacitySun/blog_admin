@@ -14,9 +14,12 @@ define(["./Base"],function(Base){
 			});
 		},
 		//获取类型列表
-		getFairyTypeList : function(callback){
+		getFairyTypeList : function(formData,callback){
 			var url = "/fairyTypeListFindAction";
-			var data = {};
+			var data = {
+				"currentPage":formData.currentPage,
+				"pageSize":formData.pageSize
+			};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
