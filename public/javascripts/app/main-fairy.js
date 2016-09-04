@@ -31,12 +31,17 @@ define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller
 			window.location.href = "/fairy-type-edit?type=add";
 		});
 	}else if(urlPath == "/fairy-type-edit"){	//编辑类型
-		$("#recreationSubmit").on("click",function(){
-			controller.recreationTypeSubmit();
-		});
 		$("#pageBack").on("click",function(){
     		window.location.href="/fairy-type";
     	});
-		$("#pageHeader").html("精灵 <small>添加类型</small>");
+		if(urlType == "add"){
+			$("#fairyTypeSubmit").on("click",function(){
+				controller.fairyTypeEditSubmit();
+			});
+			$("#pageHeader").html("精灵 <small>添加类型</small>");
+		}else if(urlType == "edit"){
+			controller.editFairyType(urlId);
+			$("#pageHeader").html("精灵 <small>修改类型</small>");
+		}
 	}
 });

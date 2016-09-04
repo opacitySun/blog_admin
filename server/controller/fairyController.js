@@ -78,6 +78,14 @@ module.exports = function(app){
             res.json(result);
         });    
     });
+    //根据id获取精灵类型详情
+    app.all("/fairyTypeFindByIdAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        fairyTypeDao.findOneFairyType(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
     //根据id修改精灵信息
     app.all("/updateFairyByIdAction",function(req,res){
         var thisTime = new Date().getTime();
@@ -93,88 +101,71 @@ module.exports = function(app){
             res.json(result);
         });    
     });
-    //添加或修改新闻消息
-    app.all("/editRecreationAction",function(req,res){
-        uploadHelper.fileSingle(req,res,"recreationImg",function(result0){
+    //添加或修改精灵类型
+    app.all("/editFairyTypeAction",function(req,res){
+        uploadHelper.fileSingle(req,res,"fairyTypeImg",function(result0){
             var thisTime = new Date().getTime();
             var resourcesUrl = "/resources/";
             var imgUrl = resourcesUrl + result0.file.filename;
             var find = {"_id":"xxx"};
-            if(result0.body.recreationId != ''){
-                find = {"_id":ObjectID(result0.body.recreationId)};
+            if(result0.body.fairyTypeId != ''){
+                find = {"_id":ObjectID(result0.body.fairyTypeId)};
             }
-            recreationDao.findOneRecreation(find,dbHelper,function(result1){  
+            fairyTypeDao.findOneFairyType(find,dbHelper,function(result1){  
                 if(result1.success == 1){
-                    var conditions = {"_id":ObjectID(result0.body.recreationId)};
+                    var conditions = {"_id":ObjectID(result0.body.fairyTypeId)};
                     var update = {
-                        "name":result0.body.recreationName,
-                        "url":result0.body.recreationUrl,
-                        "type":Number(result0.body.type),
+                        "name":result0.body.fairyTypeName,
                         "desc":result0.body.desc,
                         "image":imgUrl,
                         "updateTime":thisTime
                     };
-                    recreationDao.updateRecreation(conditions,update,dbHelper,function(result2){  
+                    fairyTypeDao.updateFairyType(conditions,update,dbHelper,function(result2){  
                         var oldImg = result1.result.image;
-                        fs.unlinkSync('./public'+oldImg);   //删除老图片
+                        if(oldImg != ''){
+                            fs.unlinkSync('./public'+oldImg);   //删除老图片
+                        }
                         res.json(result2);
                     }); 
                 }else{
-                    var conditions = {
-                        "name":result0.body.recreationName,
-                        "url":result0.body.recreationUrl,
-                        "type":Number(result0.body.type),
-                        "desc":result0.body.desc,
-                        "image":imgUrl,
-                        "createTime":thisTime,
-                        "updateTime":thisTime
-                    };
-                    recreationDao.addRecreation(conditions,dbHelper,function(result2){  
-                        res.json(result2);
+                    fairyTypeDao.findFairyType({},{},dbHelper,function(result3){
+                        if(result3.success == 1){
+                            var typeArr = [];
+                            result3.result.forEach(function(obj){
+                                typeArr.push(obj.type);
+                            });
+                            var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
+                            var conditions = {
+                                "name":result0.body.fairyTypeName,
+                                "type":Number(typeMax+1),
+                                "desc":result0.body.desc,
+                                "image":imgUrl,
+                                "createTime":thisTime,
+                                "updateTime":thisTime
+                            };
+                            fairyTypeDao.addFairyType(conditions,dbHelper,function(result2){  
+                                res.json(result2);
+                            });    
+                        }else{
+                            res.json(result3);
+                        }
                     });    
                 }
             });  
         });
     });
-    //根据id修改
-    app.all("/updateRecreationByIdAction",function(req,res){
+    //根据id修改精灵类型
+    app.all("/updateFairyTypeByIdAction",function(req,res){
         var thisTime = new Date().getTime();
         var conditions = {"_id":ObjectID(req.body.id)};
         var update = {
             "name":req.body.name,
-            "url":req.body.url,
-            "type":req.body.type,
             "desc":req.body.desc,
             "updateTime":thisTime
         };
-        recreationDao.updateRecreation(conditions,update,dbHelper,function(result){  
+        fairyTypeDao.updateFairyType(conditions,update,dbHelper,function(result){  
             res.json(result);
         });    
-    });
-    //添加或修改类型
-    app.all("/editRecreationTypeAction",function(req,res){
-        var conditions0 = {};
-        recreationTypeDao.findRecreationType(conditions0,dbHelper,function(result0){
-            if(result0.success == 1){
-                var typeArr = [];
-                result0.result.forEach(function(obj){
-                    typeArr.push(obj.type);
-                });
-                var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
-                var thisTime = new Date().getTime();
-                var conditions1 = {
-                    "name":req.body.name,
-                    "type":Number(typeMax+1),
-                    "createTime":thisTime,
-                    "updateTime":thisTime
-                };
-                recreationTypeDao.addRecreationType(conditions1,dbHelper,function(result1){  
-                    res.json(result1);
-                });    
-            }else{
-                res.json(result0);
-            }
-        });
     });
     //删除精灵类型
     app.all("/deleteFairyTypeAction",function(req,res){

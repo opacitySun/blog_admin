@@ -48,6 +48,14 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//根据id获取精灵类型详情
+		getFairyTypeById : function(id,callback){
+			var url = "/fairyTypeFindByIdAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//修改精灵信息
 		editFairy : function(formData,callback){
 			var url = "/updateFairyByIdAction";
@@ -63,31 +71,21 @@ define(["./Base"],function(Base){
 			});
 		},
 		//添加或修改
-		editRecreation : function(formData,callback){
-			var url = "/editRecreationAction";
+		editFairyType : function(formData,callback){
+			var url = "/editFairyTypeAction";
 			var data = formData;
 			modelBase.postFormDataAjax(url,data,function(res){
 				callback(res);
 			});
 		},
 		//修改（无图片时）
-		editRecreationNoImg : function(formData,callback){
-			var url = "/updateRecreationByIdAction";
+		editFairyTypeNoImg : function(formData,callback){
+			var url = "/updateFairyTypeByIdAction";
 			var data = {
 				"id":formData.id,
 				"name":formData.name,
-				"url":formData.url,
-				"type":formData.type,
 				"desc":formData.desc
 			};
-			modelBase.postAjax(url,data,function(res){
-				callback(res);
-			});
-		},
-		//添加或修改类型
-		editRecreationType : function(formData,callback){
-			var url = "/editRecreationTypeAction";
-			var data = {"name":formData.name};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});

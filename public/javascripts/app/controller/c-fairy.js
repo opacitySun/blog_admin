@@ -159,36 +159,64 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				}
 			});		
 		},
+		//编辑精灵类型
+        editFairyType : function(id){
+        	model.getFairyTypeById(id,function(res){
+        		$("#fairyTypeId").val(id);
+				$("#fairyTypeName").val(res.result.name);
+        		$("#desc").val(res.result.desc);
+        		$("#fairyTypeImg").css({
+					"width":"20px",
+					"height":"20px"
+				});
+				$("#fairyTypeImg").parent().css({
+					"position":"relative",
+					"height":"200px"
+				}).append('<img src="'+res.result.image+'" />');
+				$("#fairyTypeImg").parent().find("img").css({
+					"position":"absolute",
+					"width":"150px",
+					"height":"200px",
+					"top":"0",
+					"left":"0"
+				}).on("click",function(){
+					$("#fairyTypeImg").click();
+				});
+        		$("#fairyTypeSubmit").on("click",function(){
+					cFairy.fairyTypeEditSubmitNoImg(id);
+				});
+				$("#fairyTypeImg").on("change",function(){
+					$("#fairyTypeImg").parent().removeAttr("style").find("img").remove();
+					$("#fairyTypeImg").removeAttr("style");
+					$("#fairyTypeSubmit").off("click");
+					$("#fairyTypeSubmit").on("click",function(){
+						cFairy.fairyTypeEditSubmit();
+					});
+				});
+        	});
+        },
         //提交(无图片时)
-		recreationEditSubmitNoImg : function(id){
-			var recreationName = $("#recreationName").val();
-			if(recreationName == ''){
-				$("#recreationName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+		fairyTypeEditSubmitNoImg : function(id){
+			var fairyTypeName = $("#fairyTypeName").val();
+			if(fairyTypeName == ''){
+				$("#fairyTypeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
-			var recreationUrl = $("#recreationUrl").val();
-			if(recreationUrl == ''){
-				$("#recreationUrl").parent().addClass("has-error has-feedback").find(".help-block").text("链接地址不能为空");
-				return false;
-			}
-			var type = $("input[name='type']:checked").val();
 			var desc = $("#desc").val();
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
 				var formData = {
 					"id":id,
-					"name":recreationName,
-					"url":recreationUrl,
-					"type":type,
+					"name":fairyTypeName,
 					"desc":desc
 				};
 				if(flag == true){
 					flag = false;
-					model.editRecreationNoImg(formData,function(res){
+					model.editFairyTypeNoImg(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
-							window.location.href = "/recreation";
+							window.location.href = "/fairy-type";
 		                }else{
 		                    alert("提交失败");
 		                }
@@ -197,27 +225,22 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 			}
 		},
         //提交
-        recreationEditSubmit : function(){
-        	var recreationName = $("#recreationName").val();
-			if(recreationName == ''){
-				$("#recreationName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
-				return false;
-			}
-			var recreationUrl = $("#recreationUrl").val();
-			if(recreationUrl == ''){
-				$("#recreationUrl").parent().addClass("has-error has-feedback").find(".help-block").text("链接地址不能为空");
+        fairyTypeEditSubmit : function(){
+        	var fairyTypeName = $("#fairyTypeName").val();
+			if(fairyTypeName == ''){
+				$("#fairyTypeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
 				return false;
 			}
 			if(confirm("确认提交数据吗？")){
 				var flag = true;
-				var formData = new FormData($("#recreationForm")[0]);
+				var formData = new FormData($("#fairyTypeForm")[0]);
 				if(flag == true){
 					flag = false;
-					model.editRecreation(formData,function(res){
+					model.editFairyType(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
-							history.go(-1);
+							window.location.href = "/fairy-type";
 		                }else{
 		                    alert("提交失败");
 		                }
