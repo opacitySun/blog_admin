@@ -55,6 +55,9 @@ define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller
 			});
 			$("#pageHeader").html("精灵 <small>等级</small>");
 		});
+		$("#addButton").on("click",function(){
+			window.location.href = "/fairy-level-edit?type=add";
+		});
 	}else if(urlPath == "/fairy-level-edit"){	//编辑详情
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
