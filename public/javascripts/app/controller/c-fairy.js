@@ -67,6 +67,40 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				callback(res.total);
         	});
         },
+        //获取精灵等级列表
+        getFairyLevelList : function(currentPage,callback){
+        	var pageSize = $("#pageSize").val();
+        	var formData = {
+        		"currentPage":currentPage,
+				"pageSize":pageSize
+        	};
+        	model.getFairyLevelList(formData,function(res){
+        		html = "";
+        		$.each(res.result,function(key,obj){
+        			html += '<tr>';
+        			html += '<td>'+Number(((currentPage-1)*pageSize)+(key+1))+'</td>';
+        			html += '<td>'+obj.level+'</td>';
+        			html += '<td>'+obj.exp+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
+        			html += '<td>';
+					html += '<input type="hidden" class="fairy_level_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link fairy_level_edit">编辑</button>';
+					html += '<button type="button" class="btn btn-link fairy_level_delete">删除</button>';
+					html += '</td>';
+        			html += '</tr>';
+        		});
+        		$("#fairyLevelList").html(html);
+        		$("button.fairy_level_edit").on("click",function(){
+					var id = $(this).parent().find(".fairy_level_id").val();
+					window.location.href = "/fairy-level-edit?type=edit&&id="+id;
+				});
+				$("button.fairy_level_delete").on("click",function(){
+					var id = $(this).parent().find(".fairy_level_id").val();
+					cFairy.deleteFairyLevel(id);
+				});
+				callback(res.total);
+        	});
+        },
         //编辑精灵
         editFairy : function(id){
         	model.getFairyById(id,function(res){
@@ -116,7 +150,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				$("#fairyExp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能大于4000");
 				return false;
 			}
-			model.getFairyLevelList(function(resLevel){
+			model.getFairyLevelListNoField(function(resLevel){
 				if(resLevel.success == 1){
 					var type = $("input[name='type']:checked").val();
 					var fairyLevel = $("#fairyLevel").val();
@@ -175,7 +209,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				}).append('<img src="'+res.result.image+'" />');
 				$("#fairyTypeImg").parent().find("img").css({
 					"position":"absolute",
-					"width":"150px",
+					"width":"200px",
 					"height":"200px",
 					"top":"0",
 					"left":"0"
@@ -195,7 +229,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				});
         	});
         },
-        //提交(无图片时)
+        //提交类型(无图片时)
 		fairyTypeEditSubmitNoImg : function(id){
 			var fairyTypeName = $("#fairyTypeName").val();
 			if(fairyTypeName == ''){
@@ -224,7 +258,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				}
 			}
 		},
-        //提交
+        //提交类型
         fairyTypeEditSubmit : function(){
         	var fairyTypeName = $("#fairyTypeName").val();
 			if(fairyTypeName == ''){
@@ -248,33 +282,83 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				}
 			}
         },
-        //类型提交
-        recreationTypeSubmit : function(){
-        	var typeName = $("#typeName").val();
-			if(typeName == ''){
-				$("#typeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+        //提交等级
+		fairyLevelSubmit : function(){
+			var level = $("#level").val();
+			if(level == ''){
+				$("#level").parent().addClass("has-error has-feedback").find(".help-block").text("等级不能为空且必须是正整数");
 				return false;
 			}
-			if(confirm("确认提交新的数据吗？")){
+			var exp = $("#exp").val();
+			if(exp == '' || !fnbase.fnValidate.PositiveInteger.test(fairyExp)){
+				$("#exp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能为空且必须是正整数");
+				return false;
+			}
+			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
 				var formData = {
-					"name":typeName
+					"level":level,
+					"exp":exp
 				};
 				if(flag == true){
 					flag = false;
-					model.editRecreationType(formData,function(res){
+					model.addFairyLevel(formData,function(res){
 		                if(res.success == 1){
 		                    alert("提交成功");
 							flag = true;
-							window.location.href = "/recreation-type";
+							window.location.href = "/fairy-level";
 		                }else{
 		                    alert("提交失败");
 		                }
 		            });
 				}
 			}
+		},
+        //编辑等级
+        editFairyLevel : function(id){
+        	model.getFairyLevelById(id,function(res){
+        		$("#fairyLevelId").val(id);
+				$("#level").val(res.result.level);
+        		$("#exp").val(res.result.exp);
+        		$("#fairyLevelSubmit").on("click",function(){
+					cFairy.fairyLevelEditSubmit(id);
+				});
+        	});
         },
-        //删除娱乐
+        //修改等级
+		fairyLevelEditSubmit : function(id){
+			var level = $("#level").val();
+			if(level == ''){
+				$("#level").parent().addClass("has-error has-feedback").find(".help-block").text("等级不能为空且必须是正整数");
+				return false;
+			}
+			var exp = $("#exp").val();
+			if(exp == '' || !fnbase.fnValidate.PositiveInteger.test(fairyExp)){
+				$("#exp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能为空且必须是正整数");
+				return false;
+			}
+			if(confirm("确认提交新的用户信息数据吗？")){
+				var flag = true;
+				var formData = {
+					"id":id,
+					"level":level,
+					"exp":exp
+				};
+				if(flag == true){
+					flag = false;
+					model.editFairyLevel(formData,function(res){
+		                if(res.success == 1){
+		                    alert("提交成功");
+							flag = true;
+							window.location.href = "/fairy-level";
+		                }else{
+		                    alert("提交失败");
+		                }
+		            });
+				}
+			}
+		},
+        //删除类型
         deleteFairyType : function(id){
         	if(confirm("确认删除该数据吗？")){
 				var flag = true;
@@ -285,6 +369,24 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 		                    alert("删除成功");
 							flag = true;
 							window.location.href="/fairy-type";
+		                }else{
+		                    alert("删除失败");
+		                }
+					});
+				}
+			}
+        },
+        //删除等级
+        deleteFairyLevel : function(id){
+        	if(confirm("确认删除该数据吗？")){
+				var flag = true;
+				if(flag == true){
+					flag = false;
+					model.deleteFairyLevel(id,function(res){
+						if(res.success == 1){
+		                    alert("删除成功");
+							flag = true;
+							window.location.href="/fairy-level";
 		                }else{
 		                    alert("删除失败");
 		                }

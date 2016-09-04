@@ -55,6 +55,19 @@ module.exports = function(app){
             res.json(result);
         });    
     });
+    //获取等级列表
+    app.all("/fairyLevelListFindAction",function(req,res){
+        var currentPage = req.body.currentPage;
+        var pageSize = req.body.pageSize;
+        var conditions = {};
+        var fields = {
+            "currentPage":currentPage,
+            "pageSize":pageSize
+        };
+        fairyLevelDao.findFairyLevel(conditions,fields,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
     //获取类型列表（无页码）
     app.all("/fairyTypeListFindNoFieldAction",function(req,res){
         var conditions = {};
@@ -63,10 +76,11 @@ module.exports = function(app){
             res.json(result);
         });    
     });
-    //获取等级列表
-    app.all("/fairyLevelListFindAction",function(req,res){
+    //获取等级列表（无页码）
+    app.all("/fairyLevelListFindNoFieldAction",function(req,res){
         var conditions = {};
-        fairyLevelDao.findFairyLevel(conditions,dbHelper,function(result){  
+        var fields = {};
+        fairyLevelDao.findFairyLevel(conditions,fields,dbHelper,function(result){  
             res.json(result);
         });    
     });
@@ -83,6 +97,14 @@ module.exports = function(app){
         var id = req.body.id;
         var conditions = {"_id":ObjectID(id)};
         fairyTypeDao.findOneFairyType(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
+    //根据id获取等级详情
+    app.all("/fairyLevelFindByIdAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        fairyLevelDao.findOneFairyLevel(conditions,dbHelper,function(result){  
             res.json(result);
         });    
     });
@@ -167,6 +189,32 @@ module.exports = function(app){
             res.json(result);
         });    
     });
+    //添加等级
+    app.all("/addFairyLevelAction",function(req,res){
+        var thisTime = new Date().getTime();
+        var conditions = {
+            "level":req.body.level,
+            "exp":req.body.exp,
+            "createTime":thisTime,
+            "updateTime":thisTime
+        };
+        fairyLevelDao.addFairyLevel(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
+    //根据id修改等级
+    app.all("/updateFairyLevelByIdAction",function(req,res){
+        var thisTime = new Date().getTime();
+        var conditions = {"_id":ObjectID(req.body.id)};
+        var update = {
+            "level":req.body.level,
+            "exp":req.body.exp,
+            "updateTime":thisTime
+        };
+        fairyLevelDao.updateFairyLevel(conditions,update,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
     //删除精灵类型
     app.all("/deleteFairyTypeAction",function(req,res){
         var id = req.body.id;
@@ -181,4 +229,12 @@ module.exports = function(app){
             });    
         });  
     });
-}
+    //删除精灵等级
+    app.all("/deleteFairyLevelAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        fairyLevelDao.removeFairyLevel(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
+等级}

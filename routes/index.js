@@ -122,6 +122,16 @@ router.get('/fairy-type-edit', function(req, res, next) {
   res.render('fairy-type-edit', { title: '精灵 -- 类型编辑',layout: 'layout.html' });
 });
 
+/* fairy-level */
+router.get('/fairy-level', function(req, res, next) {
+  res.render('fairy-level', { title: '精灵 -- 等级列表',layout: 'layout.html' });
+});
+
+/* fairy-level-edit */
+router.get('/fairy-level-edit', function(req, res, next) {
+  res.render('fairy-level-edit', { title: '精灵 -- 等级编辑',layout: 'layout.html' });
+});
+
 /* login */
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'login',layout: false });

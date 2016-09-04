@@ -18,10 +18,9 @@ exports.addFairyLevel = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.findFairyLevel = function(conditions,dbHelper,callback) {  
+exports.findFairyLevel = function(conditions,fields,dbHelper,callback) {  
     var dbModel =fairyLevel.getModel();  
     var options  = {};  
-    var fields = {};
     dbHelper.findData(dbModel,conditions,fields,options,function(result){  
         callback(result);
     });  
@@ -63,9 +62,9 @@ exports.removeFairyLevel = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.updateFairyLevel = function(conditions,update,options,dbHelper,callback) {  
+exports.updateFairyLevel = function(conditions,update,dbHelper,callback) {  
     var dbModel =fairyLevel.getModel();  
-    dbHelper.updateData(dbModel,conditions,update,options,function(result){  
+    dbHelper.updateData(dbModel,conditions,update,function(result){  
         callback(result);  
     });  
 }  
