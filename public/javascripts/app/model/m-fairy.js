@@ -45,7 +45,7 @@ define(["./Base"],function(Base){
 		},
 		//获取等级列表（无页码）
 		getFairyLevelListNoField : function(callback){
-			var url = "/fairyTypeListFindNoFieldAction";
+			var url = "/fairyLevelListFindNoFieldAction";
 			var data = {};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
