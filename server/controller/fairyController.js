@@ -42,9 +42,15 @@ module.exports = function(app){
         });     
     });
     //获取类型
-    app.all("/recreationTypeListFindAction",function(req,res){
+    app.all("/fairyTypeListFindAction",function(req,res){
+        var currentPage = req.body.currentPage;
+        var pageSize = req.body.pageSize;
         var conditions = {};
-        recreationTypeDao.findRecreationType(conditions,dbHelper,function(result){  
+        var fields = {
+            "currentPage":currentPage,
+            "pageSize":pageSize
+        };
+        fairyTypeDao.findFairyType(conditions,fields,dbHelper,function(result){  
             res.json(result);
         });    
     });
