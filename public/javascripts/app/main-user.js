@@ -54,6 +54,9 @@ define(['jquery','fnbase','bootstrap','./controller/c-user','./model/m-user'],fu
 			$("#userSubmit").on("click",function(){
 				controller.userEditSubmit();
 			});
+			$("#pageBack").on("click",function(){
+        		window.location.href="/user";
+        	});
 			$("#pageHeader").html("用户 <small>添加用户</small>");
         }else if(urlType == "edit_password"){
         	controller.editPassword(urlId);
