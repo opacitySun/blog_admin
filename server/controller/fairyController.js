@@ -19,7 +19,7 @@ module.exports = function(app){
         };
         fairyDao.findFairy(conditions,fields,dbHelper,function(fairyResult){  
             result = fairyResult;
-            fairyTypeDao.findFairyType(conditions,dbHelper,function(fairyTypeResult){  
+            fairyTypeDao.findFairyType(conditions,{},dbHelper,function(fairyTypeResult){  
             	result.result.forEach(function(obj){
                     fairyTypeResult.result.forEach(function(o){
                         if(obj.type == o.type){
