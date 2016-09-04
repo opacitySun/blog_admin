@@ -126,7 +126,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 						levelArr.push(o);
 					});
 					levelArr.push({"exp":Number(fairyExp)});
-					levelArr.sort(function(a,b){return a-b;});
+					levelArr.sort(function(a,b){return a.exp-b.exp;});
 					$.each(levelArr,function(key,obj){
 						if(!obj.level){
 							fairyLevel = levelArr[key-1].level;
