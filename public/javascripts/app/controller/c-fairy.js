@@ -163,7 +163,9 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 					levelArr.sort(function(a,b){return a.exp-b.exp;});
 					$.each(levelArr,function(key,obj){
 						if(!obj.level){
-							fairyLevel = levelArr[key-1].level;
+							if(key > 0){
+								fairyLevel = levelArr[key-1].level;
+							}
 						}
 					});
 					if(confirm("确认提交新的用户信息数据吗？")){
