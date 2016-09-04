@@ -139,14 +139,16 @@ module.exports = function(app){
             }
         });
     });
-    //删除
-    app.all("/deleteRecreationAction",function(req,res){
+    //删除精灵类型
+    app.all("/deleteFairyTypeAction",function(req,res){
         var id = req.body.id;
         var conditions = {"_id":ObjectID(id)};
-        recreationDao.findOneRecreation(conditions,dbHelper,function(result0){  
+        fairyTypeDao.findOneFairyType(conditions,dbHelper,function(result0){  
             var imgUrl = result0.result.image;
-            recreationDao.removeRecreation(conditions,dbHelper,function(result1){  
-                fs.unlinkSync('./public'+imgUrl);
+            fairyTypeDao.removeFairyType(conditions,dbHelper,function(result1){  
+                if(imgUrl != ''){
+                    fs.unlinkSync('./public'+imgUrl);
+                }
                 res.json(result1);
             });    
         });  

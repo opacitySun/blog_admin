@@ -2,7 +2,7 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 	var staticPath = $("#staticPath").val();
 
 	var cFairy = {
-		//获取用户列表
+		//获取精灵列表
         getFairyList : function(currentPage,callback){
         	var pageSize = $("#pageSize").val();
         	var formData = {
@@ -33,37 +33,36 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				callback(res.total);
         	});
         },
-        //获取用户列表
+        //获取精灵类型列表
         getFairyTypeList : function(currentPage,callback){
         	var pageSize = $("#pageSize").val();
         	var formData = {
         		"currentPage":currentPage,
 				"pageSize":pageSize
         	};
-        	model.getFairyList(formData,function(res){
+        	model.getFairyTypeList(formData,function(res){
         		html = "";
         		$.each(res.result,function(key,obj){
         			html += '<tr>';
         			html += '<td>'+Number(((currentPage-1)*pageSize)+(key+1))+'</td>';
         			html += '<td>'+obj.name+'</td>';
-        			html += '<td>'+obj.typeName+'</td>';
         			html += '<td><img style="width:50px;height:auto;" src="'+staticPath+obj.image+'" /></td>';
         			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
         			html += '<td>';
-					html += '<input type="hidden" class="recreation_id" value="'+obj._id.toString()+'" />';
-					html += '<button type="button" class="btn btn-link recreation_edit">编辑</button>';
-					html += '<button type="button" class="btn btn-link recreation_delete">删除</button>';
+					html += '<input type="hidden" class="fairy_type_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link fairy_type_edit">编辑</button>';
+					html += '<button type="button" class="btn btn-link fairy_type_delete">删除</button>';
 					html += '</td>';
         			html += '</tr>';
         		});
         		$("#fairyTypeList").html(html);
-        		$("button.recreation_edit").on("click",function(){
-					var id = $(this).parent().find(".recreation_id").val();
-					window.location.href = "/recreation-edit?type=edit&&id="+id;
+        		$("button.fairy_type_edit").on("click",function(){
+					var id = $(this).parent().find(".fairy_type_id").val();
+					window.location.href = "/fairy-type-edit?type=edit&&id="+id;
 				});
-				$("button.recreation_delete").on("click",function(){
-					var id = $(this).parent().find(".recreation_id").val();
-					cRecreation.deleteRecreation(id);
+				$("button.fairy_type_delete").on("click",function(){
+					var id = $(this).parent().find(".fairy_type_id").val();
+					cFairy.deleteFairyType(id);
 				});
 				callback(res.total);
         	});
@@ -235,16 +234,16 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 			}
         },
         //删除娱乐
-        deleteRecreation : function(id){
+        deleteFairyType : function(id){
         	if(confirm("确认删除该数据吗？")){
 				var flag = true;
 				if(flag == true){
 					flag = false;
-					model.deleteRecreation(id,function(res){
+					model.deleteFairyType(id,function(res){
 						if(res.success == 1){
 		                    alert("删除成功");
 							flag = true;
-							window.location.href="/recreation";
+							window.location.href="/fairy-type";
 		                }else{
 		                    alert("删除失败");
 		                }

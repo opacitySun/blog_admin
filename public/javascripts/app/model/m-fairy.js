@@ -13,9 +13,9 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
-		//获取类型
-		getRecreationTypeList : function(callback){
-			var url = "/recreationTypeListFindAction";
+		//获取类型列表
+		getFairyTypeList : function(callback){
+			var url = "/fairyTypeListFindAction";
 			var data = {};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
@@ -60,8 +60,8 @@ define(["./Base"],function(Base){
 			});
 		},
 		//删除
-		deleteRecreation : function(id,callback){
-			var url = "/deleteRecreationAction";
+		deleteFairyType : function(id,callback){
+			var url = "/deleteFairyTypeAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);

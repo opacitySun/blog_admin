@@ -8,9 +8,6 @@ define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller
 				controller.getFairyList(pageIndex,function(){});
 			});
 		});
-		$("#addButton").on("click",function(){
-			window.location.href = "/fairy-edit?type=add";
-		});	
 	}else if(urlPath == "/fairy-edit"){	//编辑详情
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
@@ -46,7 +43,18 @@ define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller
         	controller.editRecreation(urlId);
 			$("#pageHeader").html("精灵 <small>修改</small>");
         }
-	}else if(urlPath == "/recreation-type"){	//编辑类型
+	}else if(urlPath == "/fairy-type"){	//类型列表
+		controller.getFairyTypeList(1,function(total){
+			var pageSize = $("#pageSize").val();
+			var buttons = $("#pageButton").val();
+			cPage.createPage(pageSize,buttons,total,function(pageIndex){
+				controller.getFairyTypeList(pageIndex,function(){});
+			});
+		});
+		$("#addButton").on("click",function(){
+			window.location.href = "/fairy-type-edit?type=add";
+		});
+	}else if(urlPath == "/fairy-type-edit"){	//编辑类型
 		$("#recreationSubmit").on("click",function(){
 			controller.recreationTypeSubmit();
 		});
