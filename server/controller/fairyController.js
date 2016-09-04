@@ -193,8 +193,8 @@ module.exports = function(app){
     app.all("/addFairyLevelAction",function(req,res){
         var thisTime = new Date().getTime();
         var conditions = {
-            "level":req.body.level,
-            "exp":req.body.exp,
+            "level":Number(req.body.level),
+            "exp":Number(req.body.exp),
             "createTime":thisTime,
             "updateTime":thisTime
         };
@@ -207,8 +207,8 @@ module.exports = function(app){
         var thisTime = new Date().getTime();
         var conditions = {"_id":ObjectID(req.body.id)};
         var update = {
-            "level":req.body.level,
-            "exp":req.body.exp,
+            "level":Number(req.body.level),
+            "exp":Number(req.body.exp),
             "updateTime":thisTime
         };
         fairyLevelDao.updateFairyLevel(conditions,update,dbHelper,function(result){  
