@@ -1,4 +1,4 @@
-define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,model) {
+define(["./Base","jquery","fnbase","fnvalidate","../model/m-fairy"], function (Base,$,fnbase,fnvalidate,model) {
 	var staticPath = $("#staticPath").val();
 
 	var cFairy = {
@@ -67,10 +67,10 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				callback(res.total);
         	});
         },
-        //编辑
-        editRecreation : function(id){
-        	model.getRecreationById(id,function(res){
-        		model.getRecreationTypeList(function(resType){	//获取类型
+        //编辑精灵
+        editFairy : function(id){
+        	model.getFairyById(id,function(res){
+        		model.getFairyTypeListNoFields(function(resType){	//获取类型
 					if(resType.success == 1){
 						var html = "";
 						$.each(resType.result,function(key,obj){
@@ -84,56 +84,15 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 							html += '</label>';
 							html += '</div>';
 						});
-						$("#recreationId").val(id);
-						$("#recreationType").append(html);
-						$("#recreationName").val(res.result.name);
-						$("#recreationUrl").val(res.result.url);
+						$("#fairyId").val(id);
+						$("#fairyType").append(html);
+						$("#fairyName").val(res.result.name);
 		        		$("input[name='type']").prop("checked",false);
 		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
-		        		$("#desc").val(res.result.desc);
-		        		$("#recreationImg").css({
-							"width":"20px",
-							"height":"20px"
-						});
-						if(res.result.type == 0 || res.result.type == 1){
-							$("#recreationImg").parent().css({
-								"position":"relative",
-								"height":"200px"
-							}).append('<img src="'+res.result.image+'" />');
-							$("#recreationImg").parent().find("img").css({
-								"position":"absolute",
-								"width":"150px",
-								"height":"200px",
-								"top":"0",
-								"left":"0"
-							}).on("click",function(){
-								$("#recreationImg").click();
-							});
-						}else{
-							$("#recreationImg").parent().css({
-								"position":"relative",
-								"height":"130px"
-							}).append('<img src="'+res.result.image+'" />');
-							$("#recreationImg").parent().find("img").css({
-								"position":"absolute",
-								"width":"184px",
-								"height":"130px",
-								"top":"0",
-								"left":"0"
-							}).on("click",function(){
-								$("#recreationImg").click();
-							});
-						}
-		        		$("#recreationSubmit").on("click",function(){
-							cRecreation.recreationEditSubmitNoImg(id);
-						});
-						$("#recreationImg").on("change",function(){
-							$("#recreationImg").parent().removeAttr("style").find("img").remove();
-							$("#recreationImg").removeAttr("style");
-							$("#recreationSubmit").off("click");
-							$("#recreationSubmit").on("click",function(){
-								cRecreation.recreationEditSubmit();
-							});
+		        		$("#fairyLevel").val(res.result.level);
+		        		$("#fairyExp").val(res.result.exp);
+		        		$("#fairySubmit").on("click",function(){
+							cFairy.fairyEditSubmit(id);
 						});
 					}else{
 						console.log(resType);
@@ -141,6 +100,65 @@ define(["./Base","jquery","fnbase","../model/m-fairy"], function (Base,$,fnbase,
 				});
         	});
         },
+        //提交精灵编辑信息
+		fairyEditSubmit : function(id){
+			var fairyName = $("#fairyName").val();
+			if(fairyName == ''){
+				$("#fairyName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
+				return false;
+			}
+			var fairyExp = $("#fairyExp").val();
+			if(fairyExp == '' || !fnvalidate.PositiveInteger.test(fairyExp)){
+				$("#fairyExp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能为空且必须为正整数");
+				return false;
+			}
+			if(fairyExp > 4000){
+				$("#fairyExp").parent().addClass("has-error has-feedback").find(".help-block").text("经验值不能大于4000");
+				return false;
+			}
+			model.getFairyLevelList(function(resLevel){
+				if(resLevel.success == 1){
+					var type = $("input[name='type']:checked").val();
+					var fairyLevel = $("#fairyLevel").val();
+					var levelArr = [];
+					$.each(resLevel.result,function(key,obj){
+						var o = {"level":obj.level,"exp":obj.exp};
+						levelArr.push(o);
+					});
+					levelArr.push({"exp":fairyExp});
+					levelArr.sort(function(a,b){return a-b;});
+					$.each(levelArr,function(key,obj){
+						if(!obj.level){
+							fairyLevel = levelArr[key-1].level;
+						}
+					});
+					if(confirm("确认提交新的用户信息数据吗？")){
+						var flag = true;
+						var formData = {
+							"id":id,
+							"name":fairyName,
+							"type":type,
+							"level":fairyLevel,
+							"exp":fairyExp
+						};
+						if(flag == true){
+							flag = false;
+							model.editFairy(formData,function(res){
+				                if(res.success == 1){
+				                    alert("修改成功");
+									flag = true;
+									window.location.href = "/fairy";
+				                }else{
+				                    alert("修改失败");
+				                }
+				            });
+						}
+					}
+				}else{
+					console.log(resLevel);
+				}
+			});		
+		},
         //提交(无图片时)
 		recreationEditSubmitNoImg : function(id){
 			var recreationName = $("#recreationName").val();

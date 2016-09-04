@@ -15,32 +15,8 @@ define(['jquery','fnbase','./controller/c-fairy','./model/m-fairy','./controller
 		$("#pageBack").on("click",function(){
     		window.location.href="/fairy";
     	});
-        if(urlType == "add"){
-        	model.getRecreationTypeList(function(resType){	//获取类型
-				if(resType.success == 1){
-					var html = "";
-					$.each(resType.result,function(key,obj){
-						html += '<div class="radio">';
-						html += '<label>';
-						if(key > 0){
-							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
-						}else{
-							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
-						}
-						html += '</label>';
-						html += '</div>';
-					});
-					$("#recreationType").append(html);
-				}else{
-					console.log(resType);
-				}
-			});
-			$("#recreationSubmit").on("click",function(){
-				controller.recreationEditSubmit();
-			});
-			$("#pageHeader").html("精灵 <small>添加</small>");
-        }else if(urlType == "edit"){
-        	controller.editRecreation(urlId);
+        if(urlType == "edit"){
+        	controller.editFairy(urlId);
 			$("#pageHeader").html("精灵 <small>修改</small>");
         }
 	}else if(urlPath == "/fairy-type"){	//类型列表

@@ -24,10 +24,40 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
-		//根据id获取文章内容
-		getRecreationById : function(id,callback){
-			var url = "/recreationFindByIdAction";
+		//获取类型列表（无页码）
+		getFairyTypeListNoFields : function(callback){
+			var url = "/fairyTypeListFindNoFieldAction";
+			var data = {};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//获取等级列表
+		getFairyLevelList : function(callback){
+			var url = "/fairyLevelListFindAction";
+			var data = {};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//根据id获取精灵详情
+		getFairyById : function(id,callback){
+			var url = "/fairyFindByIdAction";
 			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//修改精灵信息
+		editFairy : function(formData,callback){
+			var url = "/updateFairyByIdAction";
+			var data = {
+				"id":formData.id,
+				"name":formData.name,
+				"type":formData.type,
+				"level":formData.level,
+				"exp":formData.exp
+			};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});

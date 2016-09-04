@@ -4,6 +4,7 @@ var ObjectID = require("mongodb").ObjectID,
     uploadHelper = require("../DBHelper/uploadHelper"),
     fairyDao = require("../DBSql/fairyDao"),
     fairyTypeDao = require("../DBSql/fairyTypeDao"),
+    fairyLevelDao = require("../DBSql/fairyLevelDao"),
     userDao = require("../DBSql/userDao");
 
 module.exports = function(app){
@@ -41,7 +42,7 @@ module.exports = function(app){
         	});    
         });     
     });
-    //获取类型
+    //获取类型列表
     app.all("/fairyTypeListFindAction",function(req,res){
         var currentPage = req.body.currentPage;
         var pageSize = req.body.pageSize;
@@ -54,11 +55,41 @@ module.exports = function(app){
             res.json(result);
         });    
     });
-    //根据id获取娱乐内容
-    app.all("/recreationFindByIdAction",function(req,res){
+    //获取类型列表（无页码）
+    app.all("/fairyTypeListFindNoFieldAction",function(req,res){
+        var conditions = {};
+        var fields = {};
+        fairyTypeDao.findFairyType(conditions,fields,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
+    //获取等级列表
+    app.all("/fairyLevelListFindAction",function(req,res){
+        var conditions = {};
+        fairyLevelDao.findFairyLevel(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
+    //根据id获取精灵详情
+    app.all("/fairyFindByIdAction",function(req,res){
         var id = req.body.id;
         var conditions = {"_id":ObjectID(id)};
-        recreationDao.findOneRecreation(conditions,dbHelper,function(result){  
+        fairyDao.findOneFairy(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
+    //根据id修改精灵信息
+    app.all("/updateFairyByIdAction",function(req,res){
+        var thisTime = new Date().getTime();
+        var conditions = {"_id":ObjectID(req.body.id)};
+        var update = {
+            "name":req.body.name,
+            "type":req.body.type,
+            "level":req.body.level,
+            "exp":req.body.exp,
+            "updateTime":thisTime
+        };
+        fairyDao.updateFairy(conditions,update,dbHelper,function(result){  
             res.json(result);
         });    
     });
