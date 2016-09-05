@@ -62,13 +62,15 @@ define(["./Base","jquery","fnbase","../model/m-works"], function (Base,$,fnbase,
 						if(resUser.success == 1){
 							var html = "";
 							$.each(resUser.result,function(key,obj){
-								if(key > 0){
-									html += '<div class="radio">';
-									html += '<label>';
+								html += '<div class="radio">';
+								html += '<label>';
+								if(key == 0){
+									html += '<input type="radio" name="userId" value="'+obj._id.toString()+'" checked>'+obj.name;
+								}else{
 									html += '<input type="radio" name="userId" value="'+obj._id.toString()+'">'+obj.name;
-									html += '</label>';
-									html += '</div>';
 								}
+								html += '</label>';
+								html += '</div>';
 							});
 							$("#relationUser").append(html);
 						}else{
