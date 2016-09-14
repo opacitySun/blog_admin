@@ -48,9 +48,9 @@ exports.removeNewsType = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.updateNewsType = function(conditions,update,options,dbHelper,callback) {  
+exports.updateNewsType = function(conditions,update,dbHelper,callback) {  
     var dbModel =newsType.getModel();  
-    dbHelper.updateData(dbModel,conditions,update,options,function(result){  
+    dbHelper.updateData(dbModel,conditions,update,function(result){  
         callback(result);  
     });  
 }  

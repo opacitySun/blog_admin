@@ -62,9 +62,9 @@ exports.removeNews = function(conditions,dbHelper,callback) {
  * @param dbHelper 
  * @param callback 
  */  
-exports.updateNews = function(conditions,update,options,dbHelper,callback) {  
+exports.updateNews = function(conditions,update,dbHelper,callback) {  
     var dbModel =news.getModel();  
-    dbHelper.updateData(dbModel,conditions,update,options,function(result){  
+    dbHelper.updateData(dbModel,conditions,update,function(result){  
         callback(result);  
     });  
 }  
