@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var userController = require('../server/controller/userController');
+var ueditorController = require('../server/controller/ueditorController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -140,6 +141,11 @@ router.get('/login', function(req, res) {
 /* ucenter */
 router.post('/ucenter', function(req, res) {
 	userController.userFindAction(req, res);
+});
+
+/* ueditor-img-del */
+router.post('/ueditor-img-del', function(req, res) {
+  ueditorController.removeImgAction(req, res);
 });
 
 module.exports = router;

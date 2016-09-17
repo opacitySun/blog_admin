@@ -897,13 +897,21 @@
         },
         /* 添加图片到列表界面上 */
         pushData: function (list) {
-            var i, item, img, icon, _this = this,
+            var i, item, img, icon, del, _this = this,
                 urlPrefix = editor.getOpt('imageManagerUrlPrefix');
             for (i = 0; i < list.length; i++) {
                 if(list[i] && list[i].url) {
                     item = document.createElement('li');
                     img = document.createElement('img');
                     icon = document.createElement('span');
+                    del = document.createElement('a');
+
+                    del.innerHTML = '删除';
+                    domUtils.addClass(del, 'del');
+                    var delid='imagelist_'+i;
+                    del.setAttribute('id',delid);
+                    del.setAttribute('href','javascript:void(0);');
+                    del.setAttribute('onclick','uedel("'+list[i].url+'","'+delid+'")');
 
                     domUtils.on(img, 'load', (function(image){
                         return function(){
@@ -917,9 +925,24 @@
 
                     item.appendChild(img);
                     item.appendChild(icon);
+                    item.appendChild(del);
                     this.list.insertBefore(item, this.clearFloat);
                 }
             }
+        },
+        //新增在线管理删除图片
+        uedel : function(path, id){
+            if(confirm('您确定要删除它吗？删除后不可恢复！')){                     
+                var url = editor.getOpt('imageDelUrl');   
+                $.get(url,{'path':path},function(data){
+                    if (data.state == 'success') {
+                        alert(data.message);
+                        $("#"+id).parent("li").remove();                   
+                    }else{
+                        alert(data.message);
+                    }
+                },'json');            
+            }        
         },
         /* 改变图片大小 */
         scale: function (img, w, h, type) {
