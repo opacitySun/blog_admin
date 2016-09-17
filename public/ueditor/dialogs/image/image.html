@@ -120,7 +120,7 @@
         function uedel(path, id){
             if(confirm('您确定要删除它吗？删除后不可恢复！')){                     
                 var url = editor.getOpt('imageDelUrl');   
-                $.get(url,{'path':path},function(data){
+                $.post(url,{'path':path},function(data){
                     if (data.state == 'success') {
                         alert(data.message);
                         $("#"+id).parent("li").remove();                   
