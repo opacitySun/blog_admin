@@ -1,0 +1,11 @@
+define(['require','jquery','bootstrap','./controller/c-header','./model/m-header'],function(require,$,bootstrap,controller,model){
+    model.getSession(function(res){
+    	if(res){
+    		model.findUser(res.username,res.password,function(resUser){
+    			model.findUserInfo(resUser.result._id.toString(),function(resUserInfo){
+    				$("#headerFaUser").after(resUserInfo.result.name);
+    			});
+    		});
+    	}
+    });
+});
