@@ -121,7 +121,7 @@ exports.outerConnectAction = function(app){
     app.all("/outerEditUserInfoNoImgAction",function(req,res){
         var thisTime = new Date().getTime();
         var desc = req.body.desc;
-        desc = desc.replace("/n","<br />");
+        desc = desc.replace("/\/n/g","<br>");
         var conditions ={"userId":req.body.userId};
         var update ={
             "name":req.body.name,
@@ -141,7 +141,7 @@ exports.outerConnectAction = function(app){
             var find = {"userId":result0.body.userId};
             userInfoDao.findOneUserInfo(find,dbHelper,function(result1){  
                 var desc = result0.body.userDesc;
-                desc = desc.replace("/n","<br />");
+                desc = desc.replace("/\/n/g","<br>");
                 if(result1.success == 1){
                     var conditions = {"userId":result0.body.userId};
                     var update = {
