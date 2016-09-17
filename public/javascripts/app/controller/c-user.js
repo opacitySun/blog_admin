@@ -86,7 +86,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 				if(res.success == 1){
 					$("#userName").val(res.result.name);
 					var desc = res.result.desc;
-					desc = desc.replace("/<br>/g","/n");
+					desc = desc.replace(/<br>/g,"\n");
 					$("#userDesc").val(desc);
 					$("#userImg").css({
 						"width":"20px",
