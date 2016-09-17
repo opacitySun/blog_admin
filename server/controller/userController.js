@@ -123,6 +123,7 @@ exports.outerConnectAction = function(app){
         var desc = req.body.desc;
         desc = desc.replace(/\r\n/g,"<br>");
         desc = desc.replace(/\n/g,"<br>");
+        desc = desc.replace(/ /g,"&nbsp;");
         var conditions ={"userId":req.body.userId};
         var update ={
             "name":req.body.name,
@@ -144,6 +145,7 @@ exports.outerConnectAction = function(app){
                 var desc = result0.body.userDesc;
                 desc = desc.replace(/\r\n/g,"<br>");
                 desc = desc.replace(/\n/g,"<br>");
+                desc = desc.replace(/ /g,"&nbsp;");
                 if(result1.success == 1){
                     var conditions = {"userId":result0.body.userId};
                     var update = {
