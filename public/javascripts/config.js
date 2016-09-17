@@ -11,6 +11,7 @@
             'editor':'lib/LineControl-Editor/js/editor',
             'ueditor':'../ueditor/ueditor.all.min',
             'ueditor-config':'../ueditor/ueditor.config',
+            'ZeroClipboard':'../ueditor/third-party/zeroclipboardZeroClipboard.min',
             'pagination':'lib/jBootstrapPage/jBootstrapPage'
         },
         map : {
