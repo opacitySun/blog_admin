@@ -144,7 +144,7 @@ router.post('/ucenter', function(req, res) {
 });
 
 /* ueditor-img-del */
-router.post('/ueditor-img-del', function(req, res) {
+router.get('/ueditor-img-del', function(req, res) {
   ueditorController.removeImgAction(req, res);
 });
 

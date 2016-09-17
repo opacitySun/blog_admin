@@ -930,20 +930,6 @@
                 }
             }
         },
-        //新增在线管理删除图片
-        uedel : function(path, id){
-            if(confirm('您确定要删除它吗？删除后不可恢复！')){                     
-                var url = editor.getOpt('imageDelUrl');   
-                $.get(url,{'path':path},function(data){
-                    if (data.state == 'success') {
-                        alert(data.message);
-                        $("#"+id).parent("li").remove();                   
-                    }else{
-                        alert(data.message);
-                    }
-                },'json');            
-            }        
-        },
         /* 改变图片大小 */
         scale: function (img, w, h, type) {
             var ow = img.width,
