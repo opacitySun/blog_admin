@@ -1,7 +1,6 @@
 var ObjectID = require("mongodb").ObjectID,
     fs = require("fs"),
-    dbHelper = require("../DBHelper/dbHelper"),
-    uploadHelper = require("../DBHelper/uploadHelper"); 
+    url=require('url'); 
 
 /**  
  * 删除图片  
@@ -9,7 +8,8 @@ var ObjectID = require("mongodb").ObjectID,
  */  
 exports.removeImgAction = function(req, res) { 
     var result = {};  
-    var file = req.body.path;
+    var params=url.parse(req.url,true).query;
+    var file = params.path;
     if(file){
         fs.unlinkSync(file);
         result['state'] = 'success';
