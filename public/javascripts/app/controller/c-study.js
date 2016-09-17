@@ -1,4 +1,5 @@
-define(["./Base","jquery","fnbase","../model/m-study"], function (Base,$,fnbase,model) {
+define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase,ZeroClipboard,model) {
+	window['ZeroClipboard']=ZeroClipboard;
 	var staticPath = $("#staticPath").val();
 
 	var cStudy = {
