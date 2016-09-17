@@ -904,6 +904,7 @@
                     item = document.createElement('li');
                     img = document.createElement('img');
                     icon = document.createElement('span');
+                    /*
                     del = document.createElement('a');
 
                     del.innerHTML = '删除';
@@ -912,6 +913,7 @@
                     del.setAttribute('id',delid);
                     del.setAttribute('href','javascript:void(0);');
                     del.setAttribute('onclick','uedel("'+list[i].url+'","'+delid+'")');
+                    */
 
                     domUtils.on(img, 'load', (function(image){
                         return function(){
@@ -925,7 +927,7 @@
 
                     item.appendChild(img);
                     item.appendChild(icon);
-                    item.appendChild(del);
+                    //item.appendChild(del);
                     this.list.insertBefore(item, this.clearFloat);
                 }
             }
