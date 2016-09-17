@@ -904,16 +904,7 @@
                     item = document.createElement('li');
                     img = document.createElement('img');
                     icon = document.createElement('span');
-                    /*
                     del = document.createElement('a');
-
-                    del.innerHTML = '删除';
-                    domUtils.addClass(del, 'del');
-                    var delid='imagelist_'+i;
-                    del.setAttribute('id',delid);
-                    del.setAttribute('href','javascript:void(0);');
-                    del.setAttribute('onclick','uedel("'+list[i].url+'","'+delid+'")');
-                    */
 
                     domUtils.on(img, 'load', (function(image){
                         return function(){
@@ -925,9 +916,16 @@
                     img.setAttribute('_src', urlPrefix + list[i].url);
                     domUtils.addClass(icon, 'icon');
 
+                    del.innerHTML = '删除';
+                    domUtils.addClass(del, 'del');
+                    var delid='imagelist_'+i;
+                    del.setAttribute('id',delid);
+                    del.setAttribute('href','javascript:void(0);');
+                    del.setAttribute('onclick','uedel("'+list[i].url+'","'+delid+'")');
+
                     item.appendChild(img);
                     item.appendChild(icon);
-                    //item.appendChild(del);
+                    item.appendChild(del);
                     this.list.insertBefore(item, this.clearFloat);
                 }
             }
