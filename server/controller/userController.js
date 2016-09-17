@@ -120,10 +120,12 @@ exports.outerConnectAction = function(app){
     //修改用户信息（无图片时）
     app.all("/outerEditUserInfoNoImgAction",function(req,res){
         var thisTime = new Date().getTime();
-        var conditions ={"userId":req.body.userId};  
+        var desc = req.body.desc;
+        desc = desc.replace("/n","<br />");
+        var conditions ={"userId":req.body.userId};
         var update ={
             "name":req.body.name,
-            "desc":req.body.desc,
+            "desc":desc,
             "updateTime":thisTime
         };  
         userInfoDao.updateUserInfo(conditions,update,dbHelper,function(result){  
@@ -138,11 +140,13 @@ exports.outerConnectAction = function(app){
             var imgUrl = resourcesUrl + result0.file.filename;
             var find = {"userId":result0.body.userId};
             userInfoDao.findOneUserInfo(find,dbHelper,function(result1){  
+                var desc = result0.body.userDesc;
+                desc = desc.replace("/n","<br />");
                 if(result1.success == 1){
                     var conditions = {"userId":result0.body.userId};
                     var update = {
                         "name":result0.body.userName,
-                        "desc":result0.body.userDesc,
+                        "desc":desc,
                         "image":imgUrl,
                         "updateTime":thisTime
                     };
@@ -155,7 +159,7 @@ exports.outerConnectAction = function(app){
                     var conditions = {
                         "userId":result0.body.userId,
                         "name":result0.body.userName,
-                        "desc":result0.body.userDesc,
+                        "desc":desc,
                         "image":imgUrl,
                         "createTime":thisTime,
                         "updateTime":thisTime
