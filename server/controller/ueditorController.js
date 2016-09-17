@@ -8,8 +8,9 @@ var ObjectID = require("mongodb").ObjectID,
 exports.removeImgAction = function(req, res) { 
     var result = {};
     var file = req.body.path;
+    file = file.replace(/\/\//g,"/");
     if(file){
-        fs.unlinkSync(file);
+        fs.unlinkSync('./public'+file);
         result['state'] = 'success';
         result['message'] = '删除完成';
     }else{
