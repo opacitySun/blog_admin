@@ -267,7 +267,7 @@ exports.userAddAction = function() {
 exports.userFindAction = function(req, res) {   
     var conditions ={'name':req.body.loginName,'password':req.body.loginPwd};  
     userDao.findOneUser(conditions,dbHelper,function(result){  
-        if(result.success == 1){
+        if(result.success == 1 && result.result.type == 0){
             req.session.username=result.result.name;          
             req.session.password=result.result.password;
             req.session.regenerate(function (err) {
