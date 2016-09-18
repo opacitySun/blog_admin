@@ -16,7 +16,7 @@ define(['./Base',"../model/m-login"], function (Base,model) {
             }
             model.findUser(loginName,loginPwd,function(res){
                 if(res.success == 1){
-                    if(res.result.type == 0){
+                    if(res.result.type != 0){
                         alert("对不起，您没有访问后台的权限");
                     }else{
                         $("#loginFrom").submit();
