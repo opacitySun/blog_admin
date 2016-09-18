@@ -1,5 +1,4 @@
-var ObjectID = require("mongodb").ObjectID,
-    fs = require("fs"); 
+var fs = require("fs"); 
 
 /**  
  * 删除图片  
