@@ -105,7 +105,7 @@ module.exports = function(app){
                     res.json(result2);
                 });
             }else{
-                newsTypeDao.findNewsType(conditions0,dbHelper,function(result1){
+                newsTypeDao.findNewsType({},dbHelper,function(result1){
                     if(result1.success == 1){
                         var typeArr = [];
                         result1.result.forEach(function(obj){
