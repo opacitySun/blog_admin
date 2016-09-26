@@ -44,21 +44,13 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 					if(resType.success == 1){
 						var html = "";
 						$.each(resType.result,function(key,obj){
-							html += '<div class="radio">';
-							html += '<label>';
-							if(key > 0){
-								html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
-							}else{
-								html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
-							}
-							html += '</label>';
-							html += '</div>';
+							html += '<option value="'+obj.type+'">'+obj.name+'</option>';
 						});
 						$("#newsType").append(html);
 						$("#newsId").val(id);
 						$("#newsName").val(res.result.name);
-		        		$("input[name='type']").prop("checked",false);
-		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
+						$("#newsType").val(res.result.type);
+		        		$("#newsType").find("option[value='"+res.result.type+"']").attr("selected",true);
 		        		UE.getEditor('descEditor').setContent(decodeURI(res.result.desc));
 		        		$("#desc").val(decodeURI(res.result.desc));
 		        		$("#newsSubmit").on("click",function(){
