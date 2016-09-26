@@ -45,22 +45,14 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 					if(resType.success == 1){
 						var html = "";
 						$.each(resType.result,function(key,obj){
-							html += '<div class="radio">';
-							html += '<label>';
-							if(key > 0){
-								html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
-							}else{
-								html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
-							}
-							html += '</label>';
-							html += '</div>';
+							html += '<option value="'+obj.type+'">'+obj.name+'</option>';
 						});
 						$("#studyType").append(html);
 						$("#studyId").val(id);
 						$("#studyName").val(res.result.name);
 		        		$("#author").val(res.result.author);
-		        		$("input[name='type']").prop("checked",false);
-		        		$("input[id='type"+res.result.type+"']").prop("checked",true);
+		        		$("#studyType").val(res.result.type);
+		        		$("#studyType").find("option[value='"+res.result.type+"']").attr("selected",true);
 		        		UE.getEditor('articleEditor').setContent(decodeURI(res.result.article));
 		        		$("#article").val(decodeURI(res.result.article));
 		        		$("#studySubmit").on("click",function(){

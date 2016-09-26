@@ -24,15 +24,7 @@ define(['jquery','fnbase','ueditor','./controller/c-study','./model/m-study','./
 				if(resType.success == 1){
 					var html = "";
 					$.each(resType.result,function(key,obj){
-						html += '<div class="radio">';
-						html += '<label>';
-						if(key > 0){
-							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
-						}else{
-							html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
-						}
-						html += '</label>';
-						html += '</div>';
+						html += '<option value="'+obj.type+'">'+obj.name+'</option>';
 					});
 					$("#studyType").append(html);
 				}else{
