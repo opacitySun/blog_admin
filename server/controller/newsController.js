@@ -101,25 +101,31 @@ module.exports = function(app){
                     "name":req.body.name,
                     "updateTime":thisTime
                 };
-                newsTypeDao.updateNewsType(conditions0,update,dbHelper,function(result1){  
-                    res.json(result1);
+                newsTypeDao.updateNewsType(conditions0,update,dbHelper,function(result2){  
+                    res.json(result2);
                 });
             }else{
-                var typeArr = [];
-                result0.result.forEach(function(obj){
-                    typeArr.push(obj.type);
-                });
-                var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
-                var thisTime = new Date().getTime();
-                var conditions1 = {
-                    "name":req.body.name,
-                    "type":Number(typeMax+1),
-                    "createTime":thisTime,
-                    "updateTime":thisTime
-                };
-                newsTypeDao.addNewsType(conditions1,dbHelper,function(result1){  
-                    res.json(result1);
-                });
+                newsTypeDao.findNewsType(conditions0,dbHelper,function(result1){
+                    if(result1.success == 1){
+                        var typeArr = [];
+                        result1.result.forEach(function(obj){
+                            typeArr.push(obj.type);
+                        });
+                        var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
+                        var thisTime = new Date().getTime();
+                        var conditions1 = {
+                            "name":req.body.name,
+                            "type":Number(typeMax+1),
+                            "createTime":thisTime,
+                            "updateTime":thisTime
+                        };
+                        newsTypeDao.addNewsType(conditions1,dbHelper,function(result2){  
+                            res.json(result2);
+                        });
+                    }else{
+                        res.json(result1);
+                    }
+                });  
             }
         });
     });
