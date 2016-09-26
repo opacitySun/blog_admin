@@ -39,13 +39,26 @@ define(['jquery','fnbase','ueditor','./controller/c-news','./model/m-news','./co
         	controller.editNews(urlId);
 			$("#pageHeader").html("新闻消息 <small>修改文章</small>");
         }
-	}else if(urlPath == "/news-type"){	//编辑类型
-		$("#newsSubmit").on("click",function(){
-			controller.newsTypeSubmit();
+	}else if(urlPath == "/news-type"){	//类型列表
+		controller.getNewsTypeList();
+		$("#addButton").on("click",function(){
+			window.location.href = "/news-type-edit?type=add";
 		});
+	}else if(urlPath == "/news-type-edit"){	//编辑类型
+		var requestGet = fnbase.GetRequest();
+		var urlType = requestGet["type"];
+        var urlId = requestGet["id"];
 		$("#pageBack").on("click",function(){
-    		window.location.href="/news";
+    		window.location.href="/news-type";
     	});
-		$("#pageHeader").html("新闻消息 <small>添加类型</small>");
+        if(urlType == "add"){
+			$("#newsSubmit").on("click",function(){
+				controller.newsTypeSubmit();
+			});
+			$("#pageHeader").html("新闻消息 <small>添加类型</small>");
+        }else if(urlType == "edit"){
+        	controller.editNewsType(urlId);
+			$("#pageHeader").html("新闻消息 <small>修改类型</small>");
+        }
 	}
 });

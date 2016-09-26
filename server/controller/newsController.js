@@ -44,6 +44,14 @@ module.exports = function(app){
             res.json(result);
         });    
     });
+    //根据id获取新闻类型
+    app.all("/newsTypeFindByIdAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        newsTypeDao.findOneNewsType(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
     //添加或修改新闻消息
     app.all("/editNewsAction",function(req,res){
         uploadHelper.fileAny(req,res,function(result0){
@@ -81,9 +89,22 @@ module.exports = function(app){
     });
     //添加或修改类型
     app.all("/editNewsTypeAction",function(req,res){
-        var conditions0 = {};
-        newsTypeDao.findNewsType(conditions0,dbHelper,function(result0){
+        var id = req.body.id;
+        var conditions0 = {"_id":"xxx"};
+        if(id != ''){
+            conditions0 = {"_id":ObjectID(id)};
+        }
+        newsTypeDao.findOneNewsType(conditions0,dbHelper,function(result0){
             if(result0.success == 1){
+                var thisTime = new Date().getTime();
+                var update = {
+                    "name":req.body.name,
+                    "updateTime":thisTime
+                };
+                newsTypeDao.updateNewsType(conditions0,update,dbHelper,function(result1){  
+                    res.json(result1);
+                });
+            }else{
                 var typeArr = [];
                 result0.result.forEach(function(obj){
                     typeArr.push(obj.type);
@@ -98,9 +119,7 @@ module.exports = function(app){
                 };
                 newsTypeDao.addNewsType(conditions1,dbHelper,function(result1){  
                     res.json(result1);
-                });    
-            }else{
-                res.json(result0);
+                });
             }
         });
     });
@@ -111,5 +130,26 @@ module.exports = function(app){
         newsDao.removeNews(conditions,dbHelper,function(result){  
             res.json(result);
         });    
+    });
+    //删除消息类型
+    app.all("/deleteNewsTypeAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        newsTypeDao.findOneNewsType(conditions,dbHelper,function(result1){  
+            if(result1.success == 1){
+                var conditions2 = {"type":result1.result.type};
+                newsDao.findNews(conditions2,{},dbHelper,function(result2){  
+                    if(result2.success == 1){
+                        res.json({success:0,flag:"此类型下还有新闻数据，不可删除"});
+                    }else{
+                        newsTypeDao.removeNewsType(conditions,dbHelper,function(result3){  
+                            res.json(result3);
+                        });
+                    }
+                });  
+            }else{
+                res.json(result1);
+            }
+        });               
     });
 }

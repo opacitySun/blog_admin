@@ -85,7 +85,12 @@ router.get('/news-edit', function(req, res, next) {
 
 /* news-type */
 router.get('/news-type', function(req, res, next) {
-  res.render('news-type', { title: '新闻消息 -- 编辑类型',layout: 'layout.html' });
+  res.render('news-type', { title: '新闻消息 -- 类型',layout: 'layout.html' });
+});
+
+/* news-type-edit */
+router.get('/news-type-edit', function(req, res, next) {
+  res.render('news-type-edit', { title: '新闻消息 -- 编辑类型',layout: 'layout.html' });
 });
 
 /* recreation */

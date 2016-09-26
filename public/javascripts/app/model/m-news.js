@@ -29,6 +29,14 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//根据id获取类型
+		getNewsTypeById : function(id,callback){
+			var url = "/newsTypeFindByIdAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//添加或修改新闻消息
 		editNews : function(formData,callback){
 			var url = "/editNewsAction";
@@ -40,7 +48,7 @@ define(["./Base"],function(Base){
 		//添加或修改类型
 		editNewsType : function(formData,callback){
 			var url = "/editNewsTypeAction";
-			var data = {"name":formData.name};
+			var data = {"id":formData.id,"name":formData.name};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
@@ -48,6 +56,14 @@ define(["./Base"],function(Base){
 		//删除新闻消息
 		deleteNews : function(id,callback){
 			var url = "/deleteNewsAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//删除类型
+		deleteNewsType : function(id,callback){
+			var url = "/deleteNewsTypeAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);

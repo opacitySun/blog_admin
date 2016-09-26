@@ -3,7 +3,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 	var staticPath = $("#staticPath").val();
 
 	var cNews = {
-		//获取用户列表
+		//获取新闻列表
         getNewsList : function(currentPage,callback){
         	var pageSize = $("#pageSize").val();
         	var formData = {
@@ -37,6 +37,33 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 				callback(res.total);
         	});
         },
+        //获取类型列表
+        getNewsTypeList : function(){
+        	model.getNewsTypeList(function(res){
+        		html = "";
+        		$.each(res.result,function(key,obj){
+        			html += '<tr>';
+        			html += '<td>'+Number(key+1)+'</td>';
+        			html += '<td>'+obj.name+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
+        			html += '<td>';
+					html += '<input type="hidden" class="news_type_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link news_type_edit">编辑</button>';
+					html += '<button type="button" class="btn btn-link news_type_delete">删除</button>';
+					html += '</td>';
+        			html += '</tr>';
+        		});
+        		$("#newsTypeList").html(html);
+        		$("button.news_type_edit").on("click",function(){
+					var id = $(this).parent().find(".news_type_id").val();
+					window.location.href = "/news-type-edit?type=edit&&id="+id;
+				});
+				$("button.news_type_delete").on("click",function(){
+					var id = $(this).parent().find(".news_type_id").val();
+					cNews.deleteNewsType(id);
+				});
+        	});
+        },
         //编辑文章
         editNews : function(id){
         	model.getNewsById(id,function(res){
@@ -62,6 +89,16 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 				});
         	});
         },
+        //编辑类型
+        editNewsType : function(id){
+        	model.getNewsTypeById(id,function(res){
+        		$("#newsTypeId").val(id);
+        		$("#typeName").val(res.result.name);
+        		$("#newsSubmit").on("click",function(){
+					cNews.newsTypeSubmit();
+				});
+        	});
+        },
         //提交消息新闻
         newsEditSubmit : function(){
         	var newsName = $("#newsName").val();
@@ -82,7 +119,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 							flag = true;
 							history.go(-1);
 		                }else{
-		                    alert("提交失败");
+		                    alert(res.flag);
 		                }
 		            });
 				}
@@ -90,6 +127,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
         },
         //类型提交
         newsTypeSubmit : function(){
+        	var newsTypeId = $("#newsTypeId").val();
         	var typeName = $("#typeName").val();
 			if(typeName == ''){
 				$("#typeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
@@ -98,6 +136,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 			if(confirm("确认提交新的数据吗？")){
 				var flag = true;
 				var formData = {
+					"id":newsTypeId,
 					"name":typeName
 				};
 				if(flag == true){
@@ -108,13 +147,13 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 							flag = true;
 							window.location.href = "/news-type";
 		                }else{
-		                    alert("提交失败");
+		                    alert(res.flag);
 		                }
 		            });
 				}
 			}
         },
-        //删除作品
+        //删除新闻
         deleteNews : function(id){
         	if(confirm("确认删除该数据吗？")){
 				var flag = true;
@@ -126,7 +165,25 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-news'], function($,fnbase,
 							flag = true;
 							window.location.href="/news";
 		                }else{
-		                    alert("删除失败");
+		                    alert(res.flag);
+		                }
+					});
+				}
+			}
+        },
+        //删除类型
+        deleteNewsType : function(id){
+        	if(confirm("确认删除该数据吗？")){
+				var flag = true;
+				if(flag == true){
+					flag = false;
+					model.deleteNewsType(id,function(res){
+						if(res.success == 1){
+		                    alert("删除成功");
+							flag = true;
+							window.location.href="/news-type";
+		                }else{
+		                    alert(res.flag);
 		                }
 					});
 				}
