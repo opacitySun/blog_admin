@@ -54,7 +54,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 			if(fairyName == ''){
 				fairyName = $("input[name='fairyType']:checked").parent().find(".fairyName").val();
 			}
-			var type = $("input[name='type']:checked").val();
+			var type = $("#userType option:selected").val();
 			var fairyType = $("input[name='fairyType']:checked").val();
 			if(confirm("确认提交新的用户信息数据吗？")){
 				var flag = true;
