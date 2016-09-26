@@ -189,4 +189,25 @@ module.exports = function(app){
             }
         });    
     });
+    //删除类型
+    app.all("/deleteStudyTypeAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        studyTypeDao.findOneStudyType(conditions,dbHelper,function(result1){  
+            if(result1.success == 1){
+                var conditions2 = {"type":result1.result.type};
+                studyDao.findStudy(conditions2,{},dbHelper,function(result2){  
+                    if(result2.success == 1){
+                        res.json({success:0,flag:"此类型下还有学习数据，不可删除"});
+                    }else{
+                        studyTypeDao.removeStudyType(conditions,dbHelper,function(result3){  
+                            res.json(result3);
+                        });
+                    }
+                });  
+            }else{
+                res.json(result1);
+            }
+        });               
+    });
 }
