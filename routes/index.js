@@ -70,7 +70,12 @@ router.get('/study-edit', function(req, res, next) {
 
 /* study-type */
 router.get('/study-type', function(req, res, next) {
-  res.render('study-type', { title: '学习分享 -- 编辑类型',layout: 'layout.html' });
+  res.render('study-type', { title: '学习分享 -- 类型',layout: 'layout.html' });
+});
+
+/* study-type-edit */
+router.get('/study-type-edit', function(req, res, next) {
+  res.render('study-type-edit', { title: '学习分享 -- 编辑类型',layout: 'layout.html' });
 });
 
 /* news */

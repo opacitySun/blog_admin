@@ -39,18 +39,26 @@ define(['jquery','fnbase','ueditor','./controller/c-study','./model/m-study','./
         	controller.editStudy(urlId);
 			$("#pageHeader").html("学习分享 <small>修改文章</small>");
         }
-	}else if(urlPath == "/study-type"){	//编辑类型
+	}else if(urlPath == "/study-type"){	//类型列表
+		controller.getStudyTypeList();
+		$("#addButton").on("click",function(){
+			window.location.href = "/study-type-edit?type=add";
+		});
+	}else if(urlPath == "/study-type-edit"){	//编辑类型
 		var requestGet = fnbase.GetRequest();
 		var urlType = requestGet["type"];
         var urlId = requestGet["id"];
+        $("#pageBack").on("click",function(){
+    		window.location.href="/study-type";
+    	});
         if(urlType == "add"){
         	$("#studySubmit").on("click",function(){
 				controller.studyTypeSubmit();
 			});
-			$("#pageBack").on("click",function(){
-	    		window.location.href="/study";
-	    	});
 			$("#pageHeader").html("学习分享 <small>添加类型</small>");
+        }else if(urlType == "edit"){
+        	controller.editStudyType(urlId);
+			$("#pageHeader").html("学习分享 <small>修改类型</small>");
         }	
 	}
 });

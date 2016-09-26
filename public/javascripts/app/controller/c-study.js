@@ -3,7 +3,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 	var staticPath = $("#staticPath").val();
 
 	var cStudy = {
-		//获取用户列表
+		//获取学习列表
         getStudyList : function(currentPage,callback){
         	var pageSize = $("#pageSize").val();
         	var formData = {
@@ -38,6 +38,33 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 				callback(res.total);
         	});
         },
+        //获取类型列表
+        getStudyTypeList : function(){
+        	model.getStudyTypeList(function(res){
+        		html = "";
+        		$.each(res.result,function(key,obj){
+        			html += '<tr>';
+        			html += '<td>'+Number(key+1)+'</td>';
+        			html += '<td>'+obj.name+'</td>';
+        			html += '<td>'+fnbase.getSmpFormatDateByLong(obj.updateTime,true)+'</td>';
+        			html += '<td>';
+					html += '<input type="hidden" class="study_type_id" value="'+obj._id.toString()+'" />';
+					html += '<button type="button" class="btn btn-link study_type_edit">编辑</button>';
+					html += '<button type="button" class="btn btn-link study_type_delete">删除</button>';
+					html += '</td>';
+        			html += '</tr>';
+        		});
+        		$("#studyTypeList").html(html);
+        		$("button.study_type_edit").on("click",function(){
+					var id = $(this).parent().find(".study_type_id").val();
+					window.location.href = "/study-type-edit?type=edit&&id="+id;
+				});
+				$("button.study_type_delete").on("click",function(){
+					var id = $(this).parent().find(".study_type_id").val();
+					cStudy.deleteStudyType(id);
+				});
+        	});
+        },
         //编辑文章
         editStudy : function(id){
         	model.getStudyInfoById(id,function(res){
@@ -61,6 +88,16 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 					}else{
 						console.log(resType);
 					}
+				});
+        	});
+        },
+        //编辑类型
+        editStudyType : function(id){
+        	model.getStudyTypeById(id,function(res){
+        		$("#studyTypeId").val(id);
+        		$("#typeName").val(res.result.name);
+        		$("#studySubmit").on("click",function(){
+					cStudy.studyEditSubmit();
 				});
         	});
         },
@@ -89,7 +126,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 							flag = true;
 							history.go(-1);
 		                }else{
-		                    alert("提交失败");
+		                    alert(res.flag);
 		                }
 		            });
 				}
@@ -97,6 +134,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
         },
         //分享类型提交
         studyTypeSubmit : function(){
+        	var studyTypeId = $("#studyTypeId").val();
         	var typeName = $("#typeName").val();
 			if(typeName == ''){
 				$("#typeName").parent().addClass("has-error has-feedback").find(".help-block").text("名称不能为空");
@@ -105,6 +143,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 			if(confirm("确认提交新的数据吗？")){
 				var flag = true;
 				var formData = {
+					"id":studyTypeId,
 					"name":typeName
 				};
 				if(flag == true){
@@ -115,7 +154,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 							flag = true;
 							window.location.href = "/study-type";
 		                }else{
-		                    alert("提交失败");
+		                    alert(res.flag);
 		                }
 		            });
 				}
@@ -133,7 +172,25 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
 							flag = true;
 							window.location.href="/study";
 		                }else{
-		                    alert("删除失败");
+		                    alert(res.flag);
+		                }
+					});
+				}
+			}
+        },
+        //删除类型
+        deleteStudyType : function(id){
+        	if(confirm("确认删除该数据吗？")){
+				var flag = true;
+				if(flag == true){
+					flag = false;
+					model.deleteStudyType(id,function(res){
+						if(res.success == 1){
+		                    alert("删除成功");
+							flag = true;
+							window.location.href="/study-type";
+		                }else{
+		                    alert(res.flag);
 		                }
 					});
 				}

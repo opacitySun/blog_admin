@@ -29,6 +29,14 @@ define(["./Base"],function(Base){
 				callback(res);
 			});
 		},
+		//根据id获取类型
+		getStudyTypeById : function(id,callback){
+			var url = "/studyTypeByIdAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
 		//添加或修改分享文章
 		editStudy : function(formData,callback){
 			var url = "/editStudyAction";
@@ -40,7 +48,7 @@ define(["./Base"],function(Base){
 		//添加或修改分享类型
 		editStudyType : function(formData,callback){
 			var url = "/editStudyTypeAction";
-			var data = {"name":formData.name};
+			var data = {"id":formData.id,"name":formData.name};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);
 			});
@@ -48,6 +56,14 @@ define(["./Base"],function(Base){
 		//删除分享资料
 		deleteStudy : function(id,callback){
 			var url = "/deleteStudyAction";
+			var data = {"id":id};
+			modelBase.postAjax(url,data,function(res){
+				callback(res);
+			});
+		},
+		//删除类型
+		deleteStudyType : function(id,callback){
+			var url = "/deleteStudyTypeAction";
 			var data = {"id":id};
 			modelBase.postAjax(url,data,function(res){
 				callback(res);

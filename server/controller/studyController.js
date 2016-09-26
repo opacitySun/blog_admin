@@ -37,6 +37,14 @@ module.exports = function(app){
             res.json(result);
         });    
     });
+    //根据id获取新闻类型
+    app.all("/studyTypeByIdAction",function(req,res){
+        var id = req.body.id;
+        var conditions = {"_id":ObjectID(id)};
+        studyTypeDao.findOneStudyType(conditions,dbHelper,function(result){  
+            res.json(result);
+        });    
+    });
     //根据id获取文章内容
     app.all("/studyInfoFindByIdAction",function(req,res){
         var id = req.body.id;
@@ -126,26 +134,43 @@ module.exports = function(app){
     });
     //添加或修改分享类型
     app.all("/editStudyTypeAction",function(req,res){
-        var conditions0 = {};
-        studyTypeDao.findStudyType(conditions0,dbHelper,function(result0){
+        var id = req.body.id;
+        var conditions0 = {"_id":"xxx"};
+        if(id != ''){
+            conditions0 = {"_id":ObjectID(id)};
+        }
+        studyTypeDao.findOneStudyType(conditions0,dbHelper,function(result0){
             if(result0.success == 1){
-                var typeArr = [];
-                result0.result.forEach(function(obj){
-                    typeArr.push(obj.type);
-                });
-                var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
                 var thisTime = new Date().getTime();
-                var conditions1 = {
+                var update = {
                     "name":req.body.name,
-                    "type":Number(typeMax+1),
-                    "createTime":thisTime,
                     "updateTime":thisTime
                 };
-                studyTypeDao.addStudyType(conditions1,dbHelper,function(result1){  
-                    res.json(result1);
-                });    
+                studyTypeDao.updateStudyType(conditions0,update,dbHelper,function(result2){  
+                    res.json(result2);
+                });
             }else{
-                res.json(result0);
+                studyTypeDao.findStudyType({},dbHelper,function(result1){
+                    if(result1.success == 1){
+                        var typeArr = [];
+                        result1.result.forEach(function(obj){
+                            typeArr.push(obj.type);
+                        });
+                        var typeMax = Math.max.apply(null,typeArr); //获取数组最大值
+                        var thisTime = new Date().getTime();
+                        var conditions1 = {
+                            "name":req.body.name,
+                            "type":Number(typeMax+1),
+                            "createTime":thisTime,
+                            "updateTime":thisTime
+                        };
+                        studyTypeDao.addStudyType(conditions1,dbHelper,function(result2){  
+                            res.json(result2);
+                        });
+                    }else{
+                        res.json(result1);
+                    }
+                });  
             }
         });
     });
