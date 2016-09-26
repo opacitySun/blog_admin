@@ -97,7 +97,7 @@ define(['jquery','fnbase','ZeroClipboard','../model/m-study'], function($,fnbase
         		$("#studyTypeId").val(id);
         		$("#typeName").val(res.result.name);
         		$("#studySubmit").on("click",function(){
-					cStudy.studyEditSubmit();
+					cStudy.studyTypeSubmit();
 				});
         	});
         },
