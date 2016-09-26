@@ -189,15 +189,7 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 						if(resType.success == 1){
 							var html = "";
 							$.each(resType.result,function(key,obj){
-								html += '<div class="radio">';
-								html += '<label>';
-								if(key > 0){
-									html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'">'+obj.name;
-								}else{
-									html += '<input type="radio" name="type" id="type'+obj.type+'" value="'+obj.type+'" checked>'+obj.name;
-								}
-								html += '</label>';
-								html += '</div>';
+								html += '<option value="'+obj.type+'">'+obj.name+'</option>';
 							});
 							$("#userType").append(html);
 							$("#userName").val(res.result.name);
@@ -206,8 +198,8 @@ define(["./Base","jquery","fnbase","../model/m-user"], function (Base,$,fnbase,m
 							$("#userSubmit").on("click",function(){
 								cUser.updatePassword(id);
 							});
-							$("input[name='type']").prop("checked",false);
-		        			$("input[id='type"+res.result.type+"']").prop("checked",true);
+							$("#userType").val(res.result.type);
+		        			$("#userType").find("option[value='"+res.result.type+"']").attr("selected",true);
 						}else{
 							console.log(resType);
 						}
