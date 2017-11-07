@@ -18,16 +18,22 @@ module.exports = function(app){
         };
         studyDao.findStudy(conditions,fields,dbHelper,function(studyResult){  
             result = studyResult;
-            studyTypeDao.findStudyType(conditions,dbHelper,function(studyTypeResult){  
-            	result.result.forEach(function(obj){
-            		studyTypeResult.result.forEach(function(o){
-            			if(obj.type == o.type){
-                            obj["typeName"] = o.name;
-                        }
-            		});
-            	});
-            	res.json(result);
-        	});    
+            if(result.result){
+                studyTypeDao.findStudyType(conditions,dbHelper,function(studyTypeResult){
+                    if(studyTypeResult.result){
+                        result.result.forEach(function(obj){
+                            studyTypeResult.result.forEach(function(o){
+                                if(obj.type == o.type){
+                                    obj["typeName"] = o.name;
+                                }
+                            });
+                        });  
+                    }
+                    res.json(result);
+                });
+            }else{
+                res.json(result);
+            } 
         });     
     });
     //获取分享文章类型
