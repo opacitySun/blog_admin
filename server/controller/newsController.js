@@ -17,16 +17,20 @@ module.exports = function(app){
         };
         newsDao.findNews(conditions,fields,dbHelper,function(newsResult){  
             result = newsResult;
-            newsTypeDao.findNewsType(conditions,dbHelper,function(newsTypeResult){  
-            	result.result.forEach(function(obj){
-                    newsTypeResult.result.forEach(function(o){
-                        if(obj.type == o.type){
-                            obj["typeName"] = o.name;
-                        }
-                    });
+            if(result.result){
+                newsTypeDao.findNewsType(conditions,dbHelper,function(newsTypeResult){
+                    if(newsTypeResult.result){
+                        result.result.forEach(function(obj){
+                            newsTypeResult.result.forEach(function(o){
+                                if(obj.type == o.type){
+                                    obj["typeName"] = o.name;
+                                }
+                            });
+                        });
+                    }
                 });
-            	res.json(result);
-        	});    
+            }
+            res.json(result);   
         });     
     });
     //获取类型
