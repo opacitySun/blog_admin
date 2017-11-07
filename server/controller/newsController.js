@@ -127,6 +127,7 @@ module.exports = function(app){
                             res.json(result2);
                         });
                     }else{
+                        var thisTime = new Date().getTime();
                         var conditions1 = {
                             "name":req.body.name,
                             "type":0,
