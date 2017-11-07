@@ -28,9 +28,11 @@ module.exports = function(app){
                             });
                         });
                     }
+                    res.json(result);
                 });
+            }else{
+                res.json(result);
             }
-            res.json(result);   
         });     
     });
     //获取类型

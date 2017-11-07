@@ -19,17 +19,24 @@ module.exports = function(app){
         };
         recreationDao.findRecreation(conditions,fields,dbHelper,function(recreationResult){  
             result = recreationResult;
-            recreationTypeDao.findRecreationType(conditions,dbHelper,function(recreationTypeResult){  
-            	result.result.forEach(function(obj){
-                    recreationTypeResult.result.forEach(function(o){
-                        if(obj.type == o.type){
-                            obj["typeName"] = o.name;
-                        }
-                    });
+            if(result.result){
+                recreationTypeDao.findRecreationType(conditions,dbHelper,function(recreationTypeResult){
+                    if(recreationTypeResult.result){
+                        result.result.forEach(function(obj){
+                            recreationTypeResult.result.forEach(function(o){
+                                if(obj.type == o.type){
+                                    obj["typeName"] = o.name;
+                                }
+                            });
+                        });
+                    }
+                    //result["result"] = apeAlgorithm.quicksort.sortObj(result.result,'updateTime','desc');
+                    res.json(result);
                 });
-                //result["result"] = apeAlgorithm.quicksort.sortObj(result.result,'updateTime','desc');
-            	res.json(result);
-        	});    
+            }else{
+                res.json(result);
+            }
+                
         });     
     });
     //获取类型
