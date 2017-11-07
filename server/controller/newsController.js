@@ -127,7 +127,15 @@ module.exports = function(app){
                             res.json(result2);
                         });
                     }else{
-                        res.json(result1);
+                        var conditions1 = {
+                            "name":req.body.name,
+                            "type":0,
+                            "createTime":thisTime,
+                            "updateTime":thisTime
+                        };
+                        newsTypeDao.addNewsType(conditions1,dbHelper,function(result3){  
+                            res.json(result3);
+                        });
                     }
                 });  
             }
