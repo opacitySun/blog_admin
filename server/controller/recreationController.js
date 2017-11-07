@@ -131,9 +131,18 @@ module.exports = function(app){
                 };
                 recreationTypeDao.addRecreationType(conditions1,dbHelper,function(result1){  
                     res.json(result1);
-                });    
+                });
             }else{
-                res.json(result0);
+                var thisTime = new Date().getTime();
+                var conditions1 = {
+                    "name":req.body.name,
+                    "type":0,
+                    "createTime":thisTime,
+                    "updateTime":thisTime
+                };
+                recreationTypeDao.addRecreationType(conditions1,dbHelper,function(result2){  
+                    res.json(result2);
+                });
             }
         });
     });
