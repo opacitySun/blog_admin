@@ -169,7 +169,17 @@ module.exports = function(app){
                                 res.json(result2);
                             });    
                         }else{
-                            res.json(result3);
+                            var conditions = {
+                                "name":result0.body.fairyTypeName,
+                                "type":0,
+                                "desc":result0.body.desc,
+                                "image":imgUrl,
+                                "createTime":thisTime,
+                                "updateTime":thisTime
+                            };
+                            fairyTypeDao.addFairyType(conditions,dbHelper,function(result4){  
+                                res.json(result4);
+                            });
                         }
                     });    
                 }
