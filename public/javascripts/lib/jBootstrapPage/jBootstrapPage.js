@@ -354,6 +354,9 @@
                 }
 				else if(selectedText == '前往') {
 					var selectedIndex = parseInt(selectedBtn.text())-1;
+					if(isNaN(selectedIndex)){
+					   selectedIndex = 0;
+					}
 					var pageGo = $(".pageGo").find("input").val();
 					if(!fnValidate.Number.test(pageGo)){
                         alert("只能输入大于等于1的正整数");
@@ -367,6 +370,9 @@
 					}
 					mathGoPage(selectedIndex, pageGo, c.maxPages, c.maxPageButton);
 					selectedBtn = $this.find('li.page').find('a[page="'+(pageGo)+'"]');
+					if($this.find('li.page').length < 1){
+					   return false;
+					}
 				}
             	else {
             		selectedBtn = $_this;
